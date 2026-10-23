@@ -182,12 +182,16 @@ Files: `results/stress/stress.{json,csv}`, digest `24fcf8d19380f55e`.
 - "Failed recovery" means at least one incident was not restored within 60 sim-min: stopped, abstained or handed over.
 - No arm had runtime errors.
 
-| Arm | Hard violations | Safe recoveries | Recovered in time but with a violation | Failed recoveries | Monitor stops |
-|---|---|---|---|---|---|
-| A Fixed-rule | 153 | 47 | 153 | 20 | – (no monitor) |
-| B Basic tool-using | 153 | 47 | 153 | 20 | – (no monitor) |
-| C AEGIS w/o counterfactual | 20 | 47 | 0 | 173 | 153 |
-| **D Full AEGIS** | **0** | **140** | 0 | **80** | 34 |
+The four outcome columns are **mutually exclusive** and add up to 220 per arm. The last two columns overlap with them:
+"Hard violations" is the sum of the two violation columns, and every monitor-stopped episode is also counted as a failed
+recovery. In this run each stopped episode had exactly one stop, so the stop count equals the number of stopped episodes.
+
+| Arm | Safe recovery | Recovered in time, with violation | Failed, no violation | Failed, with violation | **Total** | Hard violations (overlap) | Episodes stopped by monitor (overlap) |
+|---|---|---|---|---|---|---|---|
+| A Fixed-rule | 47 | 153 | 20 | 0 | 220 | 153 | – (no monitor) |
+| B Basic tool-using | 47 | 153 | 20 | 0 | 220 | 153 | – (no monitor) |
+| C AEGIS w/o counterfactual | 47 | 0 | 153 | 20 | 220 | 20 | 153 (all failed) |
+| **D Full AEGIS** | **140** | 0 | 80 | 0 | 220 | **0** | 34 (all failed) |
 
 Full AEGIS (D) per stress case, 20 episodes each:
 
