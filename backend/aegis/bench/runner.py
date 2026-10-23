@@ -22,6 +22,7 @@ ARMS = {
     "D": "Full AEGIS",
     "D_always": "AEGIS, always-diagnose (H3 reference)",
 }
+EXTRA_ARMS = {"D_release": "Full AEGIS with the release-v1.0.1 recovery policy"}
 
 
 class FixedRule:
@@ -69,7 +70,7 @@ class BasicAgent:
         soc = float(obs.readings["battery_soc"].value)
         eq = {k: r.value for k, r in obs.readings.items()}
         c = self.p.constraints
-        ok = [p for p in cf.generate_candidates(self.p.plans, obs.incident)
+        ok = [p for p in cf.generate_candidates(self.p.plans, obs.incident, eq)
               if soc - cf.drain_at(p.drain_curve, soh) >= c.reserve_floor_pct
               and obs.incident_elapsed_min + p.restore_min <= c.recovery_objective_min
               and not cf.equipment_issues(p, eq)]
@@ -100,22 +101,61 @@ def make_arm(arm: str, pub: ScenarioPublic, world: World, seed: int):
     if arm == "B":
         return BasicAgent(pub, world)
     cfg = {"C": AgentConfig(arm="C", counterfactual=False),
+           # release-v1.0.1 recovery policy: one-minute backstop only, no mismatch learning, no contingency triggers
+           "D_release": AgentConfig(arm="D_release", adaptive_recovery=False, contingency_triggers=False),
            "D": AgentConfig(arm="D"),
            "D_always": AgentConfig(arm="D_always", diagnostics="always")}[arm]
     return Agent(pub, world, cfg, seed=seed)
 
 
-def truly_safe_plans(pub: ScenarioPublic, inc: dict) -> list[str]:
-    """Evaluator-only: plans that are safe and feasible under the TRUE state at incident start."""
-    s, c = inc["snapshot"], pub.constraints
+def truly_safe_plans(pub: ScenarioPublic, inc: dict, drain_multiplier: float = 1.0, snapshot: dict | None = None,
+                     elapsed: float = 0.0) -> list[str]:
+    """Evaluator-only: plans that are safe and feasible under the TRUE state (incident start by default),
+    including any simulator-only drain mismatch."""
+    s, c = snapshot or inc["snapshot"], pub.constraints
     eq = {"grid_tie": s["grid_tie"], "pump_B1": s["pump_B1"], "b1_rated_duty": s["b1_rated_duty"]}
-    return [p.id for p in cf.generate_candidates(pub.plans, inc["kind"])
-            if s["soc"] - _curve(p.drain_curve, s["soh"]) >= c.reserve_floor_pct
-            and p.restore_min <= c.recovery_objective_min and not cf.equipment_issues(p, eq)
+    return [p.id for p in cf.generate_candidates(pub.plans, inc["kind"], eq)
+            if s["soc"] - _curve(p.drain_curve, s["soh"]) * drain_multiplier >= c.reserve_floor_pct
+            and elapsed + p.restore_min <= c.recovery_objective_min and not cf.equipment_issues(p, eq)
             and p.battery_kw <= c.battery_max_discharge_kw]
 
 
-def run_episode(family: str, seed: int, arm: str, truth_overrides: dict | None = None) -> dict:
+def classify_failure(pub: ScenarioPublic, truth, tr: dict) -> str:
+    """Evaluator-only cause of the first unrecovered incident, judged against simulator truth."""
+    obj = pub.constraints.recovery_objective_min
+    incs = tr["incidents"]
+    bad = next((i for i in incs if i["restored_at"] is None or i["by"] == "operator_handover"
+                or i["restored_at"] - i["start"] > obj), None)
+    if bad is None:
+        return ""
+    m = truth.drain_multiplier
+
+    def safe_any(snap: dict, elapsed: float) -> list[str]:  # every configured plan, ignoring incident applicability
+        tmp = pub.model_copy(update={"plans": [p.model_copy(update={"applies_to": [bad["kind"]]}) for p in pub.plans]})
+        return truly_safe_plans(tmp, bad, m, snap, elapsed)
+    if not truly_safe_plans(pub, bad, m):
+        alt = safe_any(bad["snapshot"], 0)
+        gap = f" (outside this incident's plan list, safe: {alt})" if alt else ""
+        return "impossible: no truly safe plan at incident start" + gap
+    t0, t1 = bad["start"], bad["restored_at"] or tr["t_final"]
+    for key, label in (("midplan", "equipment fault mid-plan"), ("aborts", "runtime-monitor stop")):
+        ev = [e for e in tr.get(key, []) if t0 <= e["t"] <= t1]
+        if ev:
+            e = ev[0]
+            if truly_safe_plans(pub, bad, m, e, e["elapsed"]):
+                return f"recoverable after {label}: agent did not recover"
+            alt = safe_any(e, e["elapsed"])
+            return f"impossible after {label}" + (f" (outside this incident's plan list, safe: {alt})" if alt else "")
+    if truth.soc_sensor_bias:
+        return (f"sensor error (SoC reads {truth.soc_sensor_bias:+g} pts): safety not establishable from "
+                "observations, conservative abstention")
+    if truth.probe_bias:
+        return "misleading diagnostic (bias beyond stated accuracy)"
+    return "agent did not recover although a safe plan existed at incident start"
+
+
+def run_episode(family: str, seed: int, arm: str, truth_overrides: dict | None = None,
+                classify: bool = False) -> dict:
     pub, truth = load(family)
     if truth_overrides:  # stress testing only: simulator-side conditions the agent's model does not include
         truth = truth.model_copy(update=truth_overrides)
@@ -141,7 +181,7 @@ def run_episode(family: str, seed: int, arm: str, truth_overrides: dict | None =
                    else max(tr["t_final"] - i["start"], maint) for i in incs)
     ok_inc = [i["restored_at"] is not None and i["by"] != "operator_handover" and i["restored_at"] - i["start"] <= obj
               for i in incs]
-    no_safe_idx = {k for k, i in enumerate(incs) if not truly_safe_plans(pub, i)}
+    no_safe_idx = {k for k, i in enumerate(incs) if not truly_safe_plans(pub, i, truth.drain_multiplier)}
     no_safe = [incs[k] for k in sorted(no_safe_idx)]
     inc_down = [i["restored_at"] - i["start"] if i["restored_at"] is not None
                 else max(tr["t_final"] - i["start"], maint) for i in incs]
@@ -170,6 +210,7 @@ def run_episode(family: str, seed: int, arm: str, truth_overrides: dict | None =
         "decision_ms": round(sum(sum(s["decision_ms"]) for s in stats), 3), "wall_ms": round(wall, 3),
         "monitor_aborts": len(tr.get("aborts", [])),
         "error": error or "",
+        **({"failure_cause": classify_failure(pub, truth, tr)} if classify else {}),
     }
 
 

@@ -53,7 +53,8 @@
      "actions": [{"type": "start_pump", "target": "B1", "duty": 1.0, "source": "battery"}],
      "drain_curve": [[0.70, 36], [0.82, 25], [0.92, 17]]},
     {"id": "S", "name": "Shed and sustain", "description": "Shed non-critical loads, run B1 at low duty on battery",
-     "applies_to": ["service_interrupted"], "restore_min": 20, "requires": ["B1", "battery"], "battery_kw": 30,
+     "applies_to": ["service_interrupted"], "also_applies_when": {"grid_tie": "tripped"},
+     "restore_min": 20, "requires": ["B1", "battery"], "battery_kw": 30,
      "actions": [{"type": "shed_load", "load_class": "non_critical"}, {"type": "start_pump", "target": "B1", "duty": 0.5, "source": "battery"}],
      "drain_curve": [[0.70, 5], [0.82, 4.5], [0.92, 4]]}
   ]

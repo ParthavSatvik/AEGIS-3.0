@@ -32,6 +32,8 @@ class PlanSpec(BaseModel):
     battery_kw: float = Field(default=0, ge=0)
     action_cost: float = Field(default=0, ge=0)
     rule_tag: str | None = None
+    # contingency trigger: also a candidate for other incidents when these OBSERVED readings hold
+    also_applies_when: dict[str, str] = {}
 
     @field_validator("drain_curve")
     @classmethod
@@ -167,6 +169,7 @@ class GateEvidence(BaseModel):
     equipment: dict[str, float | str | None]
     elapsed_min: float
     constraints: Constraints
+    drain_scale: float = 1.0  # >= 1 after observed model mismatch; the gate never accepts < 1
 
 
 class RuleResult(BaseModel):

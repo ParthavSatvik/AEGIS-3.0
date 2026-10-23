@@ -394,7 +394,8 @@ def test_approval_cannot_override_safety():
     res = ag.approve(True, "op1")
     assert res["result"] == "BLOCKED_BY_GATE" and "R3" in res["gate_recheck"]
     assert w.truth_report()["executions"] == []
-    assert ag.record["abstentions"]  # no plan is safe for pump failure without the grid
+    # AEGIS replans to the grid-loss contingency S, which again waits for approval
+    assert ag.pending["plan_id"] == "S" and ag.pending["gate_status"] == "PASSED"
 
 
 def test_evidence_change_requires_reapproval():
@@ -422,7 +423,7 @@ def test_forced_safe_plan_still_needs_approval_and_fault_invalidates_pending():
     assert w.truth_report()["executions"] == []
     ag.handle_fault("grid_tie_trip")
     assert ag.record["replans"][-1]["trigger"] == "new_fault:grid_tie_trip"
-    assert w.truth_report()["executions"] == [] and ag.record["abstentions"]
+    assert w.truth_report()["executions"] == [] and ag.pending["plan_id"] == "S"
 
 
 def test_benchmark_diagnostics_only_run_with_positive_value():
@@ -468,7 +469,7 @@ def test_defect_gate_alone_misses_unmodelled_drain_and_monitor_stops_it():
     w, ag = mismatch("stale-degraded", 1, drain_multiplier=1.3)
     rec = ag.run()
     assert w.truth_report()["violations"] == [] and w.truth_report()["aborts"]
-    assert rec["cycles"][0]["executed"]["aborted"] and rec["replans"][0]["trigger"] == "verification_failed"
+    assert rec["cycles"][0]["executed"]["aborted"] and rec["replans"][0]["trigger"] == "monitor_stop"
     assert min(s for _, s in rec["cycles"][0]["executed"]["soc_trace"]) >= 30
 
 
@@ -484,7 +485,9 @@ def test_midplan_equipment_change_is_detected_and_handled():
     w, ag = mismatch("stale-degraded", 1, midplan_fault="grid_tie_trip")
     rec = ag.run()
     assert rec["cycles"][0]["verification"]["predicates"]["critical_served"] is False
-    assert rec["abstentions"] and w.truth_report()["violations"] == []
+    # grid lost mid-plan: the grid-loss contingency S becomes a candidate and restores service safely
+    assert rec["cycles"][-1]["selected"] == "S" and rec["cycles"][-1]["verification"]["verified"]
+    assert w.truth_report()["violations"] == []
 
 
 def test_monitor_never_aborts_in_reference_suite():
@@ -497,3 +500,56 @@ def test_stress_suite_full_aegis_has_no_violations():
     res = run_stress(2, arms=["B", "D"])
     assert res["summary"]["D"]["hard_violation"] == 0 and res["summary"]["B"]["hard_violation"] > 0
     assert res["summary"]["D"]["errors"] == 0
+
+
+# ---------------- adaptive recovery under model mismatch (exp/robust-recovery)
+def test_mismatch_detected_early_stop_preserves_reserve_then_abstains_when_impossible():
+    w, ag = mismatch("stale-degraded", 1, drain_multiplier=1.3)  # truly no safe plan: B would end below 30%
+    rec = ag.run()
+    stop = w.truth_report()["aborts"][0]
+    assert stop["elapsed"] - rec["cycles"][0]["executed"]["t_start"] <= 3      # stopped within 2-3 minutes
+    assert min(s for _, s in rec["cycles"][0]["executed"]["soc_trace"]) > 50    # reserve preserved, not run to 30%
+    assert ag.drain_scale > 1.2 and rec["cycles"][1].get("model_unreliable")
+    assert rec["abstentions"] and w.truth_report()["violations"] == []
+
+
+def test_mismatch_but_projected_safe_plan_continues():
+    w, ag = mismatch("stale-degraded", 0, drain_multiplier=1.3)  # B ends above 30% despite extra drain
+    rec = ag.run()
+    assert not rec["cycles"][0]["executed"]["aborted"] and rec["cycles"][0]["verification"]["predicates"][
+        "critical_served"]
+    assert ag.drain_scale > 1.0 and w.truth_report()["violations"] == []
+
+
+def test_recover_with_alternative_after_mismatch_stop_and_no_blind_retry():
+    w, ag = mismatch("stale-mild", 1, probe_bias=0.06)  # biased probe -> fast plan A drains faster than modelled
+    rec = ag.run()
+    assert rec["cycles"][0]["selected"] == "A" and rec["cycles"][0]["executed"]["aborted"]
+    assert rec["cycles"][1]["excluded_after_monitor_stop"] == ["A"] and rec["cycles"][1]["selected"] == "B"
+    assert rec["cycles"][1]["verification"]["verified"] or rec["cycles"][1]["verification"]["predicates"][
+        "critical_served"]
+    assert w.truth_report()["violations"] == []
+
+
+def test_gate_drain_scale_only_tightens():
+    pub, _ = load("stale-degraded")
+    st = [HiddenState(id="x", label="", soh=0.70, weight=1, source="observed")]
+    ev = evidence(pub, st)                      # B: 58 - 22 = 36% -> passes
+    assert safety.check_plan(plan(pub, "B"), ev).passed
+    assert "R1" in safety.check_plan(plan(pub, "B"), ev.model_copy(update={"drain_scale": 1.4})).status
+    loose = evidence(pub, st, soc=50.0).model_copy(update={"drain_scale": 0.5})  # 50 - 22 = 28% must still fail
+    assert "R1" in safety.check_plan(plan(pub, "B"), loose).status
+
+
+def test_contingency_trigger_uses_observed_condition_only():
+    pub, _ = load("stale-degraded")
+    online = {"grid_tie": "online"}
+    assert [p.id for p in cf.generate_candidates(pub.plans, "pump_failure", online)] == ["A", "B", "C"]
+    assert "S" in [p.id for p in cf.generate_candidates(pub.plans, "pump_failure", {"grid_tie": "tripped"})]
+
+
+def test_release_policy_arm_reproduces_release_results():
+    from aegis.bench.stress import run_stress
+    res = run_stress(2, arms=["D_release", "D"])
+    assert res["summary"]["D_release"]["hard_violation"] == 0 == res["summary"]["D"]["hard_violation"]
+    assert res["summary"]["D"]["safe_recovery"] >= res["summary"]["D_release"]["safe_recovery"]

@@ -15,14 +15,17 @@ def drain_at(curve: list[tuple[float, float]], soh: float) -> float:
     raise ValueError("curve needs two points")
 
 
-def generate_candidates(plans: list[PlanSpec], incident: str) -> list[PlanSpec]:
-    return [p for p in plans if incident in p.applies_to]
+def generate_candidates(plans: list[PlanSpec], incident: str, eq: dict | None = None) -> list[PlanSpec]:
+    """Plans configured for this incident, plus contingencies whose observed trigger condition holds."""
+    eq = eq or {}
+    return [p for p in plans if incident in p.applies_to
+            or (p.also_applies_when and all(eq.get(k) == v for k, v in p.also_applies_when.items()))]
 
 
-def min_soh_for_reserve(plan: PlanSpec, soc: float, floor: float) -> float | None:
+def min_soh_for_reserve(plan: PlanSpec, soc: float, floor: float, scale: float = 1.0) -> float | None:
     """Smallest SoH (0.40-1.00 grid) at which the plan keeps the reserve: the assumption it depends on."""
     for i in range(400, 1001):
-        if soc - drain_at(plan.drain_curve, i / 1000) >= floor - 1e-9:
+        if soc - drain_at(plan.drain_curve, i / 1000) * scale >= floor - 1e-9:
             return i / 1000
     return None
 
@@ -55,21 +58,21 @@ class PlanRow(BaseModel):
 
 
 def evaluate(cands: list[PlanSpec], states: list[HiddenState], soc: float, c: Constraints, elapsed: float,
-             eq: dict) -> tuple[list[PlanRow], list[dict]]:
+             eq: dict, scale: float = 1.0) -> tuple[list[PlanRow], list[dict]]:
     """Roll each plan forward under every hidden state. Returns rows and counterexamples."""
     rows, cex = [], []
     wsum = sum(s.weight for s in states)
     for p in cands:
         outs, wbad = [], 0.0
         for s in states:
-            reserve = round(soc - drain_at(p.drain_curve, s.soh), 2)
+            reserve = round(soc - drain_at(p.drain_curve, s.soh) * scale, 2)
             unsafe = reserve < c.reserve_floor_pct - 1e-9
             outs.append({"state": s.id, "soh": s.soh, "weight": s.weight, "reserve": reserve, "unsafe": unsafe})
             if unsafe:
                 wbad += s.weight
                 cex.append({"plan": p.id, "state": s.id, "soh": s.soh, "rule": "R1", "reserve": reserve,
                             "floor": c.reserve_floor_pct, "margin": round(reserve - c.reserve_floor_pct, 2)})
-        need = min_soh_for_reserve(p, soc, c.reserve_floor_pct)
+        need = min_soh_for_reserve(p, soc, c.reserve_floor_pct, scale)
         assumptions = [f"battery SoH >= {need:.2f} keeps reserve >= {c.reserve_floor_pct:g}%" if need is not None
                        else "no SoH keeps the reserve floor"] + [f"{e} available" for e in p.requires if e != "battery"]
         eqi = equipment_issues(p, eq)

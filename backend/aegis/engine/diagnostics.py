@@ -11,22 +11,22 @@ from .beliefs import posterior
 
 
 def value_of(d: DiagnosticSpec, cands: list[PlanSpec], states: list[HiddenState], soc: float, c: Constraints,
-             elapsed: float, eq: dict, already_run: set[str], n_run: int) -> dict:
+             elapsed: float, eq: dict, already_run: set[str], n_run: int, scale: float = 1.0) -> dict:
     abstain_u = -c.abstain_downtime_min
-    rows, _ = cf.evaluate(cands, states, soc, c, elapsed, eq)
+    rows, _ = cf.evaluate(cands, states, soc, c, elapsed, eq, scale)
     plan_now, u_now = cf.best(rows, abstain_u)
     after = elapsed + d.delay_min
     wsum = sum(s.weight for s in states)
     branches, exp = [], 0.0
     for s in states:
         post = posterior(states, s.soh, d.accuracy, tag="h")
-        prow, _ = cf.evaluate(cands, post, soc, c, after, eq)
+        prow, _ = cf.evaluate(cands, post, soc, c, after, eq, scale)
         pid, u = cf.best(prow, abstain_u)
         w = (1 - d.inconclusive_rate) * s.weight / wsum
         branches.append({"if_result": s.id, "measured": s.soh, "weight": round(w, 4), "best_plan": pid, "utility": u})
         exp += w * u
     if d.inconclusive_rate > 0:
-        irow, _ = cf.evaluate(cands, states, soc, c, after, eq)
+        irow, _ = cf.evaluate(cands, states, soc, c, after, eq, scale)
         pid, u = cf.best(irow, abstain_u)
         branches.append({"if_result": "inconclusive", "measured": None, "weight": d.inconclusive_rate,
                          "best_plan": pid, "utility": u})

@@ -42,9 +42,14 @@ class AgentConfig(BaseModel):
     diagnostics: str = "value"  # value | always | none
     approval: str = "auto"  # auto: benchmark operator approves every proposal | human: wait for approve()
     runtime_monitor: bool = True  # stop a running plan if the OBSERVED SoC trend would cross the reserve floor
+    adaptive_recovery: bool = True  # mismatch detection, early projected stop, learned drain scale, no blind retry
+    contingency_triggers: bool = True  # contingency plans become candidates when their observed trigger holds
 
 
 CONSEQUENTIAL = {"start_pump", "shed_load"}  # actions that change equipment or load state
+MISMATCH_REL_TOL = 0.10   # observed drain rate this far above the most pessimistic prediction = model mismatch
+MISMATCH_ABS_TOL = 0.02   # SoC points per minute, absorbs sensor rounding
+MISMATCH_MARGIN = 0.05    # extra conservatism on the learned drain scale
 
 
 class ExecutionBlocked(Exception):
@@ -75,6 +80,10 @@ class Agent:
             "overrides": [], "faults": [], "approvals": [], "pending_approval": None, "outcome_report": None,
             "explanation": None}
         self.pending: dict | None = None
+        self.drain_scale = 1.0  # learned from observations only; >1 once the model is shown to under-predict
+        self._stopped_plans: set[str] = set()
+        self._observed_scale = 1.0
+        self._stop_reason = ""
         self._replan_trigger = "verification_failed"
         self.last_evidence: GateEvidence | None = None
         self.last_candidates: list[PlanSpec] = []
@@ -89,6 +98,7 @@ class Agent:
             self._incident_key = key
             self._diag_run = set()
             self._executed_this_incident = False
+            self._stopped_plans = set()
             self.stats.append({"incident": obs.incident, "start": key[1], "counterexamples_pre_action": 0,
                                "diagnostics_run": 0, "unnecessary_diagnostics": 0, "abstained": False,
                                "executed": [], "decision_ms": [], "negative_value_diagnostics": 0,
@@ -108,7 +118,7 @@ class Agent:
         soc = obs.readings["battery_soc"].value
         return GateEvidence(states=states, prior_states=pri, diagnostics=dlog,
                             soc_now=soc if isinstance(soc, (int, float)) else None, equipment=_eq(obs),
-                            elapsed_min=obs.incident_elapsed_min, constraints=self.c)
+                            elapsed_min=obs.incident_elapsed_min, constraints=self.c, drain_scale=self.drain_scale)
 
     # ------------------------------------------------------------- main loop
     def run(self, trigger: str = "incident_detected") -> dict:
@@ -176,12 +186,18 @@ class Agent:
 
         soc = float(obs.readings["battery_soc"].value)
         eq = _eq(obs)
-        cands = cf.generate_candidates(self.p.plans, obs.incident)
+        cands = [p for p in cf.generate_candidates(self.p.plans, obs.incident,
+                                                   eq if self.cfg.contingency_triggers else None)
+                 if p.id not in self._stopped_plans]
+        if self._stopped_plans:
+            cyc["excluded_after_monitor_stop"] = sorted(self._stopped_plans)
+        if self.drain_scale > 1.0:
+            cyc["model_unreliable"] = {"drain_scale": round(self.drain_scale, 3)}
         self.last_candidates = cands
         cyc["candidates"] = [p.model_dump() for p in cands]
         self._ev(obs.t_min, "hidden_states", "info",
                  f"{len(states)} hidden state(s): " + ", ".join(f"{s.id}={s.soh:.2f} (w {s.weight:g})" for s in states))
-        rows, cex = cf.evaluate(cands, states, soc, self.c, obs.incident_elapsed_min, eq)
+        rows, cex = cf.evaluate(cands, states, soc, self.c, obs.incident_elapsed_min, eq, self.drain_scale)
         cyc["hidden_states_initial"] = [s.model_dump() for s in states]
         cyc["outcomes_initial"] = [r.model_dump() for r in rows]
         cyc["counterexamples_initial"] = cex
@@ -196,7 +212,8 @@ class Agent:
         diag_log = []
         while self.cfg.diagnostics != "none":
             n = len(self._diag_run)
-            vals = [value_of(d, cands, states, soc, self.c, obs.incident_elapsed_min, eq, self._diag_run, n)
+            vals = [value_of(d, cands, states, soc, self.c, obs.incident_elapsed_min, eq, self._diag_run, n,
+                             self.drain_scale)
                     for d in self.p.diagnostics]
             if self.cfg.diagnostics == "always":  # H3 reference policy: run every permitted diagnostic
                 pick = next((v for v in vals if v["permitted"]), None)
@@ -225,7 +242,7 @@ class Agent:
             obs = self.sim.observe()
             a, pri, states, dlog = self._beliefs(obs)
             soc, eq = float(obs.readings["battery_soc"].value), _eq(obs)
-            rows, cex = cf.evaluate(cands, states, soc, self.c, obs.incident_elapsed_min, eq)
+            rows, cex = cf.evaluate(cands, states, soc, self.c, obs.incident_elapsed_min, eq, self.drain_scale)
             post_plan = cf.best(rows, -self.c.abstain_downtime_min)[0]
             changed = pre_plan != post_plan
             if not changed:
@@ -283,6 +300,18 @@ class Agent:
         """Execute (the executor re-checks the gate) and verify; returns 'done' or 'replan'."""
         rep = self.execute(plan, verdict, ev)
         self._executed_this_incident = True
+        if self.cfg.adaptive_recovery and self._observed_scale > 1.0:
+            new = max(self.drain_scale, self._observed_scale * (1 + MISMATCH_MARGIN))
+            if new > self.drain_scale + 1e-9:
+                self.drain_scale = new
+                self._ev(rep.t_end, "verify", "warn",
+                         f"Model mismatch: observed drain {self._observed_scale:.2f}x the most pessimistic prediction; "
+                         f"model marked unreliable, later plans evaluated with drain x{self.drain_scale:.2f}")
+        if rep.aborted:
+            if self.cfg.adaptive_recovery:
+                self._stopped_plans.add(plan.id)
+            self._replan_trigger = "monitor_stop"
+            self._ev(rep.t_end, "verify", "block", f"Runtime monitor stopped plan {plan.id}: {self._stop_reason}")
         st["executed"].append(plan.id)
         cyc["executed"] = rep.model_dump()
         for e in rep.events:
@@ -299,16 +328,36 @@ class Agent:
         cyc["status"] = "verified" if ver["verified"] else "executed_with_discrepancy"
         return "done"
 
-    def _monitor(self):
-        """Runtime interlock over observed SoC only: project one minute ahead at the last observed rate.
-        Catches drain the planning model did not predict (model mismatch); it cannot see sensor bias."""
+    def _monitor(self, plan: PlanSpec, ev: GateEvidence):
+        """Runtime interlock over OBSERVED SoC only.
+        1. Mismatch: after 2+ minutes, compare the observed drain rate with the most pessimistic predicted rate.
+           If it is clearly higher, project the plan to completion at the observed rate and stop early when the
+           projection ends below the floor (stopping while reserve remains for a fallback).
+        2. Backstop: stop if the next minute at the last observed rate would cross the floor.
+        It cannot detect a biased SoC sensor: a constant bias shifts levels, not rates."""
         floor = self.c.reserve_floor_pct + self.c.monitor_buffer_pct
+        horizon = plan.restore_min
+        pred = max(cf.drain_at(plan.drain_curve, s.soh) for s in ev.states) * max(1.0, ev.drain_scale) / horizon
+        self._observed_scale, self._stop_reason = 1.0, ""
 
         def ok(trace: list) -> bool:
             if len(trace) < 2:
                 return True
-            (_, s1), (_, s2) = trace[-2], trace[-1]
-            return s2 - max(0.0, s1 - s2) >= floor - 1e-9
+            (t0, s0), (_, s1), (t2, s2) = trace[0], trace[-2], trace[-1]
+            n = t2 - t0
+            if self.cfg.adaptive_recovery and n >= 2 and pred > 0:
+                rate = (s0 - s2) / n
+                if rate > pred * (1 + MISMATCH_REL_TOL) + MISMATCH_ABS_TOL:
+                    self._observed_scale = max(self._observed_scale, rate / pred * max(1.0, ev.drain_scale))
+                    if s2 - rate * (horizon - n) < floor - 1e-9:
+                        self._stop_reason = (f"model mismatch: observed drain {rate:.2f}/min vs predicted <= "
+                                             f"{pred:.2f}/min; projected end {s2 - rate * (horizon - n):.1f}% "
+                                             f"< floor, stopped with {s2:.1f}% remaining")
+                        return False
+            if s2 - max(0.0, s1 - s2) < floor - 1e-9:
+                self._stop_reason = "backstop: next minute would cross the reserve floor"
+                return False
+            return True
         return ok
 
     def execute(self, plan: PlanSpec, verdict: GateVerdict, ev: GateEvidence) -> ExecutionReport:
@@ -317,12 +366,12 @@ class Agent:
         if not (verdict.passed and recheck.passed and verdict.plan_id == plan.id
                 and recheck.fingerprint == verdict.fingerprint):
             raise ExecutionBlocked(f"plan {plan.id} has no valid passing verdict ({recheck.status})")
-        return self.sim.execute(plan, self._monitor() if self.cfg.runtime_monitor else None)
+        return self.sim.execute(plan, self._monitor(plan, ev) if self.cfg.runtime_monitor else None)
 
     def verify(self, plan: PlanSpec, rep: ExecutionReport, states: list[HiddenState]) -> dict:
         socs = [s for _, s in rep.soc_trace]
         soc0, socmin = socs[0], min(socs)
-        drains = [cf.drain_at(plan.drain_curve, s.soh) for s in states]
+        drains = [cf.drain_at(plan.drain_curve, s.soh) * self.drain_scale for s in states]
         tol = self.c.verify_tolerance_pct
         observed = round(soc0 - socmin, 2)
         lo, hi = round(min(drains) - tol, 2), round(max(drains) + tol, 2)

@@ -49,10 +49,11 @@ def _r1(plan: PlanSpec, ev: GateEvidence) -> RuleResult:
     if ev.soc_now is None or not ev.states:
         raise ValueError("missing SoC or empty hidden-state set")
     floor = ev.constraints.reserve_floor_pct
+    scale = max(1.0, ev.drain_scale)  # observed mismatch can only make the check stricter
     bad = []
     worst = None
     for s in ev.states:
-        reserve = ev.soc_now - _soc_drain(plan.drain_curve, s.soh)
+        reserve = ev.soc_now - _soc_drain(plan.drain_curve, s.soh) * scale
         worst = reserve if worst is None else min(worst, reserve)
         if reserve < floor - 1e-9:
             bad.append(f"{s.id} (SoH {s.soh:.2f}): reserve {reserve:.1f}% < {floor:g}%")

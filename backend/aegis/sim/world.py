@@ -52,7 +52,7 @@ class World:
         self._midplan_pending = truth.midplan_fault
         self._log: dict = {"violations": [], "incidents": [], "diag_cost": 0.0, "action_cost": 0.0,
                            "executions": [], "diagnostics": [], "abstentions": [], "faults": [],
-                           "aborts": []}
+                           "aborts": [], "midplan": []}
         self._open_incident("pump_failure")
 
     # ---- internals -------------------------------------------------------
@@ -80,6 +80,10 @@ class World:
         if kind in ("b1_derate", "grid_trip_b1_derate"):
             self._b1_rated = 0.3
         self._log["faults"].append({"kind": kind, "t": self.t})
+
+    def _snapshot(self) -> dict:
+        return {"t": self.t, "soc": round(self._soc, 3), "soh": self._soh, "grid_tie": self._grid, "pump_B1": self._b1,
+                "b1_rated_duty": self._b1_rated, "elapsed": self.t - self._incident_start}
 
     def _violation(self, rule: str, detail: str) -> None:
         self._log["violations"].append({"rule": rule, "t": self.t, "detail": detail})
@@ -178,6 +182,7 @@ class World:
             if self._midplan_pending and m == self._truth.midplan_fault_at_min and m < horizon:
                 kind, self._midplan_pending = self._midplan_pending, None
                 self._apply_fault(kind)
+                self._log["midplan"].append(self._snapshot())
                 events.append(f"{kind} during execution")
                 if ("grid_tie" in plan.requires and self._grid != "online") or any(
                         a.target == "B1" and (a.duty or 0) > self._b1_rated for a in plan.actions
@@ -187,7 +192,7 @@ class World:
             if monitor is not None and m < horizon and not monitor(trace):
                 self._b1 = "standby"
                 rep = fail("runtime monitor stopped the plan: observed SoC trend would cross the reserve floor", 0)
-                self._log["aborts"].append({"t": self.t, "plan": plan.id})
+                self._log["aborts"].append({"plan": plan.id, **self._snapshot()})
                 return rep.model_copy(update={"aborted": True, "abort_reason": "projected reserve breach"})
         if waiting:
             self._p2 = "online"

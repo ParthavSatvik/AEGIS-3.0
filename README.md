@@ -221,6 +221,19 @@ What the stress results show, and where the fix stops working:
 - **Scope.** These are 11 author-designed synthetic cases. They show behaviour under these specific mismatches, not general
   robustness, and not real-world safety.
 
+### Experimental branch: robust recovery
+
+Branch `exp/robust-recovery` adds four changes:
+- observation-only model-mismatch detection
+- an early projected stop
+- conservative replanning with a learned drain scale that the gate can only tighten
+- an observed-trigger grid-loss contingency
+
+On the original 11 stress cases (same seeds), full AEGIS goes from 140 to **163** safe recoveries with 0 violations.
+On 50 held-out seeds it goes from 345 to **405** of 550, also with 0 violations. The reference benchmark is unchanged
+(`8893e64741a2854a`). A combined case, +30% drain with an SoC sensor reading 3 points high, still causes 34 of 50
+violations under both policies. See [docs/ROBUST_RECOVERY_EXPERIMENT.md](docs/ROBUST_RECOVERY_EXPERIMENT.md).
+
 ## Reference benchmark (20 seeds × 11 families × 5 arms = 1,100 episodes)
 
 Reproduce with `cd backend && python -m aegis.bench.runner --seeds 20 --out ../results/reference_v2`.
