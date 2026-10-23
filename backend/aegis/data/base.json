@@ -1,0 +1,60 @@
+{
+  "title": "Campus water-and-power micro-system",
+  "illustrative": true,
+  "constraints": {
+    "reserve_floor_pct": 30,
+    "recovery_objective_min": 60,
+    "max_reading_age_min": 10,
+    "replan_budget": 3,
+    "abstain_downtime_min": 180,
+    "lambda_delay": 1.0,
+    "max_diagnostics": 2,
+    "verify_tolerance_pct": 2.0,
+    "battery_max_discharge_kw": 120
+  },
+  "required_readings": ["battery_soc", "pump_B1", "grid_tie", "b1_rated_duty"],
+  "nameplate": {"battery_soh": 0.92},
+  "priors": {
+    "battery_soh": {
+      "stale": [
+        {"id": "z1", "label": "As reported (nominal capacity)", "delta": 0.0, "weight": 0.5},
+        {"id": "z2", "label": "Mild degradation", "delta": -0.10, "weight": 0.3},
+        {"id": "z3", "label": "Degraded capacity", "delta": -0.22, "weight": 0.2}
+      ],
+      "missing": [
+        {"id": "m1", "label": "Nameplate", "value": 0.92, "weight": 0.4},
+        {"id": "m2", "label": "Mild degradation", "value": 0.82, "weight": 0.3},
+        {"id": "m3", "label": "Degraded capacity", "value": 0.70, "weight": 0.2},
+        {"id": "m4", "label": "Severely degraded", "value": 0.60, "weight": 0.1}
+      ]
+    }
+  },
+  "diagnostics": [
+    {"id": "capacity_probe", "name": "Battery capacity probe (short load test)", "target_field": "battery_soh",
+     "cost": 1.0, "delay_min": 4, "accuracy": 0.02, "inconclusive_rate": 0.0, "evidence_valid_min": 180},
+    {"id": "deep_capacity_test", "name": "Full discharge-curve capacity test", "target_field": "battery_soh",
+     "cost": 3.0, "delay_min": 20, "accuracy": 0.005, "inconclusive_rate": 0.0, "evidence_valid_min": 180}
+  ],
+  "plans": [
+    {"id": "A", "name": "Fast restore", "description": "Run backup pump B1 at full duty from the battery bank",
+     "applies_to": ["pump_failure"], "restore_min": 12, "requires": ["B1", "battery"], "battery_kw": 95, "rule_tag": "primary",
+     "actions": [{"type": "start_pump", "target": "B1", "duty": 1.0, "source": "battery"}],
+     "drain_curve": [[0.70, 36], [0.82, 25], [0.92, 17]]},
+    {"id": "B", "name": "Staged restore", "description": "Defer non-critical loads, run B1 at reduced duty using the grid tie",
+     "applies_to": ["pump_failure", "service_interrupted"], "restore_min": 25, "requires": ["B1", "battery", "grid_tie"], "battery_kw": 40,
+     "actions": [{"type": "shed_load", "load_class": "non_critical"}, {"type": "start_pump", "target": "B1", "duty": 0.6, "source": "grid"}],
+     "drain_curve": [[0.70, 22], [0.82, 18], [0.92, 14]]},
+    {"id": "C", "name": "Wait for maintenance", "description": "Hold the critical tank reserve until pump P2 is repaired",
+     "applies_to": ["pump_failure", "service_interrupted"], "restore_min": 180, "requires": [], "battery_kw": 0,
+     "actions": [{"type": "hold", "target": "tank"}, {"type": "wait_for_repair", "target": "P2"}],
+     "drain_curve": [[0.50, 0], [1.00, 0]]},
+    {"id": "A2", "name": "Battery fast restore", "description": "Restart B1 at full duty on battery only",
+     "applies_to": ["service_interrupted"], "restore_min": 10, "requires": ["B1", "battery"], "battery_kw": 95, "rule_tag": "contingency",
+     "actions": [{"type": "start_pump", "target": "B1", "duty": 1.0, "source": "battery"}],
+     "drain_curve": [[0.70, 36], [0.82, 25], [0.92, 17]]},
+    {"id": "S", "name": "Shed and sustain", "description": "Shed non-critical loads, run B1 at low duty on battery",
+     "applies_to": ["service_interrupted"], "restore_min": 20, "requires": ["B1", "battery"], "battery_kw": 30,
+     "actions": [{"type": "shed_load", "load_class": "non_critical"}, {"type": "start_pump", "target": "B1", "duty": 0.5, "source": "battery"}],
+     "drain_curve": [[0.70, 5], [0.82, 4.5], [0.92, 4]]}
+  ]
+}

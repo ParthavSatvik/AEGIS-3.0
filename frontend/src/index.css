@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+body { font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif; }
+.mono { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; }
+@utility panel { @apply rounded-xl border border-slate-800 bg-slate-900/70 p-4; }
+@utility h { @apply mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400; }
+@utility btn { @apply rounded-md px-3 py-1.5 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-40; }
+@utility btn-p { @apply btn bg-cyan-600 text-white hover:bg-cyan-500; }
+@utility btn-s { @apply btn border border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700; }
+@utility btn-w { @apply btn border border-amber-700 bg-amber-900/40 text-amber-200 hover:bg-amber-800/50; }
+@utility btn-d { @apply btn border border-rose-700 bg-rose-900/40 text-rose-200 hover:bg-rose-800/50; }
+@utility inp { @apply rounded-md border border-slate-700 bg-slate-800 px-2 py-1.5 text-sm text-slate-100; }

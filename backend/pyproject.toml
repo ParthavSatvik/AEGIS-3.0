@@ -1,0 +1,14 @@
+[project]
+name = "aegis"
+version = "1.0.0"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::PendingDeprecationWarning", "ignore::UserWarning"]
