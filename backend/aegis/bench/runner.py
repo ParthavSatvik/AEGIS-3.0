@@ -115,8 +115,10 @@ def truly_safe_plans(pub: ScenarioPublic, inc: dict) -> list[str]:
             and p.battery_kw <= c.battery_max_discharge_kw]
 
 
-def run_episode(family: str, seed: int, arm: str) -> dict:
+def run_episode(family: str, seed: int, arm: str, truth_overrides: dict | None = None) -> dict:
     pub, truth = load(family)
+    if truth_overrides:  # stress testing only: simulator-side conditions the agent's model does not include
+        truth = truth.model_copy(update=truth_overrides)
     world = World(pub, truth, seed)
     agent = make_arm(arm, pub, world, seed)
     t0 = time.perf_counter()
@@ -166,6 +168,7 @@ def run_episode(family: str, seed: int, arm: str) -> dict:
         "second_fault_interrupt": int(second), "second_fault_recovered": int(second and ok_inc[-1]),
         "executed": "|".join("+".join(s["executed"]) or "-" for s in stats),
         "decision_ms": round(sum(sum(s["decision_ms"]) for s in stats), 3), "wall_ms": round(wall, 3),
+        "monitor_aborts": len(tr.get("aborts", [])),
         "error": error or "",
     }
 
@@ -175,7 +178,8 @@ METRICS = ["hard_violation", "recovery_success", "safe_recovery", "downtime_min"
            "diagnostics_run", "unnecessary_diagnostics", "negative_value_diagnostics", "no_safe_incidents",
            "correct_abstentions",
            "unneeded_abstentions", "unsafe_exec_when_no_safe", "second_fault_interrupt", "second_fault_recovered",
-           "safe_plan_incidents", "downtime_safe_plan_min", "downtime_no_safe_min", "unsafe_restorations"]
+           "safe_plan_incidents", "downtime_safe_plan_min", "downtime_no_safe_min", "unsafe_restorations",
+           "monitor_aborts"]
 
 
 def _agg(rows: list[dict]) -> dict:

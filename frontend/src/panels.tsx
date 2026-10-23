@@ -225,6 +225,7 @@ export function Execution({ cycle, floor }: { cycle: Cycle; floor: number }) {
   return (
     <div className="panel">
       <div className="h">Simulated execution & verification — plan {ex.plan_id}</div>
+      {ex.aborted && <div className="mb-2"><Badge tone="bad">STOPPED BY RUNTIME MONITOR</Badge> <span className="text-xs text-slate-400">observed SoC trend would have crossed the reserve floor</span></div>}
       <SocChart ex={ex} floor={floor} />
       {v && (
         <div className="mt-2 flex flex-wrap gap-2">

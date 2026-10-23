@@ -65,7 +65,9 @@ Then open **http://127.0.0.1:8000**. One process serves both the API and the das
 5. **⚡ Inject fault** `grid_tie_trip`. B loses the grid (R3), so AEGIS proposes **S**. **Approve & execute** → restored and verified in 20 sim-min.
 6. Optionally inject `b1_derate`: no plan passes, so AEGIS **abstains** and hands over to the operator. You can also **Reject** a proposal to take manual control.
 7. **End & reveal truth** shows the hidden true SoH and **0 real violations**. The truth is shown to the evaluator only after the episode ends.
-8. **Proof Record** → **Download JSON**. **Benchmark** → **Run benchmark** shows the business view, H1–H4, per-family tables and the CSV/JSON export.
+8. **Proof Record** → **Download JSON**.
+9. **Benchmark** → **Run benchmark** shows the reference comparison: business view, H1–H4, per-family tables and CSV/JSON export.
+10. **Benchmark** → **Run stress suite** shows model mismatch, labelled separately from the reference comparison. Full AEGIS has 0 violations with 34 monitor stops; the baselines have 153.
 
 To see a diagnostic change the decision, load *Stale reading, healthy battery*. The probe rules out z3, so the plan changes from B to A.
 
@@ -79,9 +81,10 @@ To see a diagnostic change the decision, load *Stale reading, healthy battery*. 
 | Planner + counterfactual evaluator | `engine/counterfactual.py` | Plan × state reserve table, counterexamples, `F_unsafe(a) = Σ w_z·I[unsafe] / Σ w_z` |
 | Diagnostic planner | `engine/diagnostics.py` | `V(d) = E_r[max U(a\|r)] − max U(a) − c(d) − λ·t(d)` in minute-equivalents. Runs only when V > 0 and the budget and deadline allow |
 | **Safety gate** | `gate/safety.py` | Pure functions R1–R7 with its own reserve maths. Never calls the planner, simulator or LLM. Fails closed on exceptions, timeouts or missing inputs |
-| Orchestrator / approval / executor / verifier | `engine/agent.py` | Human approval bound to an evidence fingerprint. The executor re-checks the gate. Replan budget is 3, then abstain. Builds the outcome report from observations |
+| Orchestrator / approval / executor / verifier | `engine/agent.py` | Human approval bound to an evidence fingerprint. The executor re-checks the gate and runs an observation-only **runtime monitor** that stops a plan before the observed SoC trend crosses the floor. Replan budget is 3, then abstain. Builds the outcome report from observations |
 | LLM (optional) | `llm/explainer.py` | Writes an advisory explanation from the record only. Validated, with a template fallback. Cannot approve or execute |
 | Benchmark | `bench/runner.py` | Arms A–D plus an always-diagnose reference, 11 families, identical seeds, scored from truth after each episode |
+| Stress suite | `bench/stress.py`, `data/stress.json` | 11 simulator-only model-mismatch cases, run and reported separately |
 
 Gate rules:
 - **R1** reserve ≥ 30% in every hidden state that has not been ruled out
@@ -94,17 +97,17 @@ Gate rules:
 
 Hard limits decide eligibility. They are never traded against utility. More detail is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-API: `/api/scenarios`, `/api/scenarios/{id}/start?seed=`, `/api/episodes/{id}/{observations|decide|faults|execute|approve|explain|record|close}`, `/api/benchmarks/run`, `/api/benchmarks/latest.{csv,json}`.
+API: `/api/scenarios`, `/api/scenarios/{id}/start?seed=`, `/api/episodes/{id}/{observations|decide|faults|execute|approve|explain|record|close}`, `/api/benchmarks/run`, `/api/benchmarks/latest.{csv,json}`, `/api/stress/run`, `/api/stress/latest.csv`.
 
 ## Verification (run 2026-10-24)
 
 | Check | Command | Result |
 |---|---|---|
-| Backend tests | `cd backend && python -m pytest -q` | **46 passed** |
+| Backend tests | `cd backend && python -m pytest -q` | **51 passed** |
 | Backend lint | `cd backend && python -m ruff check aegis tests` | all checks passed |
 | Frontend typecheck / lint | `npm --prefix frontend run typecheck` / `run lint` | clean |
 | Production build | `npm --prefix frontend run build` | builds |
-| Browser end-to-end | the demo above, driven in the served app | approval, gate block, second fault, reject, benchmark and proof record all checked |
+| Browser end-to-end | the judge demo above, driven in the served app, plus the stress panel | all steps checked |
 
 Tests cover:
 - stale, missing and invalid evidence
@@ -127,65 +130,129 @@ Tests cover:
   - rejection hands over
   - a forced safe plan still needs approval
   - a fault invalidates a pending proposal
-  - approval wait recorded in wall-clock time, separate from simulated time
-- **benchmark arms:** each arm behaves as documented on a fixed seed
+  - approval wait kept separate from simulated time
+- **benchmark arms:** each arm behaves as documented
+- **model mismatch:**
+  - regression test for the defect below
+  - the execution trace carries *observed*, not true, SoC
+  - a mid-plan equipment change is handled
+  - the monitor never triggers in the reference suite
+  - full AEGIS has no stress-suite violations
 
-## Benchmark results (measured: 20 seeds × 11 families × 5 arms = 1,100 episodes)
+## Model-mismatch stress test (separate from the reference benchmark)
 
-Reproduce with `cd backend && python -m aegis.bench.runner --seeds 20 --out ../results`. Output goes to `results/benchmark.{json,csv}`, digest `69bdd545a9f3fec1`. The dashboard run produced the same digest and reproduced on rerun.
+The reference benchmark gives the simulator and the planner the **same** battery-effect curve. To test what happens
+when the model is wrong, `backend/aegis/bench/stress.py` runs 11 cases (`backend/aegis/data/stress.json`). In each,
+**simulator-only** conditions depart from the agent's model:
 
-| Arm | Hard violations | Recovered ≤ 60 sim-min | **Safe** recovery | Restored by breaching a limit | Mean sim. downtime (sim-min) | Mean sim. downtime, incidents with a safe plan | Mean cost | Diagnostics (no change / V ≤ 0) | Correct abstentions | Executed when no safe plan |
+| Stress case | Condition |
+|---|---|
+| `drain+15`, `drain+30` | Unexpected battery drain, 15% and 30% above the model |
+| `drain+30-healthy` | Same drain with a healthy battery |
+| `drain+30-second-fault` | Same drain plus a later grid trip |
+| `soc-bias±3` | SoC sensor reads 3 points high or low |
+| `probe-bias+6` | Capacity probe reads 0.06 high, beyond its stated accuracy |
+| `inconclusive+drain20`, `missing+drain20` | Failed probe or missing SoH, combined with extra drain |
+| `midplan-grid-trip`, `midplan-b1-derate` | Equipment changes 8 minutes into a plan |
+
+These conditions live in `ScenarioTruth`, which the agent never receives. It sees their effects only through telemetry.
+
+**Verified defect (before the fix).** The gate can only check plans against the planning model. With unmodelled
+drain it approved plans that then breached the 30% floor. Full AEGIS had **33 of 220** stress episodes with a violation:
+
+| Stress case | Episodes with a violation (of 20) |
+|---|---|
+| drain +30% | 14 |
+| drain +30% with a later grid trip | 14 |
+| missing SoH reading, drain +20% | 4 |
+| probe reads 0.06 high | 1 |
+
+The pre-fix outputs are kept in `results/stress_v1_no_monitor/`.
+
+**Fix (smallest defensible change):** a runtime monitor in the executor (`Agent._monitor`). It reads only the
+*observed* SoC trace, projects one minute ahead at the last observed rate, and stops the plan before the projection
+crosses the floor (+0.1 pt). The verifier then fails `critical_served` and AEGIS replans or abstains. No hard
+constraint was relaxed. I also fixed a second defect found along the way: the execution trace returned to the agent
+contained *true* SoC, so it now carries the observed (sensor) values.
+
+**Results after the fix:** 20 seeds × 11 cases × 4 arms = 880 episodes, `results/stress/stress.{json,csv}`, digest `24fcf8d19380f55e`.
+
+| Arm | Violations / 220 | Safe recoveries / 220 | Monitor stops |
+|---|---|---|---|
+| A Fixed-rule | 153 | 47 | 0 (no monitor) |
+| B Basic tool-using | 153 | 47 | 0 (no monitor) |
+| C AEGIS w/o counterfactual | **20** | 47 | 153 |
+| **D Full AEGIS** | **0** | **140** | 34 |
+
+What the stress results show, and where the fix stops working:
+- The monitor turns violations into **failed recoveries**, not successes. Under 30% extra drain, D restores only 6 of 20 incidents safely; the other 14 are stopped and handed over with the battery partly drained.
+- The monitor **cannot detect sensor bias.** C's 20 violations are all in `soc-bias+3`: the optimistic sensor hides the breach. D avoided it only because Plan B had margin.
+- In `midplan-*` cases, D correctly stops and abstains (0 violations, 0 recoveries).
+- These are synthetic stress conditions. They do not show robustness to real-world failure modes.
+
+## Reference benchmark (20 seeds × 11 families × 5 arms = 1,100 episodes)
+
+Reproduce with `cd backend && python -m aegis.bench.runner --seeds 20 --out ../results/reference_v2`.
+
+- **v1 (preserved):** `results/benchmark.{json,csv}`, digest `69bdd545a9f3fec1`, git tag `demo-freeze-v1`. This was the run before the runtime monitor.
+- **v2 (current code):** `results/reference_v2/benchmark.{json,csv}`, digest `8893e64741a2854a`. The dashboard's **Run benchmark** reproduces v2.
+
+Arms A, B, D and D-always are **identical in v1 and v2**: the monitor never triggered for D in the reference suite.
+Only arm C changed, because the monitor is part of AEGIS execution and C is "AEGIS without the counterfactual stage".
+
+**v2 results:**
+
+| Arm | Hard violations | Recovered ≤ 60 sim-min | **Safe** recovery | Restored by breaching a limit | Mean sim. downtime (sim-min) | Mean sim. downtime, safe plan existed | Mean cost | Diagnostics (no change / V ≤ 0) | Correct abstentions | Monitor stops |
 |---|---|---|---|---|---|---|---|---|---|---|
-| A Fixed-rule | 114 | 180 | 86 | 94 | 43.6 | 28.8 | 0 | 0 | 0 / 40 | 40 |
-| B Basic tool-using | 134 | 200 | 86 | 114 | 28.6 | 12.3 | 0 | 0 | 20 / 40 | 20 |
-| C AEGIS w/o counterfactual | 134 | 200 | 86 | 114 | 28.6 | 12.3 | 0 | 0 | 20 / 40 | 20 |
-| **D Full AEGIS** | **0** | 180 | **180** | **0** | 56.9 | 24.2 | 0.92 | 201 (155 / **0**) | **40 / 40** | **0** |
+| A Fixed-rule | 114 | 180 | 86 | 94 | 43.6 | 28.8 | 0 | 0 | 0 / 40 | – |
+| B Basic tool-using | 134 | 200 | 86 | 114 | 28.6 | 12.3 | 0 | 0 | 20 / 40 | – |
+| C AEGIS w/o counterfactual | 0 | 86 | 86 | 0 | 114.3 | 107.8 | 0 | 0 | 20 / 20 | 134 |
+| **D Full AEGIS** | **0** | 180 | **180** | **0** | 56.9 | 24.2 | 0.92 | 201 (155 / **0**) | **40 / 40** | 0 |
 | D-always (H3 reference) | 0 | 180 | 180 | 0 | 77.2 | 44.5 | 4.73 | 520 (466 / 319) | 40 / 40 | 0 |
 
-No arm had runtime errors. H1–H4 are all **supported** in this suite: D has fewer violations than A and B, D catches more counterexamples than C, D runs fewer non-decision-changing diagnostics than always-diagnose, and D abstains in every incident with no safe plan.
+In v1, before the monitor, arm C had 134 violations and 86 safe recoveries, the same as B.
 
-The benchmark arms run with an *auto-approve* operator policy, which is the worst case for safety because every proposal is approved. The gate is the only safeguard in that setting.
+**Hypotheses (v2):**
+- **H1 supported:** D has 0 violations, against 114 (A) and 134 (B).
+- **H2 not supported as pre-registered.** H2 says D has fewer violations *and* catches more counterexamples than C. With the runtime monitor, C also has 0 violations, so the violation half fails. I have not reworded H2. The counterfactual stage still matters: D achieves **180** safe recoveries against C's **86**. C's monitor stops leave the battery drained and service unrestored (134 stops, 114 abstentions where a safe plan existed, 114.3 sim-min mean downtime).
+- **H3 supported:** 155 against 466 non-decision-changing diagnostics.
+- **H4 supported:** 40 correct abstentions out of 40.
 
-### What the comparison does and does not establish
+No arm had runtime errors. Benchmark arms use an *auto-approve* operator policy, which is the worst case for safety.
 
-- **It establishes**, for these 11 author-designed synthetic scenario families and 20 seeds each: under the same seeds and
-  the same planning model, challenging plans against hidden battery states (arm D) avoided every hard-limit violation that
-  the point-estimate arms (A, B, C) incurred, at the cost of more simulated downtime.
-- **It does not establish** real-world safety, performance on scenarios outside this suite, calibrated failure
-  probabilities, or statistical significance. The simulator and the planner share the same plan-response curves, so a
-  wrong planning model is barely tested. "Zero violations" refers only to the evaluated synthetic episodes.
-- **Why B and C are identical.** This was checked episode by episode in `results/benchmark.csv`: all 220 B/C pairs
-  executed the same plans and had the same violations and downtime. C is AEGIS with the counterfactual stage disabled,
-  so its belief is the single face-value reading. With one state, every diagnostic's V(d) equals −c(d) − λt(d) < 0, so
-  none run. The gate's R1 check sees only that one state, so C picks the same fastest plan as B. B's single retry and C's
-  verification-driven replan both recover the failed pump start in the same way. The identical results are a property
-  of the design, not a bug, and they show that the safety difference in this suite comes entirely from the
-  counterfactual stage.
-- **Each arm's behaviour is checked** by `test_arms_implement_documented_behaviour`:
-  - A runs the rule-table plan.
-  - B and C run the fastest plan at the face-value reading, with no diagnostics.
-  - D runs the probe and selects B.
-  - D-always runs both diagnostics.
+### What the comparisons do and do not establish
 
-### Benchmark audit (what was investigated and what changed)
+- **They establish**, for these synthetic families and seeds only, that challenging plans against hidden battery states
+  (D) avoided hard-limit violations *and* kept recoveries successful. Point-estimate arms either violate limits (A, B)
+  or, with the monitor, stop late and fail to recover (C). The cost is more simulated downtime than the unsafe baselines.
+- **They do not establish** real-world safety, calibrated probabilities, statistical significance, or performance outside
+  these scenarios. "Zero violations" refers only to the evaluated synthetic episodes.
+- **B and C were identical in v1** (checked episode by episode). With the counterfactual stage off, C's belief is a
+  single face-value reading, so V(d) can never be positive and the gate sees only that reading. In v2 they differ only
+  because of the runtime monitor.
+- **Each arm's behaviour** is checked by `test_arms_implement_documented_behaviour`.
 
-- **155 of 201 diagnostics did not change the plan.** All 155 come from families where the battery is actually degraded (design scenario, inconclusive probe, no safe plan, failed recovery, both second-fault families). In those cases the probe confirms B, which was already the safe pre-diagnostic choice.
-  - Ex ante, each of those diagnostics had positive V(d). The new `negative_value_diagnostics` metric is **0 for D**, against 319 for always-diagnose.
-  - Reducing the count would mean re-weighting the priors toward the benchmark's hidden truth, which is benchmark tuning and a form of truth leakage. **The policy was left unchanged**, and the ex-post count is reported as measured.
-- **Higher downtime is real.** It comes from 40 correct abstentions charged the 180 sim-min maintenance time, the 4 sim-min probe, and the slower safe plan B (25 min, against 12 min for A).
-  - In incidents where a safe plan existed, D averages 24.2 sim-min, against 28.8 for fixed rules (which can't recover from a failed pump start) and 12.3 for the basic agent.
-  - The basic agent's speed comes with 114 restorations that breached a limit. These are shown as a separate column rather than given an invented penalty.
-- **Scoring fixes made earlier:** an incident left unrestored is now charged maintenance time, like an abstention; it had wrongly been charged only the elapsed minutes.
-- **The ablation (C) is identical to B.** With the counterfactual stage off, the belief is a single point, so V(d) can never be positive and the gate sees only the face-value reading. In this suite, the whole safety difference comes from the counterfactual stage.
-- **Arms do not see identical second incidents.** A second fault interrupts service only if the active plan depends on the failed asset, and A and B usually ran Plan A, which has no grid dependence. Second-fault metrics are therefore reported per arm with their own denominators.
+### Benchmark audit notes
+
+- **155 of D's 201 diagnostics did not change the plan.** All come from degraded-battery families, where the probe
+  confirms the already-safe plan B. All had positive ex-ante V(d): the `negative_value_diagnostics` count is 0 for D.
+  Lowering the count would mean tuning the priors to the hidden truth, so the policy was left unchanged.
+- **Higher downtime is real.** It comes from correct abstentions charged 180 sim-min, the 4 sim-min probe, and the
+  slower safe plan B. Restorations that breached a limit are shown as their own column rather than given an invented penalty.
+- **Arms do not see identical second incidents.** A second fault interrupts only plans that depend on the failed asset,
+  so second-fault metrics have per-arm denominators.
 
 ## Limitations
 
-- The plan response is a configured SoH → SoC-drain curve, not an electrochemical battery model, and the simulator uses the same curve plus noise. A planning model that is itself wrong is only partly tested.
-- Only battery SoH is a hidden quantity.
-- Approval latency is not simulated: the clock pauses while a proposal waits. In practice, waiting for approval would add downtime.
+- The plan response is a configured SoH → SoC-drain curve, not an electrochemical model. Model mismatch is now tested
+  only in the 11 synthetic stress cases.
+- The runtime monitor relies on the SoC sensor. A biased sensor can hide a breach. There is no sensor redundancy or
+  cross-check.
+- After a monitor stop, AEGIS does not learn the mismatch: it replans with the same model, and usually abstains.
+- Only battery SoH is a hidden quantity in the planner.
+- Approval wait is measured in real seconds and not added to simulated downtime, because the simulation clock pauses
+  while a proposal waits. All downtime figures are simulated minutes, not field measurements.
 - Episodes live in server memory and are lost on restart.
 - The LLM explainer was tested only with mocked HTTP; no live model call was made.
-- Approval wait is measured in real seconds but is not added to simulated downtime.
 - The gate enforces only the rules it is configured with.
-- The scenario suite is small and was designed by the author. No statistical-significance or real-world claims are made.
+- The scenario suites are small and author-designed. No statistical-significance or real-world claims are made.

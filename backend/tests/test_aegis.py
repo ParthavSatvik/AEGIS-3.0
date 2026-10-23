@@ -450,3 +450,50 @@ def test_approval_wait_is_wall_clock_and_separate_from_sim_time():
     assert res["approval_wait_wall_s"] >= 0 and t_before == ag.record["cycles"][0]["proposal"]["proposed_t_min"]
     rep = ag.record["outcome_report"]
     assert "simulated_restoration_min" in rep["incidents"][0] and "human_approval_wait_wall_s" in rep
+
+
+# ---------------- model mismatch (stress) regressions
+def mismatch(family, seed, cfg=None, **truth):
+    pub, t = load(family)
+    w = World(pub, t.model_copy(update=truth), seed)
+    return w, Agent(pub, w, cfg, seed=seed)
+
+
+def test_defect_gate_alone_misses_unmodelled_drain_and_monitor_stops_it():
+    # Defect found in the stress audit: with 30% unmodelled drain the gate approves B and the reserve is breached.
+    w, ag = mismatch("stale-degraded", 1, AgentConfig(runtime_monitor=False), drain_multiplier=1.3)
+    ag.run()
+    assert [v["rule"] for v in w.truth_report()["violations"]] == ["R1"]
+    # Fix: the observation-only runtime monitor stops the plan before the floor is crossed, then AEGIS replans.
+    w, ag = mismatch("stale-degraded", 1, drain_multiplier=1.3)
+    rec = ag.run()
+    assert w.truth_report()["violations"] == [] and w.truth_report()["aborts"]
+    assert rec["cycles"][0]["executed"]["aborted"] and rec["replans"][0]["trigger"] == "verification_failed"
+    assert min(s for _, s in rec["cycles"][0]["executed"]["soc_trace"]) >= 30
+
+
+def test_execution_trace_is_observed_not_truth():
+    w, ag = mismatch("stale-degraded", 42, soc_sensor_bias=3.0)
+    rec = ag.run()
+    first = rec["cycles"][0]["executed"]["soc_trace"][0][1]
+    true_start = w.truth_report()["soc_final"] + rec["cycles"][0]["verification"]["observed_drain"]
+    assert first == pytest.approx(true_start + 3, abs=0.05)
+
+
+def test_midplan_equipment_change_is_detected_and_handled():
+    w, ag = mismatch("stale-degraded", 1, midplan_fault="grid_tie_trip")
+    rec = ag.run()
+    assert rec["cycles"][0]["verification"]["predicates"]["critical_served"] is False
+    assert rec["abstentions"] and w.truth_report()["violations"] == []
+
+
+def test_monitor_never_aborts_in_reference_suite():
+    res = runner.run_suite(3, arms=["D"])
+    assert res["summary"]["D"]["monitor_aborts"] == 0 and res["summary"]["D"]["hard_violation"] == 0
+
+
+def test_stress_suite_full_aegis_has_no_violations():
+    from aegis.bench.stress import run_stress
+    res = run_stress(2, arms=["B", "D"])
+    assert res["summary"]["D"]["hard_violation"] == 0 and res["summary"]["B"]["hard_violation"] > 0
+    assert res["summary"]["D"]["errors"] == 0

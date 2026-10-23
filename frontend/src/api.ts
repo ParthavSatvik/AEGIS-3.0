@@ -21,7 +21,7 @@ export type Verification = {
   predicates: Record<string, boolean>; verified: boolean; observed_drain: number; predicted_drain_range: [number, number];
   min_reserve_observed: number; restored_elapsed_min: number | null;
 };
-export type Exec = { plan_id: string; t_start: number; t_end: number; soc_trace: [number, number][]; service_restored: boolean; events: string[] };
+export type Exec = { plan_id: string; t_start: number; t_end: number; soc_trace: [number, number][]; service_restored: boolean; events: string[]; aborted?: boolean };
 export type Cycle = {
   cycle: number; trigger: string; t_min: number; status?: string;
   stale_inputs?: { field: string; status: string; value: unknown; age_min: number | null; limit_min: number; reason: string }[];
@@ -84,10 +84,16 @@ export const api = {
   explain: (eid: string) => call<ProofRecord["explanation"]>(`/api/episodes/${eid}/explain`, { method: "POST" }),
   record: (eid: string) => call<ProofRecord>(`/api/episodes/${eid}/record`),
   close: (eid: string) => call<Record<string, unknown>>(`/api/episodes/${eid}/close`, { method: "POST" }),
+  stress: (seeds: number) => call<Stress>("/api/stress/run", { method: "POST", body: JSON.stringify({ seeds }) }),
   bench: (seeds: number) => call<Bench>("/api/benchmarks/run", { method: "POST", body: JSON.stringify({ seeds }) }),
 };
 
 export type Agg = Record<string, number>;
+export type Stress = {
+  notice: string; seeds: number; arms: string[]; digest: string; runtime_s: number;
+  cases: { id: string; family: string; condition: string }[];
+  summary: Record<string, Agg>; by_case: Record<string, Record<string, Agg>>;
+};
 export type Bench = {
   config: { seeds: number; families: string[]; arms: string[]; arm_labels: Record<string, string> };
   notice: string; summary: Record<string, Agg>; by_family: Record<string, Record<string, Agg>>;

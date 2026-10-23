@@ -31,7 +31,7 @@ from .diagnostics import value_of
 class SimulatorPort(Protocol):
     def observe(self) -> Observation: ...
     def run_diagnostic(self, spec: DiagnosticSpec) -> DiagnosticResult: ...
-    def execute(self, plan: PlanSpec) -> ExecutionReport: ...
+    def execute(self, plan: PlanSpec, monitor=None) -> ExecutionReport: ...
     def inject_fault(self, kind: str) -> FaultReport: ...
     def handover(self, reason: str) -> None: ...
 
@@ -41,6 +41,7 @@ class AgentConfig(BaseModel):
     counterfactual: bool = True
     diagnostics: str = "value"  # value | always | none
     approval: str = "auto"  # auto: benchmark operator approves every proposal | human: wait for approve()
+    runtime_monitor: bool = True  # stop a running plan if the OBSERVED SoC trend would cross the reserve floor
 
 
 CONSEQUENTIAL = {"start_pump", "shed_load"}  # actions that change equipment or load state
@@ -298,13 +299,25 @@ class Agent:
         cyc["status"] = "verified" if ver["verified"] else "executed_with_discrepancy"
         return "done"
 
+    def _monitor(self):
+        """Runtime interlock over observed SoC only: project one minute ahead at the last observed rate.
+        Catches drain the planning model did not predict (model mismatch); it cannot see sensor bias."""
+        floor = self.c.reserve_floor_pct + self.c.monitor_buffer_pct
+
+        def ok(trace: list) -> bool:
+            if len(trace) < 2:
+                return True
+            (_, s1), (_, s2) = trace[-2], trace[-1]
+            return s2 - max(0.0, s1 - s2) >= floor - 1e-9
+        return ok
+
     def execute(self, plan: PlanSpec, verdict: GateVerdict, ev: GateEvidence) -> ExecutionReport:
         """Executor: refuses any plan without a passing verdict; re-checks the gate at execution time."""
         recheck = safety.check_plan(plan, ev)
         if not (verdict.passed and recheck.passed and verdict.plan_id == plan.id
                 and recheck.fingerprint == verdict.fingerprint):
             raise ExecutionBlocked(f"plan {plan.id} has no valid passing verdict ({recheck.status})")
-        return self.sim.execute(plan)
+        return self.sim.execute(plan, self._monitor() if self.cfg.runtime_monitor else None)
 
     def verify(self, plan: PlanSpec, rep: ExecutionReport, states: list[HiddenState]) -> dict:
         socs = [s for _, s in rep.soc_trace]

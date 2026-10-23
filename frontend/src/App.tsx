@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { api, download, type Bench, type EpState, type Scenario } from "./api";
+import { api, download, type Bench, type EpState, type Scenario, type Stress } from "./api";
 import { Approval, OutcomeReportPanel, Pipeline, Telemetry } from "./business";
 import { Badge, Diagnostics, Execution, Gate, PlanTable, StatusCards, Timeline } from "./panels";
 
@@ -227,6 +227,7 @@ function BenchView({ bench, seeds, setSeeds, busy, run }: { bench: Bench | null;
             {bench.reproducibility?.reproducible ? <Badge tone="ok">REPRODUCED ON RERUN</Badge> : <Badge tone="bad">NOT REPRODUCIBLE</Badge>}</span>
         </>}
       </div>
+      <StressView />
       {!bench && <div className="panel text-sm text-slate-400">Runs arms A–D plus an always-diagnose reference on every scenario family with the same seeds. Truth is read only after each episode for scoring. Nothing is precomputed.</div>}
       {bench && table && (
         <>
@@ -289,6 +290,51 @@ function BusinessValue({ bench }: { bench: Bench }) {
           {" "}and {s.D.mean_downtime_safe_plan_min} vs {s.A.mean_downtime_safe_plan_min} / {s.B.mean_downtime_safe_plan_min} min where a safe plan existed:
           diagnostics, slower safe plans and abstentions cost time.</div>
       </div>
+    </div>
+  );
+}
+
+/** Model-mismatch stress test: kept visually and in code separate from the reference benchmark. */
+function StressView() {
+  const [res, setRes] = useState<Stress | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  return (
+    <div className="panel border-fuchsia-900">
+      <div className="mb-2 flex flex-wrap items-center gap-2">
+        <div className="h !mb-0 !text-fuchsia-300">Stress test · model mismatch (separate from the reference benchmark)</div>
+        <button className="btn-s ml-auto" disabled={busy} onClick={async () => {
+          setBusy(true); setErr("");
+          try { setRes(await api.stress(20)); } catch (e) { setErr(String(e)); } finally { setBusy(false); }
+        }}>{busy ? "Running…" : "▶ Run stress suite (20 seeds × 11 cases)"}</button>
+        {res && <a className="btn-s" href="/api/stress/latest.csv" download="aegis-stress.csv">Download CSV</a>}
+      </div>
+      <p className="text-xs text-slate-400">The simulator departs from the agent's planning model: unexpected battery drain, SoC sensor bias,
+        diagnostic bias beyond its stated accuracy, failed diagnostics, missing readings and equipment changes mid-plan. The agent never
+        receives these conditions; it only sees their effects through telemetry.</p>
+      {err && <div className="mt-2 text-sm text-rose-300">{err}</div>}
+      {res && (
+        <div className="mt-3 overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead><tr className="text-left text-xs text-slate-400"><th className="pr-3">Case</th>
+              {res.arms.map((a) => <th key={a} className="pr-3">{a}: violations / safe recoveries / monitor stops</th>)}</tr></thead>
+            <tbody>
+              {res.cases.map((c) => (
+                <tr key={c.id} className="border-t border-slate-800">
+                  <td className="py-1 pr-3"><b>{c.id}</b><div className="text-xs text-slate-500">{c.condition}</div></td>
+                  {res.arms.map((a) => { const v = res.by_case[c.id][a]; return (
+                    <td key={a} className={`mono pr-3 ${v.hard_violation > 0 ? "text-rose-300" : ""}`}>{v.hard_violation} / {v.safe_recovery} / {v.monitor_aborts}</td>); })}
+                </tr>
+              ))}
+              <tr className="border-t border-slate-600 font-semibold">
+                <td className="py-1">Total ({res.summary[res.arms[0]].episodes} episodes per arm)</td>
+                {res.arms.map((a) => <td key={a} className="mono">{res.summary[a].hard_violation} / {res.summary[a].safe_recovery} / {res.summary[a].monitor_aborts}</td>)}
+              </tr>
+            </tbody>
+          </table>
+          <p className="mt-2 text-[11px] text-slate-500">{res.notice} Digest <span className="mono">{res.digest}</span> · {res.runtime_s}s.</p>
+        </div>
+      )}
     </div>
   );
 }

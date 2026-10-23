@@ -7,6 +7,7 @@ evaluator after an episode and is never called by the engine.
 from __future__ import annotations
 
 import random
+from collections.abc import Callable
 
 from ..models import (
     ALLOWED_ACTIONS,
@@ -48,8 +49,10 @@ class World:
         self._active: PlanSpec | None = None
         self._b1_fail_pending = truth.b1_fails_first_start
         self._soh_tel = truth.telemetry_soh
+        self._midplan_pending = truth.midplan_fault
         self._log: dict = {"violations": [], "incidents": [], "diag_cost": 0.0, "action_cost": 0.0,
-                           "executions": [], "diagnostics": [], "abstentions": [], "faults": []}
+                           "executions": [], "diagnostics": [], "abstentions": [], "faults": [],
+                           "aborts": []}
         self._open_incident("pump_failure")
 
     # ---- internals -------------------------------------------------------
@@ -65,6 +68,19 @@ class World:
             self.t += 1
             self._tank = min(90.0, self._tank + 0.5) if self._service else max(0.0, self._tank - 0.3)
 
+    def _obs_soc(self) -> float:
+        """SoC as the sensor reports it (may carry a stress-test bias)."""
+        return round(min(100.0, max(0.0, self._soc + self._truth.soc_sensor_bias)), 2)
+
+    def _apply_fault(self, kind: str) -> None:
+        if kind not in ("grid_tie_trip", "b1_derate", "grid_trip_b1_derate"):
+            raise ValueError(f"unknown fault '{kind}'")
+        if kind in ("grid_tie_trip", "grid_trip_b1_derate"):
+            self._grid = "tripped"
+        if kind in ("b1_derate", "grid_trip_b1_derate"):
+            self._b1_rated = 0.3
+        self._log["faults"].append({"kind": kind, "t": self.t})
+
     def _violation(self, rule: str, detail: str) -> None:
         self._log["violations"].append({"rule": rule, "t": self.t, "detail": detail})
 
@@ -74,7 +90,7 @@ class World:
         soh_age = None if tel.value is None else self.t + tel.age_min
         r = {
             "battery_soh": Reading(name="battery_soh", value=tel.value, age_min=soh_age),
-            "battery_soc": Reading(name="battery_soc", value=round(self._soc, 2), age_min=0.5),
+            "battery_soc": Reading(name="battery_soc", value=self._obs_soc(), age_min=0.5),
             "grid_tie": Reading(name="grid_tie", value=self._grid, age_min=0.5),
             "pump_P2": Reading(name="pump_P2", value=self._p2, age_min=0.5),
             "pump_B1": Reading(name="pump_B1", value=self._b1, age_min=0.5),
@@ -94,14 +110,16 @@ class World:
             measured = None
         else:
             noise = min(self._truth.probe_noise, spec.accuracy / 2)
-            measured = round(self._soh + self._rng.uniform(-noise, noise), 3)
+            measured = round(self._soh + self._truth.probe_bias + self._rng.uniform(-noise, noise), 3)
         return DiagnosticResult(diagnostic_id=spec.id, t_min=self.t, conclusive=measured is not None,
                                 measured=measured, accuracy=spec.accuracy, cost=spec.cost, delay_min=spec.delay_min,
                                 valid_until=self.t + spec.evidence_valid_min)
 
-    def execute(self, plan: PlanSpec) -> ExecutionReport:
+    def execute(self, plan: PlanSpec, monitor: Callable[[list], bool] | None = None) -> ExecutionReport:
+        """Run a plan minute by minute. `monitor` is the engine's runtime check over the OBSERVED SoC trace;
+        returning False stops the plan (pump to standby) before it completes."""
         t0, events = self.t, []
-        trace = [(self.t, round(self._soc, 2))]
+        trace = [(self.t, self._obs_soc())]
         issued = [a.type for a in plan.actions]
         self._log["executions"].append(plan.id)
         self._log["action_cost"] += plan.action_cost
@@ -110,7 +128,7 @@ class World:
         def fail(msg: str, minutes: float = 1) -> ExecutionReport:
             events.append(msg)
             self._advance(minutes)
-            trace.append((self.t, round(self._soc, 2)))
+            trace.append((self.t, self._obs_soc()))
             return ExecutionReport(plan_id=plan.id, t_start=t0, t_end=self.t, issued_actions=issued,
                                    soc_trace=trace, service_restored=False, restored_elapsed_min=None, events=events)
 
@@ -140,7 +158,8 @@ class World:
                     return fail("service not restored", 3)
 
         waiting = any(a.type == "wait_for_repair" for a in plan.actions)
-        drain = _curve(plan.drain_curve, self._soh) * (1 + self._rng.uniform(-1, 1) * self._truth.execution_noise)
+        drain = _curve(plan.drain_curve, self._soh) * self._truth.drain_multiplier * (
+            1 + self._rng.uniform(-1, 1) * self._truth.execution_noise)
         horizon = int(round(plan.restore_min))
         restored, breached = False, False
         for m in range(1, horizon + 1):
@@ -149,13 +168,27 @@ class World:
                 restored = True
                 self._service = True
             self._advance(1)
-            trace.append((self.t, round(self._soc, 2)))
+            trace.append((self.t, self._obs_soc()))
             if self._soc < floor - 1e-9 and not breached:
                 breached = True
                 self._violation("R1", f"battery SoC fell to {self._soc:.1f}% below the {floor}% reserve floor")
             if self._soc <= 0:
                 self._service = False
                 return fail("battery depleted: B1 stopped", 0)
+            if self._midplan_pending and m == self._truth.midplan_fault_at_min and m < horizon:
+                kind, self._midplan_pending = self._midplan_pending, None
+                self._apply_fault(kind)
+                events.append(f"{kind} during execution")
+                if ("grid_tie" in plan.requires and self._grid != "online") or any(
+                        a.target == "B1" and (a.duty or 0) > self._b1_rated for a in plan.actions
+                        if a.type == "start_pump"):
+                    self._b1 = "standby"
+                    return fail("B1 lost supply mid-plan: service not restored", 0)
+            if monitor is not None and m < horizon and not monitor(trace):
+                self._b1 = "standby"
+                rep = fail("runtime monitor stopped the plan: observed SoC trend would cross the reserve floor", 0)
+                self._log["aborts"].append({"t": self.t, "plan": plan.id})
+                return rep.model_copy(update={"aborted": True, "abort_reason": "projected reserve breach"})
         if waiting:
             self._p2 = "online"
             events.append("P2 repaired by maintenance")
@@ -171,13 +204,7 @@ class World:
                                service_restored=restored, restored_elapsed_min=elapsed, events=events)
 
     def inject_fault(self, kind: str) -> FaultReport:
-        if kind not in ("grid_tie_trip", "b1_derate", "grid_trip_b1_derate"):
-            raise ValueError(f"unknown fault '{kind}'")
-        if kind in ("grid_tie_trip", "grid_trip_b1_derate"):
-            self._grid = "tripped"
-        if kind in ("b1_derate", "grid_trip_b1_derate"):
-            self._b1_rated = 0.3
-        self._log["faults"].append({"kind": kind, "t": self.t})
+        self._apply_fault(kind)
         a = self._active
         hit = a is not None and self._service and (
             ("grid_tie" in a.requires and self._grid != "online")

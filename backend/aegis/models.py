@@ -65,6 +65,7 @@ class Constraints(BaseModel):
     max_diagnostics: int = 2
     verify_tolerance_pct: float = 2.0
     battery_max_discharge_kw: float = 120
+    monitor_buffer_pct: float = 0.1
     allowed_actions: list[str] = Field(default_factory=lambda: list(ALLOWED_ACTIONS))
 
 
@@ -108,6 +109,12 @@ class ScenarioTruth(BaseModel):
     execution_noise: float = 0.02
     probe_noise: float = 0.01
     tank_initial: float = 46
+    # Stress-test (model-mismatch) conditions. Simulator-only; neutral defaults leave the reference suite unchanged.
+    drain_multiplier: float = 1.0      # true drain vs. the plan's configured curve (unmodelled battery behaviour)
+    soc_sensor_bias: float = 0.0       # SoC telemetry error in percentage points (observed = true + bias)
+    probe_bias: float = 0.0            # diagnostic error beyond its stated accuracy
+    midplan_fault: str | None = None   # equipment change during the first execution
+    midplan_fault_at_min: int = 8
 
 
 class Reading(BaseModel):
@@ -188,6 +195,8 @@ class ExecutionReport(BaseModel):
     service_restored: bool
     restored_elapsed_min: float | None
     events: list[str]
+    aborted: bool = False
+    abort_reason: str = ""
 
 
 class FaultReport(BaseModel):

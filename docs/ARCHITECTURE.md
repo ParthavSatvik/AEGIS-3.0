@@ -50,7 +50,10 @@ frontend/src/        React + TypeScript + Tailwind dashboard (api.ts, panels.tsx
    - A new fault invalidates any pending proposal and triggers a replan.
    - Forced operator or LLM requests are gated first, then wait for approval.
    - The benchmark uses `approval="auto"` (approve everything), which is the worst case for safety.
-7. The executor re-checks the gate and the verdict fingerprint (a hash of plan and evidence), then calls `execute()`.
+7. The executor re-checks the gate and the verdict fingerprint (a hash of plan and evidence), then calls `execute()`
+   with a **runtime monitor**. The monitor is engine code and sees only the observed SoC trace. If the next-minute
+   projection would fall below floor + 0.1 pt, the simulator stops the plan (`aborted=true`). This catches drain the
+   planning model did not predict; it cannot catch a biased SoC sensor. The stress suite (`bench/stress.py`) tests it.
 8. Verifier predicates are checked on observations. If critical service is not restored, AEGIS replans (budget 3).
    A model mismatch while service is up is logged as a discrepancy.
 9. Second fault: `inject_fault()` interrupts service only when the active plan depends on the failed asset. That

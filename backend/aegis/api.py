@@ -209,6 +209,26 @@ def bench_csv() -> str:
     return runner.to_csv(_LATEST_BENCH)
 
 
+_LATEST_STRESS: dict = {}
+
+
+@app.post("/api/stress/run")
+def stress(body: BenchIn) -> dict:
+    """Model-mismatch stress suite (separate from the reference benchmark)."""
+    from .bench.stress import run_stress
+    res = run_stress(min(body.seeds, 50))
+    _LATEST_STRESS.clear()
+    _LATEST_STRESS.update(res)
+    return {k: v for k, v in res.items() if k != "rows"}
+
+
+@app.get("/api/stress/latest.csv", response_class=PlainTextResponse)
+def stress_csv() -> str:
+    if not _LATEST_STRESS:
+        raise HTTPException(404, "no stress run yet")
+    return runner.to_csv(_LATEST_STRESS)
+
+
 DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
 if DIST.exists():
     app.mount("/assets", StaticFiles(directory=DIST / "assets"), name="assets")
