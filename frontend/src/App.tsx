@@ -232,6 +232,7 @@ function BenchView({ bench, seeds, setSeeds, busy, run }: { bench: Bench | null;
       {bench && table && (
         <>
           <BusinessValue bench={bench} />
+          <div className="text-xs text-slate-400">Pre-registered hypotheses (design specification, 19 Oct 2026), evaluated automatically on this run. Wording unchanged; unsupported results are shown as such.</div>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {bench.hypotheses?.map((h) => (
               <div key={h.id} className="panel !p-3">

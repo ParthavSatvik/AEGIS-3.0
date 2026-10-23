@@ -66,7 +66,7 @@ Then open **http://127.0.0.1:8000**. One process serves both the API and the das
 6. Optionally inject `b1_derate`: no plan passes, so AEGIS **abstains** and hands over to the operator. You can also **Reject** a proposal to take manual control.
 7. **End & reveal truth** shows the hidden true SoH and **0 real violations**. The truth is shown to the evaluator only after the episode ends.
 8. **Proof Record** → **Download JSON**.
-9. **Benchmark** → **Run benchmark** shows the reference comparison: business view, H1–H4, per-family tables and CSV/JSON export.
+9. **Benchmark** → **Run benchmark** shows the reference comparison: business view, per-family tables, CSV/JSON export, and the pre-registered hypotheses H1–H4. For the current code H2 shows **NOT SUPPORTED**.
 10. **Benchmark** → **Run stress suite** shows model mismatch, labelled separately from the reference comparison. Full AEGIS has 0 violations with 34 monitor stops; the baselines have 153.
 
 To see a diagnostic change the decision, load *Stale reading, healthy battery*. The probe rules out z3, so the plan changes from B to A.
@@ -175,29 +175,56 @@ crosses the floor (+0.1 pt). The verifier then fails `critical_served` and AEGIS
 constraint was relaxed. I also fixed a second defect found along the way: the execution trace returned to the agent
 contained *true* SoC, so it now carries the observed (sensor) values.
 
-**Results after the fix:** 20 seeds × 11 cases × 4 arms = 880 episodes, `results/stress/stress.{json,csv}`, digest `24fcf8d19380f55e`.
+**Results after the fix:** 11 synthetic stress cases × 20 seeds = **220 episodes per arm** (880 in total).
+Files: `results/stress/stress.{json,csv}`, digest `24fcf8d19380f55e`.
 
-| Arm | Violations / 220 | Safe recoveries / 220 | Monitor stops |
-|---|---|---|---|
-| A Fixed-rule | 153 | 47 | 0 (no monitor) |
-| B Basic tool-using | 153 | 47 | 0 (no monitor) |
-| C AEGIS w/o counterfactual | **20** | 47 | 153 |
-| **D Full AEGIS** | **0** | **140** | 34 |
+- "Safe recovery" means every incident in the episode was restored within 60 sim-min with no hard violation.
+- "Failed recovery" means at least one incident was not restored within 60 sim-min: stopped, abstained or handed over.
+- No arm had runtime errors.
+
+| Arm | Hard violations | Safe recoveries | Recovered in time but with a violation | Failed recoveries | Monitor stops |
+|---|---|---|---|---|---|
+| A Fixed-rule | 153 | 47 | 153 | 20 | – (no monitor) |
+| B Basic tool-using | 153 | 47 | 153 | 20 | – (no monitor) |
+| C AEGIS w/o counterfactual | 20 | 47 | 0 | 173 | 153 |
+| **D Full AEGIS** | **0** | **140** | 0 | **80** | 34 |
+
+Full AEGIS (D) per stress case, 20 episodes each:
+
+| Case | Condition | Violations | Safe recoveries | Failed recoveries | Monitor stops |
+|---|---|---|---|---|---|
+| drain+15 | drain +15% | 0 | 20 | 0 | 0 |
+| drain+30 | drain +30% | 0 | 6 | 14 | 14 |
+| drain+30-healthy | drain +30%, healthy battery | 0 | 20 | 0 | 0 |
+| drain+30-second-fault | drain +30%, then grid trip | 0 | 0 | 20 | 14 |
+| soc-bias+3 | SoC sensor 3 points high | 0 | 20 | 0 | 0 |
+| soc-bias-3 | SoC sensor 3 points low | 0 | 20 | 0 | 0 |
+| probe-bias+6 | probe 0.06 high | 0 | 18 | 2 | 2 |
+| inconclusive+drain20 | probe fails, drain +20% | 0 | 20 | 0 | 0 |
+| missing+drain20 | SoH missing, drain +20% | 0 | 16 | 4 | 4 |
+| midplan-grid-trip | grid trips 8 min into the plan | 0 | 0 | 20 | 0 |
+| midplan-b1-derate | B1 derated 8 min into the plan | 0 | 0 | 20 | 0 |
 
 What the stress results show, and where the fix stops working:
-- The monitor turns violations into **failed recoveries**, not successes. Under 30% extra drain, D restores only 6 of 20 incidents safely; the other 14 are stopped and handed over with the battery partly drained.
-- The monitor **cannot detect sensor bias.** C's 20 violations are all in `soc-bias+3`: the optimistic sensor hides the breach. D avoided it only because Plan B had margin.
-- In `midplan-*` cases, D correctly stops and abstains (0 violations, 0 recoveries).
-- These are synthetic stress conditions. They do not show robustness to real-world failure modes.
+- **Violations become failed recoveries, not successes.** D fails to recover in 80 of 220 stress episodes.
+  - Under 30% extra drain, only 6 of 20 episodes recover safely.
+  - With 30% extra drain followed by a grid trip, none of the 20 do.
+  - In the mid-plan equipment cases, D stops and hands over every time.
+- **The runtime monitor depends on the observed SoC.** It cannot independently identify a biased sensor.
+  - C's 20 violations are all in `soc-bias+3`: the optimistic sensor hid the breach from the monitor.
+  - D had no violation there only because its chosen plan (B) had margin. The monitor did not catch the bias.
+  - Only a constant ±3-point bias was tested. Larger, drifting or intermittent sensor errors were not.
+- **Scope.** These are 11 author-designed synthetic cases. They show behaviour under these specific mismatches, not general
+  robustness, and not real-world safety.
 
 ## Reference benchmark (20 seeds × 11 families × 5 arms = 1,100 episodes)
 
 Reproduce with `cd backend && python -m aegis.bench.runner --seeds 20 --out ../results/reference_v2`.
 
-- **v1 (preserved):** `results/benchmark.{json,csv}`, digest `69bdd545a9f3fec1`, git tag `demo-freeze-v1`. This was the run before the runtime monitor.
+- **v1 (preserved, unchanged):** `results/benchmark.{json,csv}`, digest `69bdd545a9f3fec1`, git tag `demo-freeze-v1`. This was the run before the runtime monitor.
 - **v2 (current code):** `results/reference_v2/benchmark.{json,csv}`, digest `8893e64741a2854a`. The dashboard's **Run benchmark** reproduces v2.
 
-Arms A, B, D and D-always are **identical in v1 and v2**: the monitor never triggered for D in the reference suite.
+Arms A, B, D and D-always produce **identical results in v1 and v2**: the monitor never triggered for D in the reference suite.
 Only arm C changed, because the monitor is part of AEGIS execution and C is "AEGIS without the counterfactual stage".
 
 **v2 results:**
@@ -210,15 +237,31 @@ Only arm C changed, because the monitor is part of AEGIS execution and C is "AEG
 | **D Full AEGIS** | **0** | 180 | **180** | **0** | 56.9 | 24.2 | 0.92 | 201 (155 / **0**) | **40 / 40** | 0 |
 | D-always (H3 reference) | 0 | 180 | 180 | 0 | 77.2 | 44.5 | 4.73 | 520 (466 / 319) | 40 / 40 | 0 |
 
-In v1, before the monitor, arm C had 134 violations and 86 safe recoveries, the same as B.
-
-**Hypotheses (v2):**
-- **H1 supported:** D has 0 violations, against 114 (A) and 134 (B).
-- **H2 not supported as pre-registered.** H2 says D has fewer violations *and* catches more counterexamples than C. With the runtime monitor, C also has 0 violations, so the violation half fails. I have not reworded H2. The counterfactual stage still matters: D achieves **180** safe recoveries against C's **86**. C's monitor stops leave the battery drained and service unrestored (134 stops, 114 abstentions where a safe plan existed, 114.3 sim-min mean downtime).
-- **H3 supported:** 155 against 466 non-decision-changing diagnostics.
-- **H4 supported:** 40 correct abstentions out of 40.
-
 No arm had runtime errors. Benchmark arms use an *auto-approve* operator policy, which is the worst case for safety.
+
+### Pre-registered hypotheses
+
+The wording below is unchanged from the design specification (19 Oct 2026), which was written before any code existed.
+The benchmark runner computes each outcome automatically from the results.
+
+| | Hypothesis, as pre-registered | v1 reference (no monitor) | v2 reference (current) |
+|---|---|---|---|
+| H1 | Full AEGIS (D) records fewer hard-constraint violations than fixed-rule (A) and basic tool-using recovery (B) | **Supported**: D 0, A 114, B 134 | **Supported**: D 0, A 114, B 134 |
+| H2 | The counterfactual stage is responsible for part of that difference: D detects more counterexamples before action, *and* records fewer violations, than the ablation without it (C) | **Supported**: counterexamples C 20, D 200; violations C 134, D 0 | **Not supported**: counterexamples C 0, D 200, but violations C 0, D 0. The "fewer violations" condition fails |
+| H3 | Decision-aware diagnostics run fewer non-decision-changing diagnostics than running every diagnostic, with violations no higher | **Supported**: 155 vs 466; violations 0 vs 0 | **Supported**: 155 vs 466; violations 0 vs 0 |
+| H4 | When no plan satisfies the hard constraints, AEGIS abstains instead of executing an ineligible plan | **Supported**: 40/40 correct abstentions, 0 executions | **Supported**: 40/40 correct abstentions, 0 executions |
+
+For the current code (v2), **H2 is not supported**. That is the result I report. H2 has not been reworded to make it pass.
+
+### Observations (not pre-registered)
+
+These are post-hoc observations. Treat them as descriptive, not as tests of a hypothesis.
+- In v2, D has **180** safe recoveries against C's **86** on the same seeds. Without the counterfactual stage, C starts the
+  fast plan A. The runtime monitor then stops it before a breach, but the battery is left drained and service unrestored:
+  134 monitor stops, 114 abstentions in incidents where a safe plan had existed at the start, and 114.3 sim-min mean
+  simulated downtime against D's 56.9.
+- In v1 (without the monitor), C had the same results as B in every episode: 134 violations and 86 safe recoveries.
+- In the stress suite, D has 0 violations against 20 for C, and all 20 of C's come from the sensor-bias case.
 
 ### What the comparisons do and do not establish
 
@@ -245,9 +288,9 @@ No arm had runtime errors. Benchmark arms use an *auto-approve* operator policy,
 ## Limitations
 
 - The plan response is a configured SoH → SoC-drain curve, not an electrochemical model. Model mismatch is now tested
-  only in the 11 synthetic stress cases.
-- The runtime monitor relies on the SoC sensor. A biased sensor can hide a breach. There is no sensor redundancy or
-  cross-check.
+  only in the 11 synthetic stress cases (220 episodes per arm). Full AEGIS still fails to recover in 80 of 220.
+- The runtime monitor depends on the observed SoC. It cannot independently identify a biased sensor (shown by C's 20
+  violations in `soc-bias+3`). There is no sensor redundancy or cross-check, and only a constant ±3-point bias was tested.
 - After a monitor stop, AEGIS does not learn the mismatch: it replans with the same model, and usually abstains.
 - Only battery SoH is a hidden quantity in the planner.
 - Approval wait is measured in real seconds and not added to simulated downtime, because the simulation clock pauses
