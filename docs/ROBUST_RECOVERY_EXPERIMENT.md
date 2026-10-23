@@ -1,4 +1,4 @@
-# Robust recovery under model mismatch — experiment (branch `exp/robust-recovery`)
+# Robust recovery under model mismatch (developed on `exp/robust-recovery`, merged into `main` as release v1.1.0)
 
 This report covers simulation only, with synthetic author-designed scenarios. It makes no real-world safety claims.
 `release-v1.0.1` and its outputs (`results/benchmark.*`, `results/reference_v2/`, `results/stress/`) are unchanged.

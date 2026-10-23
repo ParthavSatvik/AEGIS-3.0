@@ -67,7 +67,7 @@ Then open **http://127.0.0.1:8000**. One process serves both the API and the das
 7. **End & reveal truth** shows the hidden true SoH and **0 real violations**. The truth is shown to the evaluator only after the episode ends.
 8. **Proof Record** → **Download JSON**.
 9. **Benchmark** → **Run benchmark** shows the reference comparison: business view, per-family tables, CSV/JSON export, and the pre-registered hypotheses H1–H4. For the current code H2 shows **NOT SUPPORTED**.
-10. **Benchmark** → **Run stress suite** shows model mismatch, labelled separately from the reference comparison. Full AEGIS has 0 violations with 34 monitor stops; the baselines have 153.
+10. **Benchmark** → **Run stress suite** shows model mismatch, labelled separately from the reference comparison. Full AEGIS: 0 violations and 163 safe recoveries out of 220. The baselines have 153 violations.
 
 To see a diagnostic change the decision, load *Stale reading, healthy battery*. The probe rules out z3, so the plan changes from B to A.
 
@@ -103,7 +103,7 @@ API: `/api/scenarios`, `/api/scenarios/{id}/start?seed=`, `/api/episodes/{id}/{o
 
 | Check | Command | Result |
 |---|---|---|
-| Backend tests | `cd backend && python -m pytest -q` | **51 passed** |
+| Backend tests | `cd backend && python -m pytest -q` | **57 passed** |
 | Backend lint | `cd backend && python -m ruff check aegis tests` | all checks passed |
 | Frontend typecheck / lint | `npm --prefix frontend run typecheck` / `run lint` | clean |
 | Production build | `npm --prefix frontend run build` | builds |
@@ -175,8 +175,20 @@ crosses the floor (+0.1 pt). The verifier then fails `critical_served` and AEGIS
 constraint was relaxed. I also fixed a second defect found along the way: the execution trace returned to the agent
 contained *true* SoC, so it now carries the observed (sensor) values.
 
-**Results after the fix:** 11 synthetic stress cases × 20 seeds = **220 episodes per arm** (880 in total).
-Files: `results/stress/stress.{json,csv}`, digest `24fcf8d19380f55e`.
+**Adaptive recovery (added in v1.1).** Four changes, all driven by observations only:
+- **Mismatch detection.** After 2+ minutes, the observed drain rate is compared with the most pessimistic prediction.
+- **Early stop.** The plan is projected to completion at the observed rate and stopped while reserve remains if it
+  would end below the floor.
+- **Conservative replanning.** A learned drain scale (≥ 1) is applied by the engine and enforced by the gate, which can
+  only tighten. A plan stopped by the monitor is not proposed again in the same incident.
+- **Grid-loss contingency.** Plan S is offered whenever the grid is *observed* tripped.
+
+The 30% floor, the gate rules, human approval and the information boundary are unchanged. The full diagnosis and
+experiment are in [docs/ROBUST_RECOVERY_EXPERIMENT.md](docs/ROBUST_RECOVERY_EXPERIMENT.md).
+
+**Current results (v1.1):** 11 synthetic stress cases × 20 seeds = **220 episodes per arm** (880 in total).
+Files: `results/stress_v1.1/stress.{json,csv}`, digest `6517cef2e5c26608`. The dashboard's **Run stress suite**
+reproduces this run.
 
 - "Safe recovery" means every incident in the episode was restored within 60 sim-min with no hard violation.
 - "Failed recovery" means at least one incident was not restored within 60 sim-min: stopped, abstained or handed over.
@@ -184,55 +196,61 @@ Files: `results/stress/stress.{json,csv}`, digest `24fcf8d19380f55e`.
 
 The four outcome columns are **mutually exclusive** and add up to 220 per arm. The last two columns overlap with them:
 "Hard violations" is the sum of the two violation columns, and every monitor-stopped episode is also counted as a failed
-recovery. In this run each stopped episode had exactly one stop, so the stop count equals the number of stopped episodes.
+recovery. In this run each stopped episode had exactly one stop.
 
 | Arm | Safe recovery | Recovered in time, with violation | Failed, no violation | Failed, with violation | **Total** | Hard violations (overlap) | Episodes stopped by monitor (overlap) |
 |---|---|---|---|---|---|---|---|
 | A Fixed-rule | 47 | 153 | 20 | 0 | 220 | 153 | – (no monitor) |
 | B Basic tool-using | 47 | 153 | 20 | 0 | 220 | 153 | – (no monitor) |
-| C AEGIS w/o counterfactual | 47 | 0 | 153 | 20 | 220 | 20 | 153 (all failed) |
-| **D Full AEGIS** | **140** | 0 | 80 | 0 | 220 | **0** | 34 (all failed) |
+| C AEGIS w/o counterfactual | 47 | 0 | 173 | 0 | 220 | 0 | 153 (all failed) |
+| **D Full AEGIS** | **163** | 0 | 57 | 0 | 220 | **0** | 36 (all failed) |
 
-Full AEGIS (D) per stress case, 20 episodes each:
+**Release-v1.0.1 stress results** (preserved in `results/stress/`, digest `24fcf8d19380f55e`):
+
+| Arm | Safe | Failed | Violations | Stops |
+|---|---|---|---|---|
+| C | 47 | 173 | 20 | 153 |
+| D | 140 | 80 | 0 | 34 |
+
+A and B are identical to the v1.1 run.
+
+Full AEGIS (D) per stress case, v1.1, 20 episodes each (release-v1.0.1 safe recoveries in brackets):
 
 | Case | Condition | Violations | Safe recoveries | Failed recoveries | Monitor stops |
 |---|---|---|---|---|---|
-| drain+15 | drain +15% | 0 | 20 | 0 | 0 |
-| drain+30 | drain +30% | 0 | 6 | 14 | 14 |
-| drain+30-healthy | drain +30%, healthy battery | 0 | 20 | 0 | 0 |
-| drain+30-second-fault | drain +30%, then grid trip | 0 | 0 | 20 | 14 |
-| soc-bias+3 | SoC sensor 3 points high | 0 | 20 | 0 | 0 |
-| soc-bias-3 | SoC sensor 3 points low | 0 | 20 | 0 | 0 |
-| probe-bias+6 | probe 0.06 high | 0 | 18 | 2 | 2 |
-| inconclusive+drain20 | probe fails, drain +20% | 0 | 20 | 0 | 0 |
-| missing+drain20 | SoH missing, drain +20% | 0 | 16 | 4 | 4 |
-| midplan-grid-trip | grid trips 8 min into the plan | 0 | 0 | 20 | 0 |
-| midplan-b1-derate | B1 derated 8 min into the plan | 0 | 0 | 20 | 0 |
+| drain+15 | drain +15% | 0 | 20 (20) | 0 | 0 |
+| drain+30 | drain +30% | 0 | 5 (6) | 15 | 15 |
+| drain+30-healthy | drain +30%, healthy battery | 0 | 20 (20) | 0 | 0 |
+| drain+30-second-fault | drain +30%, then grid trip | 0 | 0 (0) | 20 | 15 |
+| soc-bias+3 | SoC sensor 3 points high | 0 | 20 (20) | 0 | 0 |
+| soc-bias-3 | SoC sensor 3 points low | 0 | 20 (20) | 0 | 0 |
+| probe-bias+6 | probe 0.06 high | 0 | 20 (18) | 0 | 2 |
+| inconclusive+drain20 | probe fails, drain +20% | 0 | 20 (20) | 0 | 0 |
+| missing+drain20 | SoH missing, drain +20% | 0 | 18 (16) | 2 | 4 |
+| midplan-grid-trip | grid trips 8 min into the plan | 0 | 20 (0) | 0 | 0 |
+| midplan-b1-derate | B1 derated 8 min into the plan | 0 | 0 (0) | 20 | 0 |
 
-What the stress results show, and where the fix stops working:
-- **Violations become failed recoveries, not successes.** D fails to recover in 80 of 220 stress episodes.
-  - Under 30% extra drain, only 6 of 20 episodes recover safely.
-  - With 30% extra drain followed by a grid trip, none of the 20 do.
-  - In the mid-plan equipment cases, D stops and hands over every time.
+**Beyond the original seeds**, comparing the v1.1 policy with the release policy on the same code
+(`results/exp_robust/`):
+- **Held-out seeds 100–149:** 405 against 345 safe recoveries out of 550, 0 violations for both.
+- **7 combined-fault cases, 50 seeds:** 202 against 95 safe recoveries out of 350, but **34 violations for both**.
+
+What the stress results show, and where they stop:
+- **Every one of D's 57 remaining failures on the original seeds is impossible** under the configured plan list and
+  constraints. This was checked against simulator truth (`failure_cause` column).
+  - 27 would need plan S for every pump failure. That is a plan-library decision that would change the design scenario,
+    so it was not made.
+  - 20 have no plan that can run on a pump derated to 30% duty.
+- **One episode was lost to conservatism.** In drain+30, seed 19, the projected end of 30.1% fell inside the
+  0.1-point stop buffer. The release policy finished that plan with 0.11 points of true margin.
 - **The runtime monitor depends on the observed SoC.** It cannot independently identify a biased sensor.
-  - C's 20 violations are all in `soc-bias+3`: the optimistic sensor hid the breach from the monitor.
-  - D had no violation there only because its chosen plan (B) had margin. The monitor did not catch the bias.
-  - Only a constant ±3-point bias was tested. Larger, drifting or intermittent sensor errors were not.
-- **Scope.** These are 11 author-designed synthetic cases. They show behaviour under these specific mismatches, not general
+  - In the combined case `drain+30&soc-bias+3`, the mismatch is detected, but the projection starts from the inflated
+    reading, so 34 of 50 episodes end below the floor. The release policy has the same 34.
+  - In v1.1, C has 0 violations in `soc-bias+3` only because it stops badly mismatched plans within minutes. That is
+    not sensor-fault detection.
+  - Only constant ±3-point biases were tested.
+- **Scope.** These are author-designed synthetic cases. They show behaviour under these specific mismatches, not general
   robustness, and not real-world safety.
-
-### Experimental branch: robust recovery
-
-Branch `exp/robust-recovery` adds four changes:
-- observation-only model-mismatch detection
-- an early projected stop
-- conservative replanning with a learned drain scale that the gate can only tighten
-- an observed-trigger grid-loss contingency
-
-On the original 11 stress cases (same seeds), full AEGIS goes from 140 to **163** safe recoveries with 0 violations.
-On 50 held-out seeds it goes from 345 to **405** of 550, also with 0 violations. The reference benchmark is unchanged
-(`8893e64741a2854a`). A combined case, +30% drain with an SoC sensor reading 3 points high, still causes 34 of 50
-violations under both policies. See [docs/ROBUST_RECOVERY_EXPERIMENT.md](docs/ROBUST_RECOVERY_EXPERIMENT.md).
 
 ## Reference benchmark (20 seeds × 11 families × 5 arms = 1,100 episodes)
 
@@ -308,7 +326,9 @@ These are post-hoc observations. Treat them as descriptive, not as tests of a hy
   only in the 11 synthetic stress cases (220 episodes per arm). Full AEGIS still fails to recover in 80 of 220.
 - The runtime monitor depends on the observed SoC. It cannot independently identify a biased sensor (shown by C's 20
   violations in `soc-bias+3`). There is no sensor redundancy or cross-check, and only a constant ±3-point bias was tested.
-- After a monitor stop, AEGIS does not learn the mismatch: it replans with the same model, and usually abstains.
+- After a mismatch, AEGIS learns a single drain scale for the rest of the episode. This is a coarse correction: in 14 of
+  50 combined-fault episodes it was too conservative to approve a plan that was truly safe.
+- A constant optimistic SoC bias combined with extra drain still causes violations (34 of 50 in `drain+30&soc-bias+3`).
 - Only battery SoH is a hidden quantity in the planner.
 - Approval wait is measured in real seconds and not added to simulated downtime, because the simulation clock pauses
   while a proposal waits. All downtime figures are simulated minutes, not field measurements.

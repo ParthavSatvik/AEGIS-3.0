@@ -1,0 +1,881 @@
+case,condition,family,seed,arm,soh_true,hard_violation,violation_rules,recovery_success,safe_recovery,downtime_min,deadline_misses,cost,counterexamples_caught,diagnostics_run,unnecessary_diagnostics,negative_value_diagnostics,safe_plan_incidents,downtime_safe_plan_min,downtime_no_safe_min,unsafe_restorations,no_safe_incidents,correct_abstentions,unneeded_abstentions,unsafe_exec_when_no_safe,second_fault_interrupt,second_fault_recovered,executed,decision_ms,wall_ms,monitor_aborts,error,failure_cause
+drain+15,unexpected battery drain +15% vs model,stale-degraded,0,A,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.246,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,0,B,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.366,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,0,C,0.724,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.714,11.556,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,0,D,0.724,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,15.915,16.239,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,1,A,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.103,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,1,B,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.169,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,1,C,0.695,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,6.25,6.715,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,1,D,0.695,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.565,6.859,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,2,A,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.053,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,2,B,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.088,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,2,C,0.728,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.729,3.938,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,2,D,0.728,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.749,7.116,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,3,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.072,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,3,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.124,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,3,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,6.543,7.044,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,3,D,0.7,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,9.021,9.716,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,4,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.126,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,4,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.114,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,4,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,7.315,7.651,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,4,D,0.699,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.917,6.131,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,5,A,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.044,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,5,B,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.075,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,5,C,0.715,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.764,4.001,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,5,D,0.715,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.053,5.316,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,6,A,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.044,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,6,B,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,6,C,0.722,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.515,3.721,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,6,D,0.722,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,4.838,5.117,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,7,A,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.052,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,7,B,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.086,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,7,C,0.703,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.108,3.353,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,7,D,0.703,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.921,6.147,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,8,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.053,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,8,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.094,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,8,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.228,4.435,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,8,D,0.699,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,10.092,11.021,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,9,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.203,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,9,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.132,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,9,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,9.645,10.757,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,9,D,0.709,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,12.746,13.092,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,10,A,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.136,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,10,B,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.281,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,10,C,0.713,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,8.565,9.413,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,10,D,0.713,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,10.556,11.066,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,11,A,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.121,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,11,B,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.146,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,11,C,0.708,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.12,5.362,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,11,D,0.708,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.451,7.667,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,12,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.049,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,12,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,12,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.938,4.145,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,12,D,0.709,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.179,6.553,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,13,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.046,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,13,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.08,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,13,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.367,4.715,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,13,D,0.7,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.628,8.587,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,14,A,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.09,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,14,B,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.15,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,14,C,0.694,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.31,5.584,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,14,D,0.694,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,9.553,10.134,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,15,A,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.212,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,15,B,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.105,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,15,C,0.729,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.095,3.358,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,15,D,0.729,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.16,5.389,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,16,A,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.14,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,16,B,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.119,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,16,C,0.704,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.005,5.375,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,16,D,0.704,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,9.676,9.894,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,17,A,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.048,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,17,B,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.11,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,17,C,0.711,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.88,4.131,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,17,D,0.711,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,17.501,17.742,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,18,A,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.051,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,18,B,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.086,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,18,C,0.697,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,7.203,7.764,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,18,D,0.697,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,8.652,8.937,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,19,A,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.073,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,19,B,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.124,0,,
+drain+15,unexpected battery drain +15% vs model,stale-degraded,19,C,0.717,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.948,5.257,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+15,unexpected battery drain +15% vs model,stale-degraded,19,D,0.717,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.449,7.725,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,0,A,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.045,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,0,B,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.077,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,0,C,0.724,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.209,3.381,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,0,D,0.724,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,4.877,5.1,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,1,A,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.104,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,1,B,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.161,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,1,C,0.695,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,4.418,4.826,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,1,D,0.695,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,9.065,9.381,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,2,A,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.052,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,2,B,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.079,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,2,C,0.728,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.053,3.273,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,2,D,0.728,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,4.812,5.033,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,3,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.055,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,3,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.076,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,3,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.052,3.29,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,3,D,0.7,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,8.166,8.398,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,4,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.049,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,4,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.093,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,4,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.249,3.496,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,4,D,0.699,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,8.797,9.244,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,5,A,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.049,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,5,B,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.08,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,5,C,0.715,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.162,3.373,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,5,D,0.715,0,,0,0,180.0,1,1.0,1,1,1,0,1,180.0,0,0,0,0,1,0,0,0,B,11.054,11.357,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,6,A,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.05,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,6,B,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.082,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,6,C,0.722,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.426,3.641,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,6,D,0.722,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.551,5.786,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,7,A,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.044,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,7,B,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.077,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,7,C,0.703,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.819,4.103,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,7,D,0.703,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,10.089,10.311,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,8,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.048,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,8,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.077,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,8,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,5.262,5.536,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,8,D,0.699,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,13.786,14.227,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,9,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.052,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,9,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.081,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,9,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,5.074,5.435,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,9,D,0.709,0,,1,1,29.0,0,1.0,1,1,1,0,0,0,29.0,0,1,0,0,1,0,0,B,9.094,9.534,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,10,A,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.1,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,10,B,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.187,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,10,C,0.713,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,4.235,4.478,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,10,D,0.713,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,13.296,13.633,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,11,A,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.054,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,11,B,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.086,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,11,C,0.708,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.438,3.628,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,11,D,0.708,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,8.443,8.677,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,12,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.049,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,12,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.078,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,12,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,2.822,3.017,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,12,D,0.709,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,8.845,9.083,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,13,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.051,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,13,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.081,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,13,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,4.13,4.341,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,13,D,0.7,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,11.223,11.683,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,14,A,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.075,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,14,B,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.156,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,14,C,0.694,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,4.952,5.161,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,14,D,0.694,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,10.198,10.416,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,15,A,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.056,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,15,B,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.252,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,15,C,0.729,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.479,3.699,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,15,D,0.729,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.03,6.258,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,16,A,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.054,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,16,B,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.268,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,16,C,0.704,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.241,3.427,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,16,D,0.704,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,17.24,18.105,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,17,A,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.215,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,17,B,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.367,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,17,C,0.711,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,6.087,6.501,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,17,D,0.711,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,15.422,16.289,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,18,A,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.049,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,18,B,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.08,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,18,C,0.697,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.407,3.627,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,18,D,0.697,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,11.446,11.836,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,19,A,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.108,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,19,B,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.174,0,,
+drain+30,unexpected battery drain +30% vs model,stale-degraded,19,C,0.717,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,9.404,10.138,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30,unexpected battery drain +30% vs model,stale-degraded,19,D,0.717,0,,0,0,180.0,1,1.0,1,1,1,0,1,180.0,0,0,0,0,1,0,0,0,B,10.583,10.811,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,0,A,0.931,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.047,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,0,B,0.931,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.076,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,0,C,0.931,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.491,1.679,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,0,D,0.931,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,8.161,8.453,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,1,A,0.888,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.128,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,1,B,0.888,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.12,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,1,C,0.888,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.253,3.034,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,1,D,0.888,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.418,5.659,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,2,A,0.937,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.086,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,2,B,0.937,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.18,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,2,C,0.937,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,4.781,5.381,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,2,D,0.937,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,11.202,12.008,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,3,A,0.894,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.099,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,3,B,0.894,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.176,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,3,C,0.894,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,4.915,6.129,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,3,D,0.894,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,8.706,9.034,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,4,A,0.894,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.057,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,4,B,0.894,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.105,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,4,C,0.894,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,3.814,4.538,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,4,D,0.894,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.111,5.335,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,5,A,0.917,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.097,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,5,B,0.917,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.169,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,5,C,0.917,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.64,1.844,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,5,D,0.917,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.885,6.5,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,6,A,0.928,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.043,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,6,B,0.928,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.08,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,6,C,0.928,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.539,1.718,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,6,D,0.928,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.697,5.936,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,7,A,0.899,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.044,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,7,B,0.899,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.074,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,7,C,0.899,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.533,1.713,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,7,D,0.899,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,7.848,8.485,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,8,A,0.894,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.118,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,8,B,0.894,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.113,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,8,C,0.894,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.206,2.739,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,8,D,0.894,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.903,6.148,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,9,A,0.908,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.053,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,9,B,0.908,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.175,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,9,C,0.908,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.769,3.021,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,9,D,0.908,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.222,5.728,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,10,A,0.914,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.044,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,10,B,0.914,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.077,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,10,C,0.914,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.416,1.591,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,10,D,0.914,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.164,5.491,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,11,A,0.907,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.064,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,11,B,0.907,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.105,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,11,C,0.907,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.625,1.806,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,11,D,0.907,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.163,6.38,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,12,A,0.908,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.066,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,12,B,0.908,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.115,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,12,C,0.908,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.653,1.876,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,12,D,0.908,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.832,7.036,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,13,A,0.896,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.077,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,13,B,0.896,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.111,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,13,C,0.896,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.77,2.017,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,13,D,0.896,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.325,6.526,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,14,A,0.886,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.044,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,14,B,0.886,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.078,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,14,C,0.886,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.902,2.108,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,14,D,0.886,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.061,6.354,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,15,A,0.938,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.062,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,15,B,0.938,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.129,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,15,C,0.938,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.762,3.015,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,15,D,0.938,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,7.685,7.882,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,16,A,0.902,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.057,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,16,B,0.902,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.104,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,16,C,0.902,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.559,2.841,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,16,D,0.902,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.425,6.651,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,17,A,0.911,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.062,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,17,B,0.911,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.112,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,17,C,0.911,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.233,2.436,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,17,D,0.911,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.057,5.297,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,18,A,0.891,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.046,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,18,B,0.891,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.082,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,18,C,0.891,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.757,2.076,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,18,D,0.891,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.505,6.758,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,19,A,0.921,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.045,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,19,B,0.921,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.078,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,19,C,0.921,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.031,2.236,0,,
+drain+30-healthy,"drain +30%, healthy battery",stale-healthy,19,D,0.921,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.097,6.356,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,0,A,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.055,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,0,B,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.086,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,0,C,0.724,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.023,3.234,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,0,D,0.724,0,,0,0,209.0,1,1.0,1,1,1,0,1,29.0,180.0,0,1,1,0,0,1,0,B|-,13.58,13.911,0,,impossible: no truly safe plan at incident start
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,1,A,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.066,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,1,B,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.084,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,1,C,0.695,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.104,3.325,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,1,D,0.695,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,8.733,9.028,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,2,A,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.09,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,2,B,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.149,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,2,C,0.728,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.119,3.334,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,2,D,0.728,0,,0,0,209.0,1,1.0,1,1,1,0,1,29.0,180.0,0,1,1,0,0,1,0,B|-,16.766,17.048,0,,impossible: no truly safe plan at incident start
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,3,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.083,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,3,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.123,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,3,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.762,4.089,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,3,D,0.7,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,12.615,12.848,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,4,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.078,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,4,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.184,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,4,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,4.849,5.145,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,4,D,0.699,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,15.717,15.951,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,5,A,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.072,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,5,B,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.102,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,5,C,0.715,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.204,5.426,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,5,D,0.715,0,,0,0,180.0,1,1.0,1,1,1,0,1,180.0,0,0,0,0,1,0,0,0,B,16.056,16.892,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,6,A,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.131,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,6,B,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.215,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,6,C,0.722,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.061,5.272,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,6,D,0.722,0,,0,0,209.0,1,1.0,1,1,1,0,1,29.0,180.0,0,1,1,0,0,1,0,B|-,11.583,11.835,0,,impossible: no truly safe plan at incident start
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,7,A,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.057,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,7,B,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.085,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,7,C,0.703,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.378,3.656,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,7,D,0.703,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,8.534,8.746,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,8,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.055,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,8,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.086,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,8,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.043,3.342,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,8,D,0.699,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,9.786,10.102,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,9,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.07,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,9,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.104,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,9,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.537,3.714,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,9,D,0.709,0,,0,0,209.0,1,1.0,1,1,1,0,0,0,209.0,0,2,1,0,1,1,0,B|-,19.483,19.76,0,,impossible: no truly safe plan at incident start
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,10,A,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.061,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,10,B,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.118,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,10,C,0.713,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,6.282,6.536,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,10,D,0.713,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,10.734,10.989,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,11,A,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.1,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,11,B,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.141,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,11,C,0.708,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,11.91,12.736,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,11,D,0.708,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,13.437,13.82,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,12,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.068,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,12,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.111,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,12,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,5.06,5.393,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,12,D,0.709,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,14.777,15.059,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,13,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.081,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,13,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.131,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,13,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,4.48,4.728,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,13,D,0.7,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,9.919,10.199,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,14,A,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.081,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,14,B,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.109,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,14,C,0.694,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,4.86,5.049,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,14,D,0.694,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,10.007,10.497,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,15,A,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.059,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,15,B,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.089,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,15,C,0.729,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.622,5.96,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,15,D,0.729,0,,0,0,209.0,1,1.0,1,1,1,0,1,29.0,180.0,0,1,1,0,0,1,0,B|-,27.895,28.256,0,,impossible: no truly safe plan at incident start
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,16,A,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.06,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,16,B,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.089,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,16,C,0.704,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,4.087,4.293,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,16,D,0.704,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,11.199,11.423,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,17,A,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.28,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,17,B,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.2,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,17,C,0.711,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,6.89,7.603,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,17,D,0.711,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,15.69,15.984,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,18,A,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.058,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,18,B,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.082,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,18,C,0.697,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.178,3.426,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,18,D,0.697,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,11.689,11.998,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,19,A,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.208,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,19,B,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.109,0,,
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,19,C,0.717,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.53,5.829,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+drain+30-second-fault,drain +30% and grid trip after recovery,second-fault-grid,19,D,0.717,0,,0,0,180.0,1,1.0,1,1,1,0,1,180.0,0,0,0,0,1,0,0,0,B,19.716,20.872,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,0,A,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.193,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,0,B,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.278,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,0,C,0.724,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,7.078,7.752,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,0,D,0.724,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.464,5.871,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,1,A,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.054,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,1,B,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.079,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,1,C,0.695,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.844,3.058,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,1,D,0.695,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,4.765,5.62,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,2,A,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.063,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,2,B,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.11,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,2,C,0.728,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.113,4.344,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,2,D,0.728,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,14.806,15.156,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,3,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.124,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,3,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.276,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,3,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.004,3.22,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,3,D,0.7,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,4.445,4.962,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,4,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.112,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,4,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.28,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,4,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.223,4.487,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,4,D,0.699,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,9.3,9.595,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,5,A,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.052,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,5,B,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.089,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,5,C,0.715,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.859,4.135,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,5,D,0.715,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,11.182,11.695,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,6,A,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.05,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,6,B,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.082,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,6,C,0.722,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,6.388,6.772,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,6,D,0.722,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,8.87,9.145,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,7,A,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.062,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,7,B,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.1,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,7,C,0.703,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.211,4.538,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,7,D,0.703,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,9.037,9.488,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,8,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.07,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,8,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.084,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,8,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,6.213,6.75,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,8,D,0.699,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,9.987,10.913,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,9,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.065,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,9,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.109,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,9,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.113,3.33,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,9,D,0.709,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,4.881,5.096,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,10,A,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.047,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,10,B,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.076,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,10,C,0.713,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.245,3.474,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,10,D,0.713,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,8.922,9.562,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,11,A,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.056,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,11,B,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.075,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,11,C,0.708,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.051,3.227,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,11,D,0.708,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,10.974,12.087,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,12,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.146,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,12,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.293,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,12,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,8.012,8.573,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,12,D,0.709,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.524,5.794,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,13,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.045,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,13,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.075,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,13,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.817,3.066,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,13,D,0.7,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,4.768,5.024,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,14,A,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.051,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,14,B,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.085,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,14,C,0.694,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.797,4.0,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,14,D,0.694,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.965,8.225,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,15,A,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.045,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,15,B,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.076,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,15,C,0.729,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.655,3.904,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,15,D,0.729,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.714,7.034,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,16,A,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.079,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,16,B,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.131,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,16,C,0.704,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.073,6.026,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,16,D,0.704,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,11.784,12.265,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,17,A,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.061,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,17,B,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.124,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,17,C,0.711,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,7.733,8.269,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,17,D,0.711,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,12.572,13.045,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,18,A,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.096,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,18,B,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.107,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,18,C,0.697,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,8.318,9.235,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,18,D,0.697,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.305,7.531,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,19,A,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.281,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,19,B,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.333,0,,
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,19,C,0.717,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.009,5.353,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias+3,SoC sensor reads 3 points high,stale-degraded,19,D,0.717,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.219,5.439,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,0,A,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.045,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,0,B,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.075,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,0,C,0.724,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.066,4.393,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,0,D,0.724,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.631,6.119,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,1,A,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.116,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,1,B,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.169,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,1,C,0.695,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,6.147,6.504,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,1,D,0.695,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.231,6.501,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,2,A,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.101,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,2,B,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,2,C,0.728,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.213,3.406,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,2,D,0.728,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.924,6.201,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,3,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.049,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,3,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.083,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,3,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.319,3.515,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,3,D,0.7,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.447,6.672,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,4,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.044,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,4,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.075,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,4,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.905,4.095,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,4,D,0.699,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.091,6.384,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,5,A,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.08,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,5,B,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.101,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,5,C,0.715,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.193,3.385,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,5,D,0.715,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.363,6.602,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,6,A,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.081,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,6,B,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.136,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,6,C,0.722,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.466,5.744,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,6,D,0.722,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,8.086,8.307,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,7,A,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.053,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,7,B,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.091,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,7,C,0.703,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.173,3.359,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,7,D,0.703,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.929,6.149,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,8,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.047,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,8,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.076,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,8,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.62,4.807,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,8,D,0.699,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,8.344,8.551,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,9,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.044,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,9,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.132,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,9,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.827,4.089,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,9,D,0.709,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,11.24,12.026,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,10,A,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.144,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,10,B,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.247,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,10,C,0.713,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,8.878,9.508,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,10,D,0.713,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,10.783,11.19,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,11,A,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.046,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,11,B,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,11,C,0.708,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.336,4.553,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,11,D,0.708,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,8.561,8.814,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,12,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.046,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,12,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.077,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,12,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.349,3.548,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,12,D,0.709,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.214,6.479,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,13,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.044,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,13,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,13,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.581,3.76,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,13,D,0.7,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.636,6.96,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,14,A,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.046,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,14,B,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.077,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,14,C,0.694,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.247,4.439,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,14,D,0.694,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.105,7.329,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,15,A,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.045,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,15,B,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.077,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,15,C,0.729,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.411,4.648,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,15,D,0.729,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.267,7.547,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,16,A,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.045,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,16,B,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.075,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,16,C,0.704,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.69,3.898,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,16,D,0.704,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.664,8.233,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,17,A,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.089,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,17,B,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.094,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,17,C,0.711,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.275,4.569,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,17,D,0.711,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,10.552,11.586,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,18,A,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.119,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,18,B,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.255,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,18,C,0.697,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,8.973,9.412,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,18,D,0.697,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,13.17,13.633,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,19,A,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.066,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,19,B,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.119,0,,
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,19,C,0.717,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.936,4.169,1,,recoverable after runtime-monitor stop: agent did not recover
+soc-bias-3,SoC sensor reads 3 points low,stale-degraded,19,D,0.717,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,8.229,8.511,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,0,A,0.848,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.051,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,0,B,0.848,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.09,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,0,C,0.848,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.12,2.3,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,0,D,0.848,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,4.923,5.117,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,1,A,0.791,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.044,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,1,B,0.791,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.075,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,1,C,0.791,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.038,3.246,1,,recoverable after runtime-monitor stop: agent did not recover
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,1,D,0.791,0,,1,1,31.0,0,1.0,1,1,0,0,1,31.0,0,0,0,0,0,0,0,0,A+B,6.507,7.011,1,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,2,A,0.856,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.056,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,2,B,0.856,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.076,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,2,C,0.856,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.508,1.707,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,2,D,0.856,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.011,6.657,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,3,A,0.799,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.13,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,3,B,0.799,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.107,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,3,C,0.799,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.774,2.204,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,3,D,0.799,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,8.792,9.119,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,4,A,0.799,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.061,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,4,B,0.799,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.101,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,4,C,0.799,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.663,2.861,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,4,D,0.799,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,4.711,4.968,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,5,A,0.83,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.044,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,5,B,0.83,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.23,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,5,C,0.83,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.574,1.755,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,5,D,0.83,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,4.758,4.988,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,6,A,0.843,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.078,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,6,B,0.843,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.187,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,6,C,0.843,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.689,1.875,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,6,D,0.843,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.209,5.508,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,7,A,0.806,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.064,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,7,B,0.806,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.076,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,7,C,0.806,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.651,1.89,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,7,D,0.806,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,4.596,4.788,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,8,A,0.798,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.041,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,8,B,0.798,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.107,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,8,C,0.798,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.464,1.644,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,8,D,0.798,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,4.484,4.687,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,9,A,0.817,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.043,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,9,B,0.817,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.135,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,9,C,0.817,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.001,2.216,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,9,D,0.817,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.375,7.007,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,10,A,0.826,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.093,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,10,B,0.826,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.152,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,10,C,0.826,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.256,2.908,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,10,D,0.826,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.191,6.607,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,11,A,0.816,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.105,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,11,B,0.816,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.133,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,11,C,0.816,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,5.423,5.883,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,11,D,0.816,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.893,6.13,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,12,A,0.818,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.046,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,12,B,0.818,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.085,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,12,C,0.818,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.612,1.797,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,12,D,0.818,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.429,5.626,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,13,A,0.801,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.045,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,13,B,0.801,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.075,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,13,C,0.801,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.609,1.839,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,13,D,0.801,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,4.892,5.09,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,14,A,0.789,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.046,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,14,B,0.789,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,14,C,0.789,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.903,3.103,1,,recoverable after runtime-monitor stop: agent did not recover
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,14,D,0.789,0,,1,1,31.0,0,1.0,1,1,0,0,1,31.0,0,0,0,0,0,0,0,0,A+B,8.154,8.636,1,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,15,A,0.857,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.043,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,15,B,0.857,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.233,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,15,C,0.857,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.777,2.988,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,15,D,0.857,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,4.924,5.313,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,16,A,0.809,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.144,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,16,B,0.809,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.112,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,16,C,0.809,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.503,1.686,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,16,D,0.809,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.137,5.509,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,17,A,0.822,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.088,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,17,B,0.822,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.122,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,17,C,0.822,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.043,2.271,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,17,D,0.822,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.695,6.899,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,18,A,0.795,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.044,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,18,B,0.795,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.087,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,18,C,0.795,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.473,1.639,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,18,D,0.795,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,7.445,7.736,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,19,A,0.834,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.044,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,19,B,0.834,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.072,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,19,C,0.834,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,4.017,4.529,0,,
+probe-bias+6,capacity probe reads 0.06 high (beyond stated accuracy),stale-mild,19,D,0.834,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,5.84,6.19,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,0,A,0.9,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.059,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,0,B,0.9,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.085,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,0,C,0.9,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.555,1.777,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,0,D,0.9,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.292,5.603,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,1,A,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.068,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,1,B,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.091,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,1,C,0.715,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.078,4.351,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,1,D,0.715,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.212,6.439,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,2,A,0.929,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.048,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,2,B,0.929,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.131,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,2,C,0.929,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.783,3.414,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,2,D,0.929,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,13.007,13.77,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,3,A,0.742,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.123,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,3,B,0.742,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.1,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,3,C,0.742,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.145,5.502,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,3,D,0.742,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,8.129,8.425,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,4,A,0.741,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.102,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,4,B,0.741,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.102,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,4,C,0.741,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.786,4.214,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,4,D,0.741,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.066,7.394,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,5,A,0.842,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.083,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,5,B,0.842,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.135,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,5,C,0.842,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.782,5.174,1,,recoverable after runtime-monitor stop: agent did not recover
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,5,D,0.842,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,4.649,5.002,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,6,A,0.886,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.048,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,6,B,0.886,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.087,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,6,C,0.886,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.792,2.015,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,6,D,0.886,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,4.417,4.635,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,7,A,0.764,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.059,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,7,B,0.764,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.238,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,7,C,0.764,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.335,4.555,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,7,D,0.764,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,14.624,15.596,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,8,A,0.739,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.204,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,8,B,0.739,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.384,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,8,C,0.739,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.845,6.138,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,8,D,0.739,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,8.502,9.142,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,9,A,0.8,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.117,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,9,B,0.8,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.166,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,9,C,0.8,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.241,3.506,1,,recoverable after runtime-monitor stop: agent did not recover
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,9,D,0.8,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.099,6.321,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,10,A,0.829,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.047,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,10,B,0.829,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.087,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,10,C,0.829,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,6.06,6.605,1,,recoverable after runtime-monitor stop: agent did not recover
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,10,D,0.829,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,8.209,8.453,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,11,A,0.798,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.063,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,11,B,0.798,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.213,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,11,C,0.798,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,6.382,6.717,1,,recoverable after runtime-monitor stop: agent did not recover
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,11,D,0.798,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,9.503,9.711,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,12,A,0.803,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.049,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,12,B,0.803,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.084,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,12,C,0.803,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.44,4.706,1,,recoverable after runtime-monitor stop: agent did not recover
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,12,D,0.803,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.256,7.512,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,13,A,0.747,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.05,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,13,B,0.747,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.094,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,13,C,0.747,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,6.593,7.038,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,13,D,0.747,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.542,7.844,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,14,A,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.051,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,14,B,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.092,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,14,C,0.708,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.33,5.707,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,14,D,0.708,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.634,6.041,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,15,A,0.931,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.061,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,15,B,0.931,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.102,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,15,C,0.931,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.338,2.556,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,15,D,0.931,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.034,5.243,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,16,A,0.774,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.05,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,16,B,0.774,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.082,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,16,C,0.774,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.64,3.84,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,16,D,0.774,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,4.773,5.144,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,17,A,0.816,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.053,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,17,B,0.816,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.083,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,17,C,0.816,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.669,3.966,1,,recoverable after runtime-monitor stop: agent did not recover
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,17,D,0.816,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.246,5.513,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,18,A,0.727,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.045,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,18,B,0.727,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.077,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,18,C,0.727,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.855,4.08,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,18,D,0.727,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.291,6.616,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,19,A,0.856,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.044,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,19,B,0.856,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.101,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,19,C,0.856,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.943,2.184,0,,
+inconclusive+drain20,probe fails and drain +20%,inconclusive-probe,19,D,0.856,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.92,6.44,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,0,A,0.89,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.149,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,0,B,0.89,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.295,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,0,C,0.89,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,7.007,7.307,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,0,D,0.89,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,9.108,9.387,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,1,A,0.663,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.046,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,1,B,0.663,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,1,C,0.663,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.856,6.156,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,1,D,0.663,0,,0,0,180.0,1,1.0,1,1,1,0,1,180.0,0,0,0,0,1,0,0,0,B,18.565,19.35,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,2,A,0.926,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.05,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,2,B,0.926,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.077,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,2,C,0.926,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.873,2.106,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,2,D,0.926,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.353,6.627,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,3,A,0.696,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.06,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,3,B,0.696,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,3,C,0.696,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.715,3.951,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,3,D,0.696,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.091,7.789,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,4,A,0.696,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.053,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,4,B,0.696,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.089,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,4,C,0.696,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,5.322,5.535,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,4,D,0.696,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,7.699,8.362,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,5,A,0.819,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.185,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,5,B,0.819,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.094,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,5,C,0.819,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.951,3.164,1,,recoverable after runtime-monitor stop: agent did not recover
+missing+drain20,missing SoH and drain +20%,missing-reading,5,D,0.819,0,,1,1,31.0,0,1.0,1,1,0,0,1,31.0,0,0,0,0,0,0,0,0,A+B,21.249,22.721,1,,
+missing+drain20,missing SoH and drain +20%,missing-reading,6,A,0.874,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.236,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,6,B,0.874,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.266,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,6,C,0.874,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,2.05,2.247,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,6,D,0.874,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,4.918,5.121,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,7,A,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.044,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,7,B,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.073,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,7,C,0.724,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.18,4.535,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,7,D,0.724,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.799,6.128,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,8,A,0.693,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.045,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,8,B,0.693,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.074,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,8,C,0.693,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.144,3.356,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,8,D,0.693,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.625,6.843,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,9,A,0.768,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.049,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,9,B,0.768,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.077,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,9,C,0.768,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.125,3.345,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,9,D,0.768,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,9.946,10.28,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,10,A,0.803,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.047,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,10,B,0.803,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,10,C,0.803,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.63,3.83,1,,recoverable after runtime-monitor stop: agent did not recover
+missing+drain20,missing SoH and drain +20%,missing-reading,10,D,0.803,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,6.698,6.939,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,11,A,0.765,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.047,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,11,B,0.765,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.075,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,11,C,0.765,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.662,3.894,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,11,D,0.765,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.2,5.544,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,12,A,0.772,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.061,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,12,B,0.772,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.095,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,12,C,0.772,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.048,3.269,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,12,D,0.772,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.522,5.776,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,13,A,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.046,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,13,B,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.076,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,13,C,0.703,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.932,3.108,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,13,D,0.703,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.817,6.028,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,14,A,0.654,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.045,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,14,B,0.654,1,R1,1,0,12.0,0,0.0,0,0,0,0,0,0,12.0,1,1,0,0,1,0,0,A,0,0.077,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,14,C,0.654,0,,0,0,180.0,1,0.0,0,0,0,0,0,0,180.0,0,1,1,0,1,0,0,A,3.001,3.198,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,14,D,0.654,0,,0,0,180.0,1,1.0,1,1,1,0,0,0,180.0,0,1,1,0,1,0,0,B,8.142,8.372,1,,"impossible: no truly safe plan at incident start (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,15,A,0.929,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.095,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,15,B,0.929,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,0,0.138,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,15,C,0.929,0,,1,1,12.0,0,0.0,0,0,0,0,1,12.0,0,0,0,0,0,0,0,0,A,1.69,1.863,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,15,D,0.929,0,,1,1,16.0,0,1.0,1,1,0,0,1,16.0,0,0,0,0,0,0,0,0,A,6.196,6.457,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,16,A,0.736,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.064,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,16,B,0.736,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.101,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,16,C,0.736,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.006,3.183,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,16,D,0.736,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.645,5.861,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,17,A,0.787,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.046,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,17,B,0.787,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.076,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,17,C,0.787,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.994,3.282,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,17,D,0.787,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.118,5.322,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,18,A,0.678,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.046,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,18,B,0.678,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.076,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,18,C,0.678,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.628,3.909,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+missing+drain20,missing SoH and drain +20%,missing-reading,18,D,0.678,0,,1,1,29.0,0,1.0,1,1,1,0,1,29.0,0,0,0,0,0,0,0,0,B,5.782,6.139,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,19,A,0.837,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.048,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,19,B,0.837,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.079,0,,
+missing+drain20,missing SoH and drain +20%,missing-reading,19,C,0.837,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.972,3.161,1,,recoverable after runtime-monitor stop: agent did not recover
+missing+drain20,missing SoH and drain +20%,missing-reading,19,D,0.837,0,,1,1,31.0,0,1.0,1,1,0,0,1,31.0,0,0,0,0,0,0,0,0,A+B,7.76,8.283,1,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,0,A,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.055,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,0,B,0.724,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.082,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,0,C,0.724,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.457,3.656,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,0,D,0.724,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.969,10.393,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,1,A,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.05,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,1,B,0.695,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.08,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,1,C,0.695,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.963,3.162,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,1,D,0.695,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,10.044,10.571,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,2,A,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.063,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,2,B,0.728,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.082,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,2,C,0.728,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.098,3.332,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,2,D,0.728,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,8.35,8.773,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,3,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.048,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,3,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.077,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,3,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.554,3.74,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,3,D,0.7,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.798,10.267,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,4,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.048,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,4,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,4,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.067,3.275,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,4,D,0.699,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.81,10.23,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,5,A,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.053,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,5,B,0.715,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.082,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,5,C,0.715,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.953,3.143,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,5,D,0.715,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,10.467,10.984,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,6,A,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.059,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,6,B,0.722,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.091,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,6,C,0.722,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.11,3.331,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,6,D,0.722,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,8.637,9.04,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,7,A,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.048,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,7,B,0.703,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.083,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,7,C,0.703,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.37,4.584,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,7,D,0.703,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,10.16,10.61,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,8,A,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.051,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,8,B,0.699,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.079,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,8,C,0.699,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.559,3.759,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,8,D,0.699,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.454,9.925,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,9,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.061,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,9,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.101,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,9,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.216,3.432,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,9,D,0.709,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.55,10.009,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,10,A,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.052,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,10,B,0.713,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.083,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,10,C,0.713,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.07,3.267,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,10,D,0.713,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,11.08,11.561,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,11,A,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.077,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,11,B,0.708,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.124,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,11,C,0.708,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.189,3.382,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,11,D,0.708,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.797,10.32,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,12,A,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.064,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,12,B,0.709,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.09,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,12,C,0.709,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.136,3.356,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,12,D,0.709,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.81,10.214,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,13,A,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.056,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,13,B,0.7,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.082,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,13,C,0.7,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.525,3.726,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,13,D,0.7,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.728,10.182,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,14,A,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.048,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,14,B,0.694,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.078,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,14,C,0.694,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.127,3.321,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,14,D,0.694,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.778,10.186,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,15,A,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.051,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,15,B,0.729,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.08,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,15,C,0.729,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.905,3.082,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,15,D,0.729,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.777,10.201,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,16,A,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.051,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,16,B,0.704,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.08,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,16,C,0.704,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.895,3.07,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,16,D,0.704,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.413,9.771,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,17,A,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.051,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,17,B,0.711,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.081,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,17,C,0.711,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.439,3.627,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,17,D,0.711,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.656,10.085,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,18,A,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.049,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,18,B,0.697,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.081,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,18,C,0.697,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.082,3.294,1,,"impossible after runtime-monitor stop (outside this incident's plan list, safe: ['S'])"
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,18,D,0.697,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,9.674,10.114,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,19,A,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.05,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,19,B,0.717,1,R1,1,0,12.0,0,0.0,0,0,0,0,1,12.0,0,1,0,0,0,0,0,0,A,0,0.081,0,,
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,19,C,0.717,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,2.999,3.198,1,,recoverable after runtime-monitor stop: agent did not recover
+midplan-grid-trip,grid tie trips 8 min into the plan,stale-degraded,19,D,0.717,0,,1,1,32.0,0,1.0,1,1,1,0,1,32.0,0,0,0,0,0,0,0,0,B+S,8.449,8.911,0,,
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,0,A,0.931,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.046,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,0,B,0.931,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.197,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,0,C,0.931,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.0,4.228,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,0,D,0.931,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.28,10.605,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,1,A,0.888,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.048,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,1,B,0.888,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.122,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,1,C,0.888,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.853,5.069,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,1,D,0.888,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,13.348,13.625,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,2,A,0.937,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.09,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,2,B,0.937,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.267,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,2,C,0.937,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,7.271,7.658,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,2,D,0.937,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,14.782,15.064,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,3,A,0.894,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.05,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,3,B,0.894,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.122,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,3,C,0.894,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.276,4.508,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,3,D,0.894,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,9.338,9.552,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,4,A,0.894,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.066,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,4,B,0.894,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.154,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,4,C,0.894,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.008,4.251,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,4,D,0.894,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,9.223,9.442,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,5,A,0.917,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.052,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,5,B,0.917,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.179,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,5,C,0.917,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.974,4.199,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,5,D,0.917,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.928,11.165,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,6,A,0.928,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.056,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,6,B,0.928,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.119,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,6,C,0.928,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.04,4.306,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,6,D,0.928,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.619,10.839,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,7,A,0.899,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.075,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,7,B,0.899,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.172,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,7,C,0.899,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.209,4.424,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,7,D,0.899,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,9.804,10.084,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,8,A,0.894,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.057,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,8,B,0.894,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.148,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,8,C,0.894,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.585,4.834,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,8,D,0.894,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.695,10.966,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,9,A,0.908,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.05,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,9,B,0.908,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.119,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,9,C,0.908,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.814,4.013,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,9,D,0.908,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.399,10.653,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,10,A,0.914,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.057,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,10,B,0.914,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.136,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,10,C,0.914,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.079,4.343,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,10,D,0.914,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.515,10.819,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,11,A,0.907,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.068,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,11,B,0.907,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.154,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,11,C,0.907,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.059,4.295,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,11,D,0.907,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.575,10.829,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,12,A,0.908,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.074,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,12,B,0.908,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.119,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,12,C,0.908,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,3.98,4.173,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,12,D,0.908,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.357,10.587,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,13,A,0.896,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.063,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,13,B,0.896,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.126,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,13,C,0.896,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.174,4.401,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,13,D,0.896,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.088,10.302,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,14,A,0.886,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.055,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,14,B,0.886,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.144,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,14,C,0.886,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.049,4.251,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,14,D,0.886,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,8.911,9.122,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,15,A,0.938,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.051,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,15,B,0.938,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.121,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,15,C,0.938,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.179,4.454,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,15,D,0.938,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.281,10.568,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,16,A,0.902,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.048,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,16,B,0.902,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.114,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,16,C,0.902,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.482,4.742,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,16,D,0.902,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.471,10.768,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,17,A,0.911,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.048,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,17,B,0.911,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.119,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,17,C,0.911,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.167,4.433,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,17,D,0.911,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,11.273,11.784,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,18,A,0.891,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.069,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,18,B,0.891,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.3,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,18,C,0.891,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.708,5.085,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,18,D,0.891,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,9.27,9.493,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,19,A,0.921,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,0,0,0,0,A,0,0.047,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,19,B,0.921,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,0,0.116,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,19,C,0.921,0,,0,0,180.0,1,0.0,0,0,0,0,1,180.0,0,0,0,0,1,0,0,0,A,4.43,4.633,0,,impossible after equipment fault mid-plan
+midplan-b1-derate,B1 derated to 30% 8 min into the plan,stale-healthy,19,D,0.921,0,,0,0,180.0,1,1.0,1,1,0,0,1,180.0,0,0,0,0,1,0,0,0,A,10.157,10.381,0,,impossible after equipment fault mid-plan

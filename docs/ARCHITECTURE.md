@@ -54,6 +54,11 @@ frontend/src/        React + TypeScript + Tailwind dashboard (api.ts, panels.tsx
    with a **runtime monitor**. The monitor is engine code and sees only the observed SoC trace. If the next-minute
    projection would fall below floor + 0.1 pt, the simulator stops the plan (`aborted=true`). This catches drain the
    planning model did not predict; it cannot catch a biased SoC sensor. The stress suite (`bench/stress.py`) tests it.
+   Since v1.1 the monitor also detects **model mismatch**. After 2+ minutes it compares the observed drain rate with the
+   most pessimistic prediction (+10%). On a mismatch it projects the plan to completion at the observed rate and stops
+   early if the plan would end below the floor. AEGIS then keeps a learned `drain_scale` ≥ 1 for the rest of the
+   episode, which goes into `GateEvidence` (R1 uses `max(1, drain_scale)`), and does not re-propose the stopped plan.
+   Contingency plans with `also_applies_when` (S: grid tripped) become candidates when the observed condition holds.
 8. Verifier predicates are checked on observations. If critical service is not restored, AEGIS replans (budget 3).
    A model mismatch while service is up is logged as a discrepancy.
 9. Second fault: `inject_fault()` interrupts service only when the active plan depends on the failed asset. That
