@@ -31,7 +31,7 @@ from .scenarios import FAULT_KINDS, list_families, load
 from .settings import settings
 from .sim.world import World
 
-VERSION = "1.4.0"
+VERSION = "1.5.0"
 log = logging.getLogger("aegis")
 app = FastAPI(title="AEGIS 3.0", version=VERSION,
               docs_url=None if settings.production else "/docs", redoc_url=None, openapi_url=None
