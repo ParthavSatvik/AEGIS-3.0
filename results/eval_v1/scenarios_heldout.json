@@ -1,0 +1,5988 @@
+{
+ "generator_seed": 2002,
+ "protocol": {
+  "b1_start_fail_p": 0.1,
+  "base_family": "stale-degraded",
+  "drain_mismatch_p": 0.5,
+  "drain_multiplier": [
+   1.05,
+   1.4
+  ],
+  "fresh_age_min": [
+   0.0,
+   8.0
+  ],
+  "fresh_noise": 0.02,
+  "invalid_reading": [
+   1.2,
+   1.5
+  ],
+  "midplan_at_min": [
+   3,
+   15
+  ],
+  "midplan_fault_p": {
+   "b1_derate": 0.1,
+   "grid_tie_trip": 0.1,
+   "none": 0.8
+  },
+  "probe_bias": [
+   -0.08,
+   0.08
+  ],
+  "probe_bias_p": 0.2,
+  "probe_inconclusive_p": 0.1,
+  "second_fault_p": {
+   "grid_tie_trip": 0.3,
+   "grid_trip_b1_derate": 0.1,
+   "none": 0.6
+  },
+  "soc_bias_p": 0.3,
+  "soc_initial": [
+   45.0,
+   70.0
+  ],
+  "soc_sensor_bias": [
+   -4.0,
+   4.0
+  ],
+  "soh_true": [
+   0.6,
+   0.95
+  ],
+  "stale_age_min": [
+   12.0,
+   120.0
+  ],
+  "stale_reading": [
+   0.85,
+   0.95
+  ],
+  "telemetry_status_p": {
+   "fresh": 0.2,
+   "invalid": 0.1,
+   "missing": 0.15,
+   "stale": 0.55
+  },
+  "version": 1
+ },
+ "scenarios": [
+  {
+   "episode_seed": 0,
+   "family": "stale-degraded",
+   "id": "g2002-0000",
+   "tags": [
+    "telemetry:stale",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "probe_bias": -0.037,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 67.0,
+    "soh": 0.855,
+    "telemetry_soh": {
+     "age_min": 72.9,
+     "value": 0.928
+    }
+   }
+  },
+  {
+   "episode_seed": 1,
+   "family": "stale-degraded",
+   "id": "g2002-0001",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "drain_multiplier": 1.23,
+    "probe_inconclusive": true,
+    "soc_initial": 54.9,
+    "soh": 0.907,
+    "telemetry_soh": {
+     "age_min": 1.4,
+     "value": 0.888
+    }
+   }
+  },
+  {
+   "episode_seed": 2,
+   "family": "stale-degraded",
+   "id": "g2002-0002",
+   "tags": [
+    "telemetry:missing"
+   ],
+   "truth": {
+    "soc_initial": 68.0,
+    "soh": 0.945,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 3,
+   "family": "stale-degraded",
+   "id": "g2002-0003",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.096,
+    "soc_initial": 65.3,
+    "soc_sensor_bias": -3.62,
+    "soh": 0.614,
+    "telemetry_soh": {
+     "age_min": 63.4,
+     "value": 0.889
+    }
+   }
+  },
+  {
+   "episode_seed": 4,
+   "family": "stale-degraded",
+   "id": "g2002-0004",
+   "tags": [
+    "telemetry:stale",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "soc_initial": 57.8,
+    "soh": 0.718,
+    "telemetry_soh": {
+     "age_min": 19.1,
+     "value": 0.872
+    }
+   }
+  },
+  {
+   "episode_seed": 5,
+   "family": "stale-degraded",
+   "id": "g2002-0005",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 67.9,
+    "soh": 0.859,
+    "telemetry_soh": {
+     "age_min": 90.3,
+     "value": 0.859
+    }
+   }
+  },
+  {
+   "episode_seed": 6,
+   "family": "stale-degraded",
+   "id": "g2002-0006",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.216,
+    "soc_initial": 65.5,
+    "soh": 0.76,
+    "telemetry_soh": {
+     "age_min": 91.8,
+     "value": 0.908
+    }
+   }
+  },
+  {
+   "episode_seed": 7,
+   "family": "stale-degraded",
+   "id": "g2002-0007",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 59.9,
+    "soh": 0.704,
+    "telemetry_soh": {
+     "age_min": 100.5,
+     "value": 0.872
+    }
+   }
+  },
+  {
+   "episode_seed": 8,
+   "family": "stale-degraded",
+   "id": "g2002-0008",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "probe_bias",
+    "b1_start_fail",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "probe_bias": 0.045,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 48.9,
+    "soc_sensor_bias": -3.99,
+    "soh": 0.913,
+    "telemetry_soh": {
+     "age_min": 50.1,
+     "value": 0.913
+    }
+   }
+  },
+  {
+   "episode_seed": 9,
+   "family": "stale-degraded",
+   "id": "g2002-0009",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.099,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 13,
+    "probe_bias": -0.029,
+    "soc_initial": 54.1,
+    "soh": 0.905,
+    "telemetry_soh": {
+     "age_min": 89.9,
+     "value": 0.949
+    }
+   }
+  },
+  {
+   "episode_seed": 10,
+   "family": "stale-degraded",
+   "id": "g2002-0010",
+   "tags": [
+    "telemetry:stale",
+    "probe_bias"
+   ],
+   "truth": {
+    "probe_bias": -0.03,
+    "soc_initial": 45.3,
+    "soh": 0.749,
+    "telemetry_soh": {
+     "age_min": 95.7,
+     "value": 0.911
+    }
+   }
+  },
+  {
+   "episode_seed": 11,
+   "family": "stale-degraded",
+   "id": "g2002-0011",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias",
+    "probe_inconclusive",
+    "midplan:grid_tie_trip",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.055,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 4,
+    "probe_bias": -0.071,
+    "probe_inconclusive": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 63.1,
+    "soh": 0.797,
+    "telemetry_soh": {
+     "age_min": 20.3,
+     "value": 0.89
+    }
+   }
+  },
+  {
+   "episode_seed": 12,
+   "family": "stale-degraded",
+   "id": "g2002-0012",
+   "tags": [
+    "telemetry:stale",
+    "probe_bias",
+    "midplan:grid_tie_trip",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 3,
+    "probe_bias": -0.041,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 65.1,
+    "soh": 0.655,
+    "telemetry_soh": {
+     "age_min": 33.9,
+     "value": 0.948
+    }
+   }
+  },
+  {
+   "episode_seed": 13,
+   "family": "stale-degraded",
+   "id": "g2002-0013",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "probe_inconclusive",
+    "b1_start_fail",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.13,
+    "probe_inconclusive": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 45.1,
+    "soh": 0.93,
+    "telemetry_soh": {
+     "age_min": 1.3,
+     "value": 0.911
+    }
+   }
+  },
+  {
+   "episode_seed": 14,
+   "family": "stale-degraded",
+   "id": "g2002-0014",
+   "tags": [
+    "telemetry:missing",
+    "probe_bias"
+   ],
+   "truth": {
+    "probe_bias": -0.056,
+    "soc_initial": 54.8,
+    "soh": 0.73,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 15,
+   "family": "stale-degraded",
+   "id": "g2002-0015",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.352,
+    "probe_bias": -0.06,
+    "soc_initial": 52.4,
+    "soh": 0.767,
+    "telemetry_soh": {
+     "age_min": 72.9,
+     "value": 0.866
+    }
+   }
+  },
+  {
+   "episode_seed": 16,
+   "family": "stale-degraded",
+   "id": "g2002-0016",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.187,
+    "soc_initial": 63.5,
+    "soc_sensor_bias": -2.7,
+    "soh": 0.715,
+    "telemetry_soh": {
+     "age_min": 46.2,
+     "value": 0.863
+    }
+   }
+  },
+  {
+   "episode_seed": 17,
+   "family": "stale-degraded",
+   "id": "g2002-0017",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.31,
+    "probe_bias": -0.072,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 58.3,
+    "soh": 0.812,
+    "telemetry_soh": {
+     "age_min": 49.6,
+     "value": 0.943
+    }
+   }
+  },
+  {
+   "episode_seed": 18,
+   "family": "stale-degraded",
+   "id": "g2002-0018",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.097,
+    "probe_bias": -0.055,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 47.8,
+    "soh": 0.751,
+    "telemetry_soh": {
+     "age_min": 52.6,
+     "value": 0.883
+    }
+   }
+  },
+  {
+   "episode_seed": 19,
+   "family": "stale-degraded",
+   "id": "g2002-0019",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.139,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 14,
+    "soc_initial": 52.2,
+    "soh": 0.91,
+    "telemetry_soh": {
+     "age_min": 23.5,
+     "value": 0.91
+    }
+   }
+  },
+  {
+   "episode_seed": 20,
+   "family": "stale-degraded",
+   "id": "g2002-0020",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.354,
+    "soc_initial": 68.3,
+    "soh": 0.775,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 21,
+   "family": "stale-degraded",
+   "id": "g2002-0021",
+   "tags": [
+    "telemetry:fresh",
+    "soc_sensor_bias",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 63.8,
+    "soc_sensor_bias": 1.57,
+    "soh": 0.857,
+    "telemetry_soh": {
+     "age_min": 2.2,
+     "value": 0.855
+    }
+   }
+  },
+  {
+   "episode_seed": 22,
+   "family": "stale-degraded",
+   "id": "g2002-0022",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 61.0,
+    "soh": 0.714,
+    "telemetry_soh": {
+     "age_min": 42.9,
+     "value": 0.894
+    }
+   }
+  },
+  {
+   "episode_seed": 23,
+   "family": "stale-degraded",
+   "id": "g2002-0023",
+   "tags": [
+    "telemetry:missing"
+   ],
+   "truth": {
+    "soc_initial": 61.9,
+    "soh": 0.939,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 24,
+   "family": "stale-degraded",
+   "id": "g2002-0024",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.343,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 57.0,
+    "soc_sensor_bias": -1.32,
+    "soh": 0.768,
+    "telemetry_soh": {
+     "age_min": 106.0,
+     "value": 0.927
+    }
+   }
+  },
+  {
+   "episode_seed": 25,
+   "family": "stale-degraded",
+   "id": "g2002-0025",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "probe_bias",
+    "b1_start_fail",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.386,
+    "probe_bias": -0.009,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 60.0,
+    "soh": 0.681,
+    "telemetry_soh": {
+     "age_min": 3.9,
+     "value": 0.681
+    }
+   }
+  },
+  {
+   "episode_seed": 26,
+   "family": "stale-degraded",
+   "id": "g2002-0026",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.339,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 63.0,
+    "soh": 0.833,
+    "telemetry_soh": {
+     "age_min": 79.1,
+     "value": 0.93
+    }
+   }
+  },
+  {
+   "episode_seed": 27,
+   "family": "stale-degraded",
+   "id": "g2002-0027",
+   "tags": [
+    "telemetry:missing",
+    "probe_bias"
+   ],
+   "truth": {
+    "probe_bias": 0.001,
+    "soc_initial": 47.5,
+    "soh": 0.944,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 28,
+   "family": "stale-degraded",
+   "id": "g2002-0028",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.217,
+    "soc_initial": 57.4,
+    "soh": 0.754,
+    "telemetry_soh": {
+     "age_min": 119.9,
+     "value": 0.909
+    }
+   }
+  },
+  {
+   "episode_seed": 29,
+   "family": "stale-degraded",
+   "id": "g2002-0029",
+   "tags": [
+    "telemetry:fresh",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "probe_inconclusive": true,
+    "soc_initial": 54.7,
+    "soh": 0.903,
+    "telemetry_soh": {
+     "age_min": 7.0,
+     "value": 0.886
+    }
+   }
+  },
+  {
+   "episode_seed": 30,
+   "family": "stale-degraded",
+   "id": "g2002-0030",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "probe_bias": -0.071,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 47.7,
+    "soc_sensor_bias": 3.36,
+    "soh": 0.759,
+    "telemetry_soh": {
+     "age_min": 36.4,
+     "value": 0.907
+    }
+   }
+  },
+  {
+   "episode_seed": 31,
+   "family": "stale-degraded",
+   "id": "g2002-0031",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.313,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 54.7,
+    "soh": 0.675,
+    "telemetry_soh": {
+     "age_min": 21.0,
+     "value": 0.897
+    }
+   }
+  },
+  {
+   "episode_seed": 32,
+   "family": "stale-degraded",
+   "id": "g2002-0032",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 50.6,
+    "soh": 0.832,
+    "telemetry_soh": {
+     "age_min": 89.7,
+     "value": 0.857
+    }
+   }
+  },
+  {
+   "episode_seed": 33,
+   "family": "stale-degraded",
+   "id": "g2002-0033",
+   "tags": [
+    "telemetry:missing",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 8,
+    "soc_initial": 66.7,
+    "soh": 0.629,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 34,
+   "family": "stale-degraded",
+   "id": "g2002-0034",
+   "tags": [
+    "telemetry:fresh",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "probe_bias": 0.069,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 51.8,
+    "soh": 0.787,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 0.771
+    }
+   }
+  },
+  {
+   "episode_seed": 35,
+   "family": "stale-degraded",
+   "id": "g2002-0035",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.12,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 50.3,
+    "soh": 0.641,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.432
+    }
+   }
+  },
+  {
+   "episode_seed": 36,
+   "family": "stale-degraded",
+   "id": "g2002-0036",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.382,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 7,
+    "probe_bias": -0.062,
+    "soc_initial": 58.5,
+    "soh": 0.756,
+    "telemetry_soh": {
+     "age_min": 66.0,
+     "value": 0.9
+    }
+   }
+  },
+  {
+   "episode_seed": 37,
+   "family": "stale-degraded",
+   "id": "g2002-0037",
+   "tags": [
+    "telemetry:stale",
+    "probe_bias"
+   ],
+   "truth": {
+    "probe_bias": -0.044,
+    "soc_initial": 63.1,
+    "soh": 0.67,
+    "telemetry_soh": {
+     "age_min": 63.3,
+     "value": 0.911
+    }
+   }
+  },
+  {
+   "episode_seed": 38,
+   "family": "stale-degraded",
+   "id": "g2002-0038",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 58.6,
+    "soh": 0.904,
+    "telemetry_soh": {
+     "age_min": 67.8,
+     "value": 0.904
+    }
+   }
+  },
+  {
+   "episode_seed": 39,
+   "family": "stale-degraded",
+   "id": "g2002-0039",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch",
+    "probe_bias",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.202,
+    "probe_bias": 0.006,
+    "soc_initial": 60.2,
+    "soh": 0.856,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.409
+    }
+   }
+  },
+  {
+   "episode_seed": 40,
+   "family": "stale-degraded",
+   "id": "g2002-0040",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_inconclusive",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.316,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 7,
+    "probe_inconclusive": true,
+    "soc_initial": 59.3,
+    "soc_sensor_bias": 0.17,
+    "soh": 0.936,
+    "telemetry_soh": {
+     "age_min": 71.5,
+     "value": 0.936
+    }
+   }
+  },
+  {
+   "episode_seed": 41,
+   "family": "stale-degraded",
+   "id": "g2002-0041",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 62.6,
+    "soh": 0.639,
+    "telemetry_soh": {
+     "age_min": 76.2,
+     "value": 0.867
+    }
+   }
+  },
+  {
+   "episode_seed": 42,
+   "family": "stale-degraded",
+   "id": "g2002-0042",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.293,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 50.4,
+    "soh": 0.62,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.483
+    }
+   }
+  },
+  {
+   "episode_seed": 43,
+   "family": "stale-degraded",
+   "id": "g2002-0043",
+   "tags": [
+    "telemetry:fresh",
+    "soc_sensor_bias",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 63.8,
+    "soc_sensor_bias": -0.72,
+    "soh": 0.931,
+    "telemetry_soh": {
+     "age_min": 2.8,
+     "value": 0.942
+    }
+   }
+  },
+  {
+   "episode_seed": 44,
+   "family": "stale-degraded",
+   "id": "g2002-0044",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 45.1,
+    "soh": 0.823,
+    "telemetry_soh": {
+     "age_min": 92.8,
+     "value": 0.858
+    }
+   }
+  },
+  {
+   "episode_seed": 45,
+   "family": "stale-degraded",
+   "id": "g2002-0045",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 57.3,
+    "soc_sensor_bias": 1.61,
+    "soh": 0.817,
+    "telemetry_soh": {
+     "age_min": 16.4,
+     "value": 0.885
+    }
+   }
+  },
+  {
+   "episode_seed": 46,
+   "family": "stale-degraded",
+   "id": "g2002-0046",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "b1_start_fail",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.25,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 56.6,
+    "soh": 0.661,
+    "telemetry_soh": {
+     "age_min": 104.7,
+     "value": 0.93
+    }
+   }
+  },
+  {
+   "episode_seed": 47,
+   "family": "stale-degraded",
+   "id": "g2002-0047",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.364,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 48.0,
+    "soc_sensor_bias": 2.95,
+    "soh": 0.81,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.492
+    }
+   }
+  },
+  {
+   "episode_seed": 48,
+   "family": "stale-degraded",
+   "id": "g2002-0048",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.319,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 10,
+    "soc_initial": 69.1,
+    "soh": 0.922,
+    "telemetry_soh": {
+     "age_min": 80.7,
+     "value": 0.922
+    }
+   }
+  },
+  {
+   "episode_seed": 49,
+   "family": "stale-degraded",
+   "id": "g2002-0049",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.29,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 14,
+    "soc_initial": 67.2,
+    "soh": 0.634,
+    "telemetry_soh": {
+     "age_min": 24.0,
+     "value": 0.914
+    }
+   }
+  },
+  {
+   "episode_seed": 50,
+   "family": "stale-degraded",
+   "id": "g2002-0050",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.218,
+    "soc_initial": 50.5,
+    "soh": 0.694,
+    "telemetry_soh": {
+     "age_min": 4.1,
+     "value": 0.682
+    }
+   }
+  },
+  {
+   "episode_seed": 51,
+   "family": "stale-degraded",
+   "id": "g2002-0051",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.254,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 64.3,
+    "soh": 0.661,
+    "telemetry_soh": {
+     "age_min": 7.2,
+     "value": 0.665
+    }
+   }
+  },
+  {
+   "episode_seed": 52,
+   "family": "stale-degraded",
+   "id": "g2002-0052",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.111,
+    "soc_initial": 64.0,
+    "soc_sensor_bias": 0.67,
+    "soh": 0.852,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.412
+    }
+   }
+  },
+  {
+   "episode_seed": 53,
+   "family": "stale-degraded",
+   "id": "g2002-0053",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_bias",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.204,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 10,
+    "probe_bias": -0.053,
+    "soc_initial": 55.4,
+    "soc_sensor_bias": 1.37,
+    "soh": 0.775,
+    "telemetry_soh": {
+     "age_min": 68.9,
+     "value": 0.887
+    }
+   }
+  },
+  {
+   "episode_seed": 54,
+   "family": "stale-degraded",
+   "id": "g2002-0054",
+   "tags": [
+    "telemetry:stale",
+    "probe_bias"
+   ],
+   "truth": {
+    "probe_bias": -0.018,
+    "soc_initial": 47.4,
+    "soh": 0.79,
+    "telemetry_soh": {
+     "age_min": 13.0,
+     "value": 0.947
+    }
+   }
+  },
+  {
+   "episode_seed": 55,
+   "family": "stale-degraded",
+   "id": "g2002-0055",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:b1_derate",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.109,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 6,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 56.9,
+    "soh": 0.698,
+    "telemetry_soh": {
+     "age_min": 66.8,
+     "value": 0.913
+    }
+   }
+  },
+  {
+   "episode_seed": 56,
+   "family": "stale-degraded",
+   "id": "g2002-0056",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.299,
+    "soc_initial": 50.8,
+    "soh": 0.819,
+    "telemetry_soh": {
+     "age_min": 36.2,
+     "value": 0.854
+    }
+   }
+  },
+  {
+   "episode_seed": 57,
+   "family": "stale-degraded",
+   "id": "g2002-0057",
+   "tags": [
+    "telemetry:invalid",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 60.8,
+    "soc_sensor_bias": 0.45,
+    "soh": 0.656,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.241
+    }
+   }
+  },
+  {
+   "episode_seed": 58,
+   "family": "stale-degraded",
+   "id": "g2002-0058",
+   "tags": [
+    "telemetry:missing",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 49.9,
+    "soc_sensor_bias": -0.79,
+    "soh": 0.773,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 59,
+   "family": "stale-degraded",
+   "id": "g2002-0059",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 57.9,
+    "soc_sensor_bias": -3.98,
+    "soh": 0.891,
+    "telemetry_soh": {
+     "age_min": 100.3,
+     "value": 0.932
+    }
+   }
+  },
+  {
+   "episode_seed": 60,
+   "family": "stale-degraded",
+   "id": "g2002-0060",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 55.0,
+    "soh": 0.93,
+    "telemetry_soh": {
+     "age_min": 71.6,
+     "value": 0.93
+    }
+   }
+  },
+  {
+   "episode_seed": 61,
+   "family": "stale-degraded",
+   "id": "g2002-0061",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.173,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 57.1,
+    "soh": 0.739,
+    "telemetry_soh": {
+     "age_min": 48.8,
+     "value": 0.876
+    }
+   }
+  },
+  {
+   "episode_seed": 62,
+   "family": "stale-degraded",
+   "id": "g2002-0062",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.335,
+    "soc_initial": 46.1,
+    "soh": 0.91,
+    "telemetry_soh": {
+     "age_min": 72.9,
+     "value": 0.91
+    }
+   }
+  },
+  {
+   "episode_seed": 63,
+   "family": "stale-degraded",
+   "id": "g2002-0063",
+   "tags": [
+    "telemetry:fresh",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 12,
+    "soc_initial": 47.2,
+    "soh": 0.889,
+    "telemetry_soh": {
+     "age_min": 2.7,
+     "value": 0.9
+    }
+   }
+  },
+  {
+   "episode_seed": 64,
+   "family": "stale-degraded",
+   "id": "g2002-0064",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.1,
+    "soc_initial": 45.5,
+    "soc_sensor_bias": -3.66,
+    "soh": 0.86,
+    "telemetry_soh": {
+     "age_min": 44.4,
+     "value": 0.904
+    }
+   }
+  },
+  {
+   "episode_seed": 65,
+   "family": "stale-degraded",
+   "id": "g2002-0065",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.373,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 4,
+    "soc_initial": 53.5,
+    "soh": 0.9,
+    "telemetry_soh": {
+     "age_min": 52.7,
+     "value": 0.9
+    }
+   }
+  },
+  {
+   "episode_seed": 66,
+   "family": "stale-degraded",
+   "id": "g2002-0066",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 50.7,
+    "soh": 0.682,
+    "telemetry_soh": {
+     "age_min": 98.5,
+     "value": 0.936
+    }
+   }
+  },
+  {
+   "episode_seed": 67,
+   "family": "stale-degraded",
+   "id": "g2002-0067",
+   "tags": [
+    "telemetry:fresh",
+    "probe_bias",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "probe_bias": 0.027,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 48.2,
+    "soh": 0.613,
+    "telemetry_soh": {
+     "age_min": 0.6,
+     "value": 0.594
+    }
+   }
+  },
+  {
+   "episode_seed": 68,
+   "family": "stale-degraded",
+   "id": "g2002-0068",
+   "tags": [
+    "telemetry:missing"
+   ],
+   "truth": {
+    "soc_initial": 52.1,
+    "soh": 0.789,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 69,
+   "family": "stale-degraded",
+   "id": "g2002-0069",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.215,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 54.3,
+    "soh": 0.913,
+    "telemetry_soh": {
+     "age_min": 7.3,
+     "value": 0.914
+    }
+   }
+  },
+  {
+   "episode_seed": 70,
+   "family": "stale-degraded",
+   "id": "g2002-0070",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.331,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 62.3,
+    "soc_sensor_bias": -2.34,
+    "soh": 0.711,
+    "telemetry_soh": {
+     "age_min": 96.8,
+     "value": 0.938
+    }
+   }
+  },
+  {
+   "episode_seed": 71,
+   "family": "stale-degraded",
+   "id": "g2002-0071",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.135,
+    "soc_initial": 47.6,
+    "soh": 0.703,
+    "telemetry_soh": {
+     "age_min": 20.5,
+     "value": 0.864
+    }
+   }
+  },
+  {
+   "episode_seed": 72,
+   "family": "stale-degraded",
+   "id": "g2002-0072",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.366,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 50.3,
+    "soh": 0.824,
+    "telemetry_soh": {
+     "age_min": 53.0,
+     "value": 0.928
+    }
+   }
+  },
+  {
+   "episode_seed": 73,
+   "family": "stale-degraded",
+   "id": "g2002-0073",
+   "tags": [
+    "telemetry:invalid",
+    "probe_bias",
+    "probe_inconclusive",
+    "b1_start_fail",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "probe_bias": 0.05,
+    "probe_inconclusive": true,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 54.5,
+    "soh": 0.672,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.23
+    }
+   }
+  },
+  {
+   "episode_seed": 74,
+   "family": "stale-degraded",
+   "id": "g2002-0074",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.12,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 9,
+    "soc_initial": 45.0,
+    "soh": 0.673,
+    "telemetry_soh": {
+     "age_min": 36.4,
+     "value": 0.909
+    }
+   }
+  },
+  {
+   "episode_seed": 75,
+   "family": "stale-degraded",
+   "id": "g2002-0075",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_inconclusive",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.067,
+    "probe_inconclusive": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 57.7,
+    "soc_sensor_bias": 1.56,
+    "soh": 0.646,
+    "telemetry_soh": {
+     "age_min": 76.4,
+     "value": 0.854
+    }
+   }
+  },
+  {
+   "episode_seed": 76,
+   "family": "stale-degraded",
+   "id": "g2002-0076",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:b1_derate",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.163,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 3,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 61.2,
+    "soh": 0.817,
+    "telemetry_soh": {
+     "age_min": 101.8,
+     "value": 0.905
+    }
+   }
+  },
+  {
+   "episode_seed": 77,
+   "family": "stale-degraded",
+   "id": "g2002-0077",
+   "tags": [
+    "telemetry:invalid"
+   ],
+   "truth": {
+    "soc_initial": 67.3,
+    "soh": 0.833,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.273
+    }
+   }
+  },
+  {
+   "episode_seed": 78,
+   "family": "stale-degraded",
+   "id": "g2002-0078",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.225,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 68.1,
+    "soh": 0.628,
+    "telemetry_soh": {
+     "age_min": 50.6,
+     "value": 0.9
+    }
+   }
+  },
+  {
+   "episode_seed": 79,
+   "family": "stale-degraded",
+   "id": "g2002-0079",
+   "tags": [
+    "telemetry:invalid"
+   ],
+   "truth": {
+    "soc_initial": 66.0,
+    "soh": 0.817,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.484
+    }
+   }
+  },
+  {
+   "episode_seed": 80,
+   "family": "stale-degraded",
+   "id": "g2002-0080",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.197,
+    "soc_initial": 55.7,
+    "soh": 0.815,
+    "telemetry_soh": {
+     "age_min": 99.5,
+     "value": 0.877
+    }
+   }
+  },
+  {
+   "episode_seed": 81,
+   "family": "stale-degraded",
+   "id": "g2002-0081",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.057,
+    "soc_initial": 61.5,
+    "soh": 0.726,
+    "telemetry_soh": {
+     "age_min": 32.2,
+     "value": 0.878
+    }
+   }
+  },
+  {
+   "episode_seed": 82,
+   "family": "stale-degraded",
+   "id": "g2002-0082",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "probe_bias",
+    "midplan:b1_derate",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.162,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 15,
+    "probe_bias": 0.044,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 56.6,
+    "soh": 0.748,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 83,
+   "family": "stale-degraded",
+   "id": "g2002-0083",
+   "tags": [
+    "telemetry:fresh"
+   ],
+   "truth": {
+    "soc_initial": 68.1,
+    "soh": 0.6,
+    "telemetry_soh": {
+     "age_min": 5.3,
+     "value": 0.588
+    }
+   }
+  },
+  {
+   "episode_seed": 84,
+   "family": "stale-degraded",
+   "id": "g2002-0084",
+   "tags": [
+    "telemetry:missing",
+    "soc_sensor_bias",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "soc_initial": 60.2,
+    "soc_sensor_bias": 2.39,
+    "soh": 0.848,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 85,
+   "family": "stale-degraded",
+   "id": "g2002-0085",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.399,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 62.5,
+    "soc_sensor_bias": 2.19,
+    "soh": 0.936,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 86,
+   "family": "stale-degraded",
+   "id": "g2002-0086",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 54.8,
+    "soc_sensor_bias": 1.79,
+    "soh": 0.85,
+    "telemetry_soh": {
+     "age_min": 101.4,
+     "value": 0.865
+    }
+   }
+  },
+  {
+   "episode_seed": 87,
+   "family": "stale-degraded",
+   "id": "g2002-0087",
+   "tags": [
+    "telemetry:fresh",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 50.9,
+    "soh": 0.68,
+    "telemetry_soh": {
+     "age_min": 7.1,
+     "value": 0.678
+    }
+   }
+  },
+  {
+   "episode_seed": 88,
+   "family": "stale-degraded",
+   "id": "g2002-0088",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.258,
+    "soc_initial": 59.0,
+    "soh": 0.925,
+    "telemetry_soh": {
+     "age_min": 25.2,
+     "value": 0.948
+    }
+   }
+  },
+  {
+   "episode_seed": 89,
+   "family": "stale-degraded",
+   "id": "g2002-0089",
+   "tags": [
+    "telemetry:fresh"
+   ],
+   "truth": {
+    "soc_initial": 67.3,
+    "soh": 0.876,
+    "telemetry_soh": {
+     "age_min": 2.7,
+     "value": 0.869
+    }
+   }
+  },
+  {
+   "episode_seed": 90,
+   "family": "stale-degraded",
+   "id": "g2002-0090",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "drain_multiplier": 1.227,
+    "probe_inconclusive": true,
+    "soc_initial": 55.8,
+    "soh": 0.776,
+    "telemetry_soh": {
+     "age_min": 59.5,
+     "value": 0.888
+    }
+   }
+  },
+  {
+   "episode_seed": 91,
+   "family": "stale-degraded",
+   "id": "g2002-0091",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.132,
+    "soc_initial": 48.0,
+    "soc_sensor_bias": -1.96,
+    "soh": 0.726,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 92,
+   "family": "stale-degraded",
+   "id": "g2002-0092",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "drain_multiplier": 1.32,
+    "probe_bias": 0.035,
+    "probe_inconclusive": true,
+    "soc_initial": 68.3,
+    "soh": 0.737,
+    "telemetry_soh": {
+     "age_min": 53.5,
+     "value": 0.887
+    }
+   }
+  },
+  {
+   "episode_seed": 93,
+   "family": "stale-degraded",
+   "id": "g2002-0093",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 68.8,
+    "soh": 0.769,
+    "telemetry_soh": {
+     "age_min": 62.3,
+     "value": 0.857
+    }
+   }
+  },
+  {
+   "episode_seed": 94,
+   "family": "stale-degraded",
+   "id": "g2002-0094",
+   "tags": [
+    "telemetry:stale",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 8,
+    "soc_initial": 69.4,
+    "soh": 0.723,
+    "telemetry_soh": {
+     "age_min": 61.2,
+     "value": 0.857
+    }
+   }
+  },
+  {
+   "episode_seed": 95,
+   "family": "stale-degraded",
+   "id": "g2002-0095",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "midplan:grid_tie_trip",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.267,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 5,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 52.8,
+    "soh": 0.679,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 96,
+   "family": "stale-degraded",
+   "id": "g2002-0096",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.353,
+    "probe_bias": 0.031,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 49.4,
+    "soc_sensor_bias": 2.64,
+    "soh": 0.758,
+    "telemetry_soh": {
+     "age_min": 26.4,
+     "value": 0.872
+    }
+   }
+  },
+  {
+   "episode_seed": 97,
+   "family": "stale-degraded",
+   "id": "g2002-0097",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.267,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 9,
+    "soc_initial": 57.4,
+    "soh": 0.656,
+    "telemetry_soh": {
+     "age_min": 7.4,
+     "value": 0.661
+    }
+   }
+  },
+  {
+   "episode_seed": 98,
+   "family": "stale-degraded",
+   "id": "g2002-0098",
+   "tags": [
+    "telemetry:missing",
+    "probe_inconclusive",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "probe_inconclusive": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 46.7,
+    "soh": 0.744,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 99,
+   "family": "stale-degraded",
+   "id": "g2002-0099",
+   "tags": [
+    "telemetry:stale",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 3,
+    "soc_initial": 45.9,
+    "soh": 0.919,
+    "telemetry_soh": {
+     "age_min": 105.3,
+     "value": 0.919
+    }
+   }
+  },
+  {
+   "episode_seed": 100,
+   "family": "stale-degraded",
+   "id": "g2002-0100",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "midplan:b1_derate",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.172,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 5,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 64.1,
+    "soc_sensor_bias": 1.81,
+    "soh": 0.614,
+    "telemetry_soh": {
+     "age_min": 94.3,
+     "value": 0.932
+    }
+   }
+  },
+  {
+   "episode_seed": 101,
+   "family": "stale-degraded",
+   "id": "g2002-0101",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 14,
+    "soc_initial": 45.6,
+    "soc_sensor_bias": 1.62,
+    "soh": 0.806,
+    "telemetry_soh": {
+     "age_min": 31.8,
+     "value": 0.897
+    }
+   }
+  },
+  {
+   "episode_seed": 102,
+   "family": "stale-degraded",
+   "id": "g2002-0102",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.321,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 4,
+    "soc_initial": 53.2,
+    "soh": 0.664,
+    "telemetry_soh": {
+     "age_min": 28.7,
+     "value": 0.887
+    }
+   }
+  },
+  {
+   "episode_seed": 103,
+   "family": "stale-degraded",
+   "id": "g2002-0103",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 49.5,
+    "soc_sensor_bias": 2.7,
+    "soh": 0.7,
+    "telemetry_soh": {
+     "age_min": 81.2,
+     "value": 0.94
+    }
+   }
+  },
+  {
+   "episode_seed": 104,
+   "family": "stale-degraded",
+   "id": "g2002-0104",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 5,
+    "soc_initial": 47.1,
+    "soc_sensor_bias": -0.26,
+    "soh": 0.683,
+    "telemetry_soh": {
+     "age_min": 98.4,
+     "value": 0.865
+    }
+   }
+  },
+  {
+   "episode_seed": 105,
+   "family": "stale-degraded",
+   "id": "g2002-0105",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.188,
+    "soc_initial": 60.1,
+    "soc_sensor_bias": -3.55,
+    "soh": 0.708,
+    "telemetry_soh": {
+     "age_min": 0.7,
+     "value": 0.711
+    }
+   }
+  },
+  {
+   "episode_seed": 106,
+   "family": "stale-degraded",
+   "id": "g2002-0106",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.207,
+    "soc_initial": 46.0,
+    "soc_sensor_bias": 1.86,
+    "soh": 0.818,
+    "telemetry_soh": {
+     "age_min": 52.2,
+     "value": 0.948
+    }
+   }
+  },
+  {
+   "episode_seed": 107,
+   "family": "stale-degraded",
+   "id": "g2002-0107",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.371,
+    "soc_initial": 60.0,
+    "soc_sensor_bias": -3.01,
+    "soh": 0.794,
+    "telemetry_soh": {
+     "age_min": 22.7,
+     "value": 0.885
+    }
+   }
+  },
+  {
+   "episode_seed": 108,
+   "family": "stale-degraded",
+   "id": "g2002-0108",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.058,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 63.6,
+    "soc_sensor_bias": 2.74,
+    "soh": 0.945,
+    "telemetry_soh": {
+     "age_min": 97.8,
+     "value": 0.945
+    }
+   }
+  },
+  {
+   "episode_seed": 109,
+   "family": "stale-degraded",
+   "id": "g2002-0109",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.388,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 59.5,
+    "soh": 0.688,
+    "telemetry_soh": {
+     "age_min": 77.2,
+     "value": 0.908
+    }
+   }
+  },
+  {
+   "episode_seed": 110,
+   "family": "stale-degraded",
+   "id": "g2002-0110",
+   "tags": [
+    "telemetry:invalid"
+   ],
+   "truth": {
+    "soc_initial": 51.5,
+    "soh": 0.674,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.454
+    }
+   }
+  },
+  {
+   "episode_seed": 111,
+   "family": "stale-degraded",
+   "id": "g2002-0111",
+   "tags": [
+    "telemetry:stale",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "probe_bias": 0.007,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 50.2,
+    "soh": 0.739,
+    "telemetry_soh": {
+     "age_min": 72.0,
+     "value": 0.873
+    }
+   }
+  },
+  {
+   "episode_seed": 112,
+   "family": "stale-degraded",
+   "id": "g2002-0112",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 49.4,
+    "soh": 0.681,
+    "telemetry_soh": {
+     "age_min": 77.3,
+     "value": 0.895
+    }
+   }
+  },
+  {
+   "episode_seed": 113,
+   "family": "stale-degraded",
+   "id": "g2002-0113",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.074,
+    "soc_initial": 51.9,
+    "soc_sensor_bias": -1.57,
+    "soh": 0.851,
+    "telemetry_soh": {
+     "age_min": 0.5,
+     "value": 0.854
+    }
+   }
+  },
+  {
+   "episode_seed": 114,
+   "family": "stale-degraded",
+   "id": "g2002-0114",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 50.3,
+    "soh": 0.713,
+    "telemetry_soh": {
+     "age_min": 40.3,
+     "value": 0.879
+    }
+   }
+  },
+  {
+   "episode_seed": 115,
+   "family": "stale-degraded",
+   "id": "g2002-0115",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 64.1,
+    "soh": 0.732,
+    "telemetry_soh": {
+     "age_min": 103.2,
+     "value": 0.948
+    }
+   }
+  },
+  {
+   "episode_seed": 116,
+   "family": "stale-degraded",
+   "id": "g2002-0116",
+   "tags": [
+    "telemetry:fresh",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "soc_initial": 46.0,
+    "soh": 0.642,
+    "telemetry_soh": {
+     "age_min": 7.8,
+     "value": 0.628
+    }
+   }
+  },
+  {
+   "episode_seed": 117,
+   "family": "stale-degraded",
+   "id": "g2002-0117",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 48.1,
+    "soh": 0.649,
+    "telemetry_soh": {
+     "age_min": 44.8,
+     "value": 0.876
+    }
+   }
+  },
+  {
+   "episode_seed": 118,
+   "family": "stale-degraded",
+   "id": "g2002-0118",
+   "tags": [
+    "telemetry:fresh",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 56.5,
+    "soh": 0.923,
+    "telemetry_soh": {
+     "age_min": 2.2,
+     "value": 0.927
+    }
+   }
+  },
+  {
+   "episode_seed": 119,
+   "family": "stale-degraded",
+   "id": "g2002-0119",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "drain_multiplier": 1.234,
+    "probe_inconclusive": true,
+    "soc_initial": 58.2,
+    "soh": 0.675,
+    "telemetry_soh": {
+     "age_min": 18.8,
+     "value": 0.911
+    }
+   }
+  },
+  {
+   "episode_seed": 120,
+   "family": "stale-degraded",
+   "id": "g2002-0120",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.368,
+    "soc_initial": 64.1,
+    "soh": 0.84,
+    "telemetry_soh": {
+     "age_min": 22.5,
+     "value": 0.896
+    }
+   }
+  },
+  {
+   "episode_seed": 121,
+   "family": "stale-degraded",
+   "id": "g2002-0121",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 60.0,
+    "soc_sensor_bias": -0.68,
+    "soh": 0.694,
+    "telemetry_soh": {
+     "age_min": 40.5,
+     "value": 0.921
+    }
+   }
+  },
+  {
+   "episode_seed": 122,
+   "family": "stale-degraded",
+   "id": "g2002-0122",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "probe_inconclusive",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.213,
+    "probe_inconclusive": true,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 64.8,
+    "soh": 0.788,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 123,
+   "family": "stale-degraded",
+   "id": "g2002-0123",
+   "tags": [
+    "telemetry:invalid"
+   ],
+   "truth": {
+    "soc_initial": 48.6,
+    "soh": 0.661,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.45
+    }
+   }
+  },
+  {
+   "episode_seed": 124,
+   "family": "stale-degraded",
+   "id": "g2002-0124",
+   "tags": [
+    "telemetry:stale",
+    "b1_start_fail",
+    "midplan:grid_tie_trip",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 4,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 69.1,
+    "soh": 0.67,
+    "telemetry_soh": {
+     "age_min": 41.0,
+     "value": 0.885
+    }
+   }
+  },
+  {
+   "episode_seed": 125,
+   "family": "stale-degraded",
+   "id": "g2002-0125",
+   "tags": [
+    "telemetry:missing",
+    "probe_bias"
+   ],
+   "truth": {
+    "probe_bias": 0.044,
+    "soc_initial": 54.9,
+    "soh": 0.937,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 126,
+   "family": "stale-degraded",
+   "id": "g2002-0126",
+   "tags": [
+    "telemetry:stale",
+    "probe_inconclusive",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "probe_inconclusive": true,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 69.0,
+    "soh": 0.864,
+    "telemetry_soh": {
+     "age_min": 48.5,
+     "value": 0.882
+    }
+   }
+  },
+  {
+   "episode_seed": 127,
+   "family": "stale-degraded",
+   "id": "g2002-0127",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 60.7,
+    "soh": 0.609,
+    "telemetry_soh": {
+     "age_min": 58.3,
+     "value": 0.898
+    }
+   }
+  },
+  {
+   "episode_seed": 128,
+   "family": "stale-degraded",
+   "id": "g2002-0128",
+   "tags": [
+    "telemetry:missing",
+    "soc_sensor_bias",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "probe_bias": 0.078,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 45.0,
+    "soc_sensor_bias": -3.19,
+    "soh": 0.806,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 129,
+   "family": "stale-degraded",
+   "id": "g2002-0129",
+   "tags": [
+    "telemetry:fresh",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 65.9,
+    "soh": 0.828,
+    "telemetry_soh": {
+     "age_min": 4.5,
+     "value": 0.84
+    }
+   }
+  },
+  {
+   "episode_seed": 130,
+   "family": "stale-degraded",
+   "id": "g2002-0130",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 54.3,
+    "soh": 0.695,
+    "telemetry_soh": {
+     "age_min": 80.9,
+     "value": 0.887
+    }
+   }
+  },
+  {
+   "episode_seed": 131,
+   "family": "stale-degraded",
+   "id": "g2002-0131",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.23,
+    "probe_bias": 0.068,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 60.8,
+    "soh": 0.824,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 132,
+   "family": "stale-degraded",
+   "id": "g2002-0132",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.095,
+    "soc_initial": 63.5,
+    "soh": 0.813,
+    "telemetry_soh": {
+     "age_min": 81.0,
+     "value": 0.868
+    }
+   }
+  },
+  {
+   "episode_seed": 133,
+   "family": "stale-degraded",
+   "id": "g2002-0133",
+   "tags": [
+    "telemetry:missing",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 61.1,
+    "soh": 0.929,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 134,
+   "family": "stale-degraded",
+   "id": "g2002-0134",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.113,
+    "soc_initial": 66.1,
+    "soc_sensor_bias": -1.4,
+    "soh": 0.66,
+    "telemetry_soh": {
+     "age_min": 40.9,
+     "value": 0.876
+    }
+   }
+  },
+  {
+   "episode_seed": 135,
+   "family": "stale-degraded",
+   "id": "g2002-0135",
+   "tags": [
+    "telemetry:stale",
+    "probe_inconclusive",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 9,
+    "probe_inconclusive": true,
+    "soc_initial": 55.7,
+    "soh": 0.656,
+    "telemetry_soh": {
+     "age_min": 95.4,
+     "value": 0.911
+    }
+   }
+  },
+  {
+   "episode_seed": 136,
+   "family": "stale-degraded",
+   "id": "g2002-0136",
+   "tags": [
+    "telemetry:fresh",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 9,
+    "soc_initial": 60.8,
+    "soh": 0.799,
+    "telemetry_soh": {
+     "age_min": 2.0,
+     "value": 0.797
+    }
+   }
+  },
+  {
+   "episode_seed": 137,
+   "family": "stale-degraded",
+   "id": "g2002-0137",
+   "tags": [
+    "telemetry:stale",
+    "probe_inconclusive",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "probe_inconclusive": true,
+    "soc_initial": 54.4,
+    "soh": 0.846,
+    "telemetry_soh": {
+     "age_min": 29.2,
+     "value": 0.898
+    }
+   }
+  },
+  {
+   "episode_seed": 138,
+   "family": "stale-degraded",
+   "id": "g2002-0138",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.104,
+    "probe_bias": 0.044,
+    "soc_initial": 56.2,
+    "soh": 0.805,
+    "telemetry_soh": {
+     "age_min": 38.2,
+     "value": 0.875
+    }
+   }
+  },
+  {
+   "episode_seed": 139,
+   "family": "stale-degraded",
+   "id": "g2002-0139",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 58.2,
+    "soh": 0.888,
+    "telemetry_soh": {
+     "age_min": 56.6,
+     "value": 0.888
+    }
+   }
+  },
+  {
+   "episode_seed": 140,
+   "family": "stale-degraded",
+   "id": "g2002-0140",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.326,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 61.0,
+    "soc_sensor_bias": -1.01,
+    "soh": 0.784,
+    "telemetry_soh": {
+     "age_min": 64.3,
+     "value": 0.866
+    }
+   }
+  },
+  {
+   "episode_seed": 141,
+   "family": "stale-degraded",
+   "id": "g2002-0141",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.154,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 9,
+    "soc_initial": 58.3,
+    "soh": 0.808,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 142,
+   "family": "stale-degraded",
+   "id": "g2002-0142",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.123,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 65.3,
+    "soc_sensor_bias": -2.35,
+    "soh": 0.742,
+    "telemetry_soh": {
+     "age_min": 81.2,
+     "value": 0.92
+    }
+   }
+  },
+  {
+   "episode_seed": 143,
+   "family": "stale-degraded",
+   "id": "g2002-0143",
+   "tags": [
+    "telemetry:missing",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "probe_inconclusive": true,
+    "soc_initial": 53.2,
+    "soh": 0.69,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 144,
+   "family": "stale-degraded",
+   "id": "g2002-0144",
+   "tags": [
+    "telemetry:stale",
+    "b1_start_fail",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 11,
+    "soc_initial": 53.4,
+    "soh": 0.905,
+    "telemetry_soh": {
+     "age_min": 117.7,
+     "value": 0.912
+    }
+   }
+  },
+  {
+   "episode_seed": 145,
+   "family": "stale-degraded",
+   "id": "g2002-0145",
+   "tags": [
+    "telemetry:stale",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "soc_initial": 65.4,
+    "soh": 0.748,
+    "telemetry_soh": {
+     "age_min": 52.9,
+     "value": 0.935
+    }
+   }
+  },
+  {
+   "episode_seed": 146,
+   "family": "stale-degraded",
+   "id": "g2002-0146",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.307,
+    "soc_initial": 65.7,
+    "soh": 0.637,
+    "telemetry_soh": {
+     "age_min": 0.9,
+     "value": 0.619
+    }
+   }
+  },
+  {
+   "episode_seed": 147,
+   "family": "stale-degraded",
+   "id": "g2002-0147",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.153,
+    "soc_initial": 64.3,
+    "soh": 0.729,
+    "telemetry_soh": {
+     "age_min": 87.7,
+     "value": 0.922
+    }
+   }
+  },
+  {
+   "episode_seed": 148,
+   "family": "stale-degraded",
+   "id": "g2002-0148",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "probe_bias",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "probe_bias": 0.045,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 63.4,
+    "soc_sensor_bias": 0.59,
+    "soh": 0.898,
+    "telemetry_soh": {
+     "age_min": 112.8,
+     "value": 0.917
+    }
+   }
+  },
+  {
+   "episode_seed": 149,
+   "family": "stale-degraded",
+   "id": "g2002-0149",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.3,
+    "soc_initial": 47.8,
+    "soc_sensor_bias": 0.17,
+    "soh": 0.73,
+    "telemetry_soh": {
+     "age_min": 24.1,
+     "value": 0.887
+    }
+   }
+  },
+  {
+   "episode_seed": 150,
+   "family": "stale-degraded",
+   "id": "g2002-0150",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "probe_inconclusive",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "probe_inconclusive": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 63.8,
+    "soc_sensor_bias": -3.57,
+    "soh": 0.62,
+    "telemetry_soh": {
+     "age_min": 12.4,
+     "value": 0.942
+    }
+   }
+  },
+  {
+   "episode_seed": 151,
+   "family": "stale-degraded",
+   "id": "g2002-0151",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.38,
+    "probe_bias": -0.061,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 51.5,
+    "soh": 0.834,
+    "telemetry_soh": {
+     "age_min": 64.6,
+     "value": 0.945
+    }
+   }
+  },
+  {
+   "episode_seed": 152,
+   "family": "stale-degraded",
+   "id": "g2002-0152",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.226,
+    "probe_bias": 0.013,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 66.2,
+    "soc_sensor_bias": -3.69,
+    "soh": 0.627,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": 0.636
+    }
+   }
+  },
+  {
+   "episode_seed": 153,
+   "family": "stale-degraded",
+   "id": "g2002-0153",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.093,
+    "soc_initial": 47.8,
+    "soh": 0.828,
+    "telemetry_soh": {
+     "age_min": 7.5,
+     "value": 0.827
+    }
+   }
+  },
+  {
+   "episode_seed": 154,
+   "family": "stale-degraded",
+   "id": "g2002-0154",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.321,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 13,
+    "probe_bias": 0.068,
+    "soc_initial": 57.5,
+    "soh": 0.948,
+    "telemetry_soh": {
+     "age_min": 12.9,
+     "value": 0.948
+    }
+   }
+  },
+  {
+   "episode_seed": 155,
+   "family": "stale-degraded",
+   "id": "g2002-0155",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 55.1,
+    "soc_sensor_bias": -3.52,
+    "soh": 0.707,
+    "telemetry_soh": {
+     "age_min": 57.8,
+     "value": 0.935
+    }
+   }
+  },
+  {
+   "episode_seed": 156,
+   "family": "stale-degraded",
+   "id": "g2002-0156",
+   "tags": [
+    "telemetry:fresh",
+    "soc_sensor_bias",
+    "midplan:b1_derate",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 4,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 54.9,
+    "soc_sensor_bias": 2.56,
+    "soh": 0.915,
+    "telemetry_soh": {
+     "age_min": 1.4,
+     "value": 0.926
+    }
+   }
+  },
+  {
+   "episode_seed": 157,
+   "family": "stale-degraded",
+   "id": "g2002-0157",
+   "tags": [
+    "telemetry:fresh",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "probe_inconclusive": true,
+    "soc_initial": 51.3,
+    "soh": 0.612,
+    "telemetry_soh": {
+     "age_min": 6.2,
+     "value": 0.617
+    }
+   }
+  },
+  {
+   "episode_seed": 158,
+   "family": "stale-degraded",
+   "id": "g2002-0158",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.267,
+    "soc_initial": 55.2,
+    "soc_sensor_bias": 3.62,
+    "soh": 0.904,
+    "telemetry_soh": {
+     "age_min": 0.1,
+     "value": 0.91
+    }
+   }
+  },
+  {
+   "episode_seed": 159,
+   "family": "stale-degraded",
+   "id": "g2002-0159",
+   "tags": [
+    "telemetry:stale",
+    "midplan:grid_tie_trip",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 5,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 61.3,
+    "soh": 0.757,
+    "telemetry_soh": {
+     "age_min": 78.8,
+     "value": 0.874
+    }
+   }
+  },
+  {
+   "episode_seed": 160,
+   "family": "stale-degraded",
+   "id": "g2002-0160",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.352,
+    "soc_initial": 65.6,
+    "soc_sensor_bias": -0.11,
+    "soh": 0.727,
+    "telemetry_soh": {
+     "age_min": 106.6,
+     "value": 0.929
+    }
+   }
+  },
+  {
+   "episode_seed": 161,
+   "family": "stale-degraded",
+   "id": "g2002-0161",
+   "tags": [
+    "telemetry:fresh",
+    "soc_sensor_bias",
+    "midplan:grid_tie_trip",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 8,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 57.8,
+    "soc_sensor_bias": -1.34,
+    "soh": 0.632,
+    "telemetry_soh": {
+     "age_min": 1.1,
+     "value": 0.646
+    }
+   }
+  },
+  {
+   "episode_seed": 162,
+   "family": "stale-degraded",
+   "id": "g2002-0162",
+   "tags": [
+    "telemetry:missing"
+   ],
+   "truth": {
+    "soc_initial": 48.2,
+    "soh": 0.646,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 163,
+   "family": "stale-degraded",
+   "id": "g2002-0163",
+   "tags": [
+    "telemetry:missing",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "soc_initial": 47.8,
+    "soh": 0.719,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 164,
+   "family": "stale-degraded",
+   "id": "g2002-0164",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.23,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 13,
+    "soc_initial": 65.0,
+    "soh": 0.829,
+    "telemetry_soh": {
+     "age_min": 118.5,
+     "value": 0.853
+    }
+   }
+  },
+  {
+   "episode_seed": 165,
+   "family": "stale-degraded",
+   "id": "g2002-0165",
+   "tags": [
+    "telemetry:invalid"
+   ],
+   "truth": {
+    "soc_initial": 49.1,
+    "soh": 0.677,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.395
+    }
+   }
+  },
+  {
+   "episode_seed": 166,
+   "family": "stale-degraded",
+   "id": "g2002-0166",
+   "tags": [
+    "telemetry:fresh",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 64.8,
+    "soc_sensor_bias": 2.87,
+    "soh": 0.786,
+    "telemetry_soh": {
+     "age_min": 2.8,
+     "value": 0.775
+    }
+   }
+  },
+  {
+   "episode_seed": 167,
+   "family": "stale-degraded",
+   "id": "g2002-0167",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.162,
+    "soc_initial": 58.6,
+    "soh": 0.852,
+    "telemetry_soh": {
+     "age_min": 92.5,
+     "value": 0.872
+    }
+   }
+  },
+  {
+   "episode_seed": 168,
+   "family": "stale-degraded",
+   "id": "g2002-0168",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "midplan:grid_tie_trip",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.134,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 10,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 62.1,
+    "soc_sensor_bias": 0.99,
+    "soh": 0.75,
+    "telemetry_soh": {
+     "age_min": 55.4,
+     "value": 0.863
+    }
+   }
+  },
+  {
+   "episode_seed": 169,
+   "family": "stale-degraded",
+   "id": "g2002-0169",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.156,
+    "soc_initial": 59.1,
+    "soh": 0.648,
+    "telemetry_soh": {
+     "age_min": 71.2,
+     "value": 0.928
+    }
+   }
+  },
+  {
+   "episode_seed": 170,
+   "family": "stale-degraded",
+   "id": "g2002-0170",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "probe_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.284,
+    "probe_bias": 0.07,
+    "soc_initial": 67.5,
+    "soh": 0.627,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 171,
+   "family": "stale-degraded",
+   "id": "g2002-0171",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.235,
+    "soc_initial": 45.4,
+    "soh": 0.9,
+    "telemetry_soh": {
+     "age_min": 102.9,
+     "value": 0.932
+    }
+   }
+  },
+  {
+   "episode_seed": 172,
+   "family": "stale-degraded",
+   "id": "g2002-0172",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "probe_bias": -0.04,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 50.5,
+    "soc_sensor_bias": -2.81,
+    "soh": 0.821,
+    "telemetry_soh": {
+     "age_min": 29.8,
+     "value": 0.903
+    }
+   }
+  },
+  {
+   "episode_seed": 173,
+   "family": "stale-degraded",
+   "id": "g2002-0173",
+   "tags": [
+    "telemetry:fresh",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 50.7,
+    "soc_sensor_bias": 2.7,
+    "soh": 0.62,
+    "telemetry_soh": {
+     "age_min": 4.3,
+     "value": 0.628
+    }
+   }
+  },
+  {
+   "episode_seed": 174,
+   "family": "stale-degraded",
+   "id": "g2002-0174",
+   "tags": [
+    "telemetry:stale",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "probe_bias": 0.079,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 66.2,
+    "soh": 0.605,
+    "telemetry_soh": {
+     "age_min": 58.4,
+     "value": 0.927
+    }
+   }
+  },
+  {
+   "episode_seed": 175,
+   "family": "stale-degraded",
+   "id": "g2002-0175",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 69.0,
+    "soc_sensor_bias": -1.81,
+    "soh": 0.826,
+    "telemetry_soh": {
+     "age_min": 17.5,
+     "value": 0.94
+    }
+   }
+  },
+  {
+   "episode_seed": 176,
+   "family": "stale-degraded",
+   "id": "g2002-0176",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.209,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 63.3,
+    "soh": 0.808,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 177,
+   "family": "stale-degraded",
+   "id": "g2002-0177",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.33,
+    "soc_initial": 60.7,
+    "soc_sensor_bias": 3.42,
+    "soh": 0.913,
+    "telemetry_soh": {
+     "age_min": 51.7,
+     "value": 0.913
+    }
+   }
+  },
+  {
+   "episode_seed": 178,
+   "family": "stale-degraded",
+   "id": "g2002-0178",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.362,
+    "probe_bias": 0.069,
+    "soc_initial": 49.9,
+    "soc_sensor_bias": -3.26,
+    "soh": 0.664,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.275
+    }
+   }
+  },
+  {
+   "episode_seed": 179,
+   "family": "stale-degraded",
+   "id": "g2002-0179",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.173,
+    "soc_initial": 54.3,
+    "soh": 0.85,
+    "telemetry_soh": {
+     "age_min": 81.2,
+     "value": 0.933
+    }
+   }
+  },
+  {
+   "episode_seed": 180,
+   "family": "stale-degraded",
+   "id": "g2002-0180",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.081,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 7,
+    "soc_initial": 69.4,
+    "soh": 0.94,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 181,
+   "family": "stale-degraded",
+   "id": "g2002-0181",
+   "tags": [
+    "telemetry:invalid",
+    "soc_sensor_bias",
+    "midplan:b1_derate",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 6,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 56.5,
+    "soc_sensor_bias": -1.88,
+    "soh": 0.659,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.316
+    }
+   }
+  },
+  {
+   "episode_seed": 182,
+   "family": "stale-degraded",
+   "id": "g2002-0182",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "drain_multiplier": 1.209,
+    "probe_inconclusive": true,
+    "soc_initial": 54.1,
+    "soh": 0.879,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 183,
+   "family": "stale-degraded",
+   "id": "g2002-0183",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.382,
+    "soc_initial": 67.7,
+    "soh": 0.883,
+    "telemetry_soh": {
+     "age_min": 53.0,
+     "value": 0.891
+    }
+   }
+  },
+  {
+   "episode_seed": 184,
+   "family": "stale-degraded",
+   "id": "g2002-0184",
+   "tags": [
+    "telemetry:missing",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 59.2,
+    "soc_sensor_bias": -3.89,
+    "soh": 0.65,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 185,
+   "family": "stale-degraded",
+   "id": "g2002-0185",
+   "tags": [
+    "telemetry:missing",
+    "probe_bias",
+    "b1_start_fail",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "probe_bias": -0.038,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 64.0,
+    "soh": 0.778,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 186,
+   "family": "stale-degraded",
+   "id": "g2002-0186",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.283,
+    "soc_initial": 63.5,
+    "soc_sensor_bias": -2.92,
+    "soh": 0.776,
+    "telemetry_soh": {
+     "age_min": 89.9,
+     "value": 0.862
+    }
+   }
+  },
+  {
+   "episode_seed": 187,
+   "family": "stale-degraded",
+   "id": "g2002-0187",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.26,
+    "soc_initial": 59.1,
+    "soc_sensor_bias": 3.74,
+    "soh": 0.824,
+    "telemetry_soh": {
+     "age_min": 0.3,
+     "value": 0.837
+    }
+   }
+  },
+  {
+   "episode_seed": 188,
+   "family": "stale-degraded",
+   "id": "g2002-0188",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.33,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 47.0,
+    "soc_sensor_bias": -3.54,
+    "soh": 0.867,
+    "telemetry_soh": {
+     "age_min": 76.4,
+     "value": 0.946
+    }
+   }
+  },
+  {
+   "episode_seed": 189,
+   "family": "stale-degraded",
+   "id": "g2002-0189",
+   "tags": [
+    "telemetry:stale",
+    "probe_bias"
+   ],
+   "truth": {
+    "probe_bias": 0.013,
+    "soc_initial": 59.1,
+    "soh": 0.683,
+    "telemetry_soh": {
+     "age_min": 55.4,
+     "value": 0.901
+    }
+   }
+  },
+  {
+   "episode_seed": 190,
+   "family": "stale-degraded",
+   "id": "g2002-0190",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.115,
+    "soc_initial": 64.1,
+    "soh": 0.944,
+    "telemetry_soh": {
+     "age_min": 38.4,
+     "value": 0.944
+    }
+   }
+  },
+  {
+   "episode_seed": 191,
+   "family": "stale-degraded",
+   "id": "g2002-0191",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 53.5,
+    "soh": 0.797,
+    "telemetry_soh": {
+     "age_min": 60.1,
+     "value": 0.889
+    }
+   }
+  },
+  {
+   "episode_seed": 192,
+   "family": "stale-degraded",
+   "id": "g2002-0192",
+   "tags": [
+    "telemetry:fresh",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 60.1,
+    "soh": 0.828,
+    "telemetry_soh": {
+     "age_min": 2.7,
+     "value": 0.832
+    }
+   }
+  },
+  {
+   "episode_seed": 193,
+   "family": "stale-degraded",
+   "id": "g2002-0193",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 3,
+    "soc_initial": 46.9,
+    "soc_sensor_bias": -0.92,
+    "soh": 0.916,
+    "telemetry_soh": {
+     "age_min": 78.3,
+     "value": 0.916
+    }
+   }
+  },
+  {
+   "episode_seed": 194,
+   "family": "stale-degraded",
+   "id": "g2002-0194",
+   "tags": [
+    "telemetry:fresh",
+    "b1_start_fail",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 48.5,
+    "soh": 0.918,
+    "telemetry_soh": {
+     "age_min": 7.7,
+     "value": 0.909
+    }
+   }
+  },
+  {
+   "episode_seed": 195,
+   "family": "stale-degraded",
+   "id": "g2002-0195",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "drain_multiplier": 1.285,
+    "probe_inconclusive": true,
+    "soc_initial": 53.0,
+    "soh": 0.868,
+    "telemetry_soh": {
+     "age_min": 34.5,
+     "value": 0.92
+    }
+   }
+  },
+  {
+   "episode_seed": 196,
+   "family": "stale-degraded",
+   "id": "g2002-0196",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 46.9,
+    "soh": 0.709,
+    "telemetry_soh": {
+     "age_min": 23.5,
+     "value": 0.882
+    }
+   }
+  },
+  {
+   "episode_seed": 197,
+   "family": "stale-degraded",
+   "id": "g2002-0197",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.075,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 67.5,
+    "soh": 0.737,
+    "telemetry_soh": {
+     "age_min": 18.7,
+     "value": 0.94
+    }
+   }
+  },
+  {
+   "episode_seed": 198,
+   "family": "stale-degraded",
+   "id": "g2002-0198",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "b1_start_fail",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.289,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 66.7,
+    "soc_sensor_bias": -1.85,
+    "soh": 0.834,
+    "telemetry_soh": {
+     "age_min": 4.1,
+     "value": 0.847
+    }
+   }
+  },
+  {
+   "episode_seed": 199,
+   "family": "stale-degraded",
+   "id": "g2002-0199",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 52.3,
+    "soh": 0.772,
+    "telemetry_soh": {
+     "age_min": 56.2,
+     "value": 0.893
+    }
+   }
+  },
+  {
+   "episode_seed": 200,
+   "family": "stale-degraded",
+   "id": "g2002-0200",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.137,
+    "probe_bias": -0.008,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 55.0,
+    "soh": 0.632,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 201,
+   "family": "stale-degraded",
+   "id": "g2002-0201",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.278,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 46.4,
+    "soh": 0.898,
+    "telemetry_soh": {
+     "age_min": 94.7,
+     "value": 0.919
+    }
+   }
+  },
+  {
+   "episode_seed": 202,
+   "family": "stale-degraded",
+   "id": "g2002-0202",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.266,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 45.7,
+    "soh": 0.777,
+    "telemetry_soh": {
+     "age_min": 80.0,
+     "value": 0.943
+    }
+   }
+  },
+  {
+   "episode_seed": 203,
+   "family": "stale-degraded",
+   "id": "g2002-0203",
+   "tags": [
+    "telemetry:stale",
+    "b1_start_fail",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 59.8,
+    "soh": 0.651,
+    "telemetry_soh": {
+     "age_min": 88.9,
+     "value": 0.904
+    }
+   }
+  },
+  {
+   "episode_seed": 204,
+   "family": "stale-degraded",
+   "id": "g2002-0204",
+   "tags": [
+    "telemetry:invalid",
+    "b1_start_fail",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 67.9,
+    "soh": 0.708,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.477
+    }
+   }
+  },
+  {
+   "episode_seed": 205,
+   "family": "stale-degraded",
+   "id": "g2002-0205",
+   "tags": [
+    "telemetry:fresh"
+   ],
+   "truth": {
+    "soc_initial": 48.8,
+    "soh": 0.71,
+    "telemetry_soh": {
+     "age_min": 1.7,
+     "value": 0.717
+    }
+   }
+  },
+  {
+   "episode_seed": 206,
+   "family": "stale-degraded",
+   "id": "g2002-0206",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "soc_initial": 61.1,
+    "soc_sensor_bias": 2.84,
+    "soh": 0.933,
+    "telemetry_soh": {
+     "age_min": 40.3,
+     "value": 0.933
+    }
+   }
+  },
+  {
+   "episode_seed": 207,
+   "family": "stale-degraded",
+   "id": "g2002-0207",
+   "tags": [
+    "telemetry:fresh"
+   ],
+   "truth": {
+    "soc_initial": 69.3,
+    "soh": 0.779,
+    "telemetry_soh": {
+     "age_min": 1.9,
+     "value": 0.762
+    }
+   }
+  },
+  {
+   "episode_seed": 208,
+   "family": "stale-degraded",
+   "id": "g2002-0208",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.329,
+    "probe_bias": 0.041,
+    "soc_initial": 69.1,
+    "soc_sensor_bias": -1.52,
+    "soh": 0.789,
+    "telemetry_soh": {
+     "age_min": 5.1,
+     "value": 0.787
+    }
+   }
+  },
+  {
+   "episode_seed": 209,
+   "family": "stale-degraded",
+   "id": "g2002-0209",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.223,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 46.4,
+    "soh": 0.916,
+    "telemetry_soh": {
+     "age_min": 37.9,
+     "value": 0.933
+    }
+   }
+  },
+  {
+   "episode_seed": 210,
+   "family": "stale-degraded",
+   "id": "g2002-0210",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "probe_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.184,
+    "probe_bias": 0.026,
+    "soc_initial": 56.6,
+    "soh": 0.766,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 211,
+   "family": "stale-degraded",
+   "id": "g2002-0211",
+   "tags": [
+    "telemetry:invalid",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 64.5,
+    "soh": 0.619,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.36
+    }
+   }
+  },
+  {
+   "episode_seed": 212,
+   "family": "stale-degraded",
+   "id": "g2002-0212",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.339,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 66.2,
+    "soh": 0.761,
+    "telemetry_soh": {
+     "age_min": 4.1,
+     "value": 0.753
+    }
+   }
+  },
+  {
+   "episode_seed": 213,
+   "family": "stale-degraded",
+   "id": "g2002-0213",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_bias",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.388,
+    "probe_bias": -0.073,
+    "soc_initial": 65.5,
+    "soc_sensor_bias": 2.67,
+    "soh": 0.703,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 214,
+   "family": "stale-degraded",
+   "id": "g2002-0214",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.142,
+    "soc_initial": 67.8,
+    "soh": 0.782,
+    "telemetry_soh": {
+     "age_min": 31.3,
+     "value": 0.895
+    }
+   }
+  },
+  {
+   "episode_seed": 215,
+   "family": "stale-degraded",
+   "id": "g2002-0215",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_bias",
+    "midplan:b1_derate",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.328,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 6,
+    "probe_bias": -0.075,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 58.2,
+    "soc_sensor_bias": -1.58,
+    "soh": 0.948,
+    "telemetry_soh": {
+     "age_min": 69.2,
+     "value": 0.948
+    }
+   }
+  },
+  {
+   "episode_seed": 216,
+   "family": "stale-degraded",
+   "id": "g2002-0216",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 54.4,
+    "soh": 0.637,
+    "telemetry_soh": {
+     "age_min": 63.4,
+     "value": 0.948
+    }
+   }
+  },
+  {
+   "episode_seed": 217,
+   "family": "stale-degraded",
+   "id": "g2002-0217",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.296,
+    "soc_initial": 52.9,
+    "soc_sensor_bias": 0.43,
+    "soh": 0.6,
+    "telemetry_soh": {
+     "age_min": 7.0,
+     "value": 0.59
+    }
+   }
+  },
+  {
+   "episode_seed": 218,
+   "family": "stale-degraded",
+   "id": "g2002-0218",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.118,
+    "soc_initial": 62.5,
+    "soc_sensor_bias": 3.68,
+    "soh": 0.809,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.324
+    }
+   }
+  },
+  {
+   "episode_seed": 219,
+   "family": "stale-degraded",
+   "id": "g2002-0219",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch",
+    "midplan:b1_derate",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.25,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 8,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 64.9,
+    "soh": 0.638,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.439
+    }
+   }
+  },
+  {
+   "episode_seed": 220,
+   "family": "stale-degraded",
+   "id": "g2002-0220",
+   "tags": [
+    "telemetry:fresh",
+    "probe_bias"
+   ],
+   "truth": {
+    "probe_bias": 0.017,
+    "soc_initial": 60.6,
+    "soh": 0.619,
+    "telemetry_soh": {
+     "age_min": 3.2,
+     "value": 0.626
+    }
+   }
+  },
+  {
+   "episode_seed": 221,
+   "family": "stale-degraded",
+   "id": "g2002-0221",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.12,
+    "soc_initial": 53.1,
+    "soh": 0.771,
+    "telemetry_soh": {
+     "age_min": 114.2,
+     "value": 0.926
+    }
+   }
+  },
+  {
+   "episode_seed": 222,
+   "family": "stale-degraded",
+   "id": "g2002-0222",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 50.3,
+    "soc_sensor_bias": -3.62,
+    "soh": 0.733,
+    "telemetry_soh": {
+     "age_min": 41.6,
+     "value": 0.948
+    }
+   }
+  },
+  {
+   "episode_seed": 223,
+   "family": "stale-degraded",
+   "id": "g2002-0223",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 59.7,
+    "soh": 0.809,
+    "telemetry_soh": {
+     "age_min": 115.8,
+     "value": 0.942
+    }
+   }
+  },
+  {
+   "episode_seed": 224,
+   "family": "stale-degraded",
+   "id": "g2002-0224",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch",
+    "probe_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.251,
+    "probe_bias": -0.062,
+    "soc_initial": 68.8,
+    "soh": 0.937,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.334
+    }
+   }
+  },
+  {
+   "episode_seed": 225,
+   "family": "stale-degraded",
+   "id": "g2002-0225",
+   "tags": [
+    "telemetry:missing"
+   ],
+   "truth": {
+    "soc_initial": 56.4,
+    "soh": 0.9,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 226,
+   "family": "stale-degraded",
+   "id": "g2002-0226",
+   "tags": [
+    "telemetry:missing",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 60.2,
+    "soc_sensor_bias": 1.86,
+    "soh": 0.653,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 227,
+   "family": "stale-degraded",
+   "id": "g2002-0227",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.326,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 13,
+    "soc_initial": 66.1,
+    "soh": 0.748,
+    "telemetry_soh": {
+     "age_min": 47.9,
+     "value": 0.856
+    }
+   }
+  },
+  {
+   "episode_seed": 228,
+   "family": "stale-degraded",
+   "id": "g2002-0228",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.203,
+    "probe_bias": 0.047,
+    "soc_initial": 45.4,
+    "soc_sensor_bias": 2.71,
+    "soh": 0.913,
+    "telemetry_soh": {
+     "age_min": 39.0,
+     "value": 0.94
+    }
+   }
+  },
+  {
+   "episode_seed": 229,
+   "family": "stale-degraded",
+   "id": "g2002-0229",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.361,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 60.0,
+    "soc_sensor_bias": -2.48,
+    "soh": 0.908,
+    "telemetry_soh": {
+     "age_min": 6.1,
+     "value": 0.926
+    }
+   }
+  },
+  {
+   "episode_seed": 230,
+   "family": "stale-degraded",
+   "id": "g2002-0230",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 53.0,
+    "soh": 0.939,
+    "telemetry_soh": {
+     "age_min": 82.0,
+     "value": 0.949
+    }
+   }
+  },
+  {
+   "episode_seed": 231,
+   "family": "stale-degraded",
+   "id": "g2002-0231",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.122,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 7,
+    "soc_initial": 47.6,
+    "soc_sensor_bias": -0.03,
+    "soh": 0.833,
+    "telemetry_soh": {
+     "age_min": 76.5,
+     "value": 0.863
+    }
+   }
+  },
+  {
+   "episode_seed": 232,
+   "family": "stale-degraded",
+   "id": "g2002-0232",
+   "tags": [
+    "telemetry:fresh"
+   ],
+   "truth": {
+    "soc_initial": 64.0,
+    "soh": 0.76,
+    "telemetry_soh": {
+     "age_min": 4.8,
+     "value": 0.752
+    }
+   }
+  },
+  {
+   "episode_seed": 233,
+   "family": "stale-degraded",
+   "id": "g2002-0233",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "drain_multiplier": 1.219,
+    "probe_inconclusive": true,
+    "soc_initial": 49.3,
+    "soc_sensor_bias": 0.44,
+    "soh": 0.897,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 234,
+   "family": "stale-degraded",
+   "id": "g2002-0234",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.174,
+    "soc_initial": 68.2,
+    "soc_sensor_bias": -1.59,
+    "soh": 0.81,
+    "telemetry_soh": {
+     "age_min": 107.9,
+     "value": 0.851
+    }
+   }
+  },
+  {
+   "episode_seed": 235,
+   "family": "stale-degraded",
+   "id": "g2002-0235",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias",
+    "probe_inconclusive",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.308,
+    "probe_bias": 0.01,
+    "probe_inconclusive": true,
+    "soc_initial": 50.0,
+    "soh": 0.643,
+    "telemetry_soh": {
+     "age_min": 72.6,
+     "value": 0.941
+    }
+   }
+  },
+  {
+   "episode_seed": 236,
+   "family": "stale-degraded",
+   "id": "g2002-0236",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 46.1,
+    "soh": 0.655,
+    "telemetry_soh": {
+     "age_min": 68.9,
+     "value": 0.853
+    }
+   }
+  },
+  {
+   "episode_seed": 237,
+   "family": "stale-degraded",
+   "id": "g2002-0237",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.243,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 3,
+    "soc_initial": 67.3,
+    "soc_sensor_bias": 0.75,
+    "soh": 0.699,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 238,
+   "family": "stale-degraded",
+   "id": "g2002-0238",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.126,
+    "soc_initial": 46.2,
+    "soh": 0.812,
+    "telemetry_soh": {
+     "age_min": 118.2,
+     "value": 0.866
+    }
+   }
+  },
+  {
+   "episode_seed": 239,
+   "family": "stale-degraded",
+   "id": "g2002-0239",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "midplan:b1_derate",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 6,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 49.5,
+    "soc_sensor_bias": 2.41,
+    "soh": 0.864,
+    "telemetry_soh": {
+     "age_min": 31.7,
+     "value": 0.868
+    }
+   }
+  },
+  {
+   "episode_seed": 240,
+   "family": "stale-degraded",
+   "id": "g2002-0240",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "drain_multiplier": 1.376,
+    "probe_inconclusive": true,
+    "soc_initial": 64.6,
+    "soh": 0.638,
+    "telemetry_soh": {
+     "age_min": 97.4,
+     "value": 0.94
+    }
+   }
+  },
+  {
+   "episode_seed": 241,
+   "family": "stale-degraded",
+   "id": "g2002-0241",
+   "tags": [
+    "telemetry:fresh",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 46.6,
+    "soh": 0.699,
+    "telemetry_soh": {
+     "age_min": 7.2,
+     "value": 0.683
+    }
+   }
+  },
+  {
+   "episode_seed": 242,
+   "family": "stale-degraded",
+   "id": "g2002-0242",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.271,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 56.7,
+    "soh": 0.786,
+    "telemetry_soh": {
+     "age_min": 102.2,
+     "value": 0.864
+    }
+   }
+  },
+  {
+   "episode_seed": 243,
+   "family": "stale-degraded",
+   "id": "g2002-0243",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.331,
+    "soc_initial": 60.5,
+    "soh": 0.729,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 244,
+   "family": "stale-degraded",
+   "id": "g2002-0244",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_inconclusive",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.365,
+    "probe_inconclusive": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 68.7,
+    "soh": 0.823,
+    "telemetry_soh": {
+     "age_min": 29.5,
+     "value": 0.908
+    }
+   }
+  },
+  {
+   "episode_seed": 245,
+   "family": "stale-degraded",
+   "id": "g2002-0245",
+   "tags": [
+    "telemetry:fresh",
+    "probe_bias",
+    "probe_inconclusive",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 14,
+    "probe_bias": -0.018,
+    "probe_inconclusive": true,
+    "soc_initial": 45.6,
+    "soh": 0.808,
+    "telemetry_soh": {
+     "age_min": 1.4,
+     "value": 0.797
+    }
+   }
+  },
+  {
+   "episode_seed": 246,
+   "family": "stale-degraded",
+   "id": "g2002-0246",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.371,
+    "soc_initial": 47.5,
+    "soh": 0.773,
+    "telemetry_soh": {
+     "age_min": 2.1,
+     "value": 0.776
+    }
+   }
+  },
+  {
+   "episode_seed": 247,
+   "family": "stale-degraded",
+   "id": "g2002-0247",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 54.1,
+    "soh": 0.846,
+    "telemetry_soh": {
+     "age_min": 118.6,
+     "value": 0.85
+    }
+   }
+  },
+  {
+   "episode_seed": 248,
+   "family": "stale-degraded",
+   "id": "g2002-0248",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.283,
+    "soc_initial": 45.0,
+    "soc_sensor_bias": -3.26,
+    "soh": 0.666,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 249,
+   "family": "stale-degraded",
+   "id": "g2002-0249",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.309,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 51.6,
+    "soh": 0.841,
+    "telemetry_soh": {
+     "age_min": 19.6,
+     "value": 0.852
+    }
+   }
+  },
+  {
+   "episode_seed": 250,
+   "family": "stale-degraded",
+   "id": "g2002-0250",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_inconclusive",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.176,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 15,
+    "probe_inconclusive": true,
+    "soc_initial": 68.5,
+    "soc_sensor_bias": 0.28,
+    "soh": 0.699,
+    "telemetry_soh": {
+     "age_min": 25.5,
+     "value": 0.909
+    }
+   }
+  },
+  {
+   "episode_seed": 251,
+   "family": "stale-degraded",
+   "id": "g2002-0251",
+   "tags": [
+    "telemetry:fresh"
+   ],
+   "truth": {
+    "soc_initial": 51.0,
+    "soh": 0.674,
+    "telemetry_soh": {
+     "age_min": 0.7,
+     "value": 0.659
+    }
+   }
+  },
+  {
+   "episode_seed": 252,
+   "family": "stale-degraded",
+   "id": "g2002-0252",
+   "tags": [
+    "telemetry:fresh",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 57.7,
+    "soc_sensor_bias": -1.46,
+    "soh": 0.846,
+    "telemetry_soh": {
+     "age_min": 1.3,
+     "value": 0.853
+    }
+   }
+  },
+  {
+   "episode_seed": 253,
+   "family": "stale-degraded",
+   "id": "g2002-0253",
+   "tags": [
+    "telemetry:invalid",
+    "probe_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "probe_bias": -0.045,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 54.0,
+    "soh": 0.756,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.413
+    }
+   }
+  },
+  {
+   "episode_seed": 254,
+   "family": "stale-degraded",
+   "id": "g2002-0254",
+   "tags": [
+    "telemetry:fresh",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 5,
+    "soc_initial": 47.4,
+    "soh": 0.931,
+    "telemetry_soh": {
+     "age_min": 6.7,
+     "value": 0.913
+    }
+   }
+  },
+  {
+   "episode_seed": 255,
+   "family": "stale-degraded",
+   "id": "g2002-0255",
+   "tags": [
+    "telemetry:fresh",
+    "soc_sensor_bias",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 11,
+    "soc_initial": 59.5,
+    "soc_sensor_bias": -3.66,
+    "soh": 0.852,
+    "telemetry_soh": {
+     "age_min": 1.6,
+     "value": 0.868
+    }
+   }
+  },
+  {
+   "episode_seed": 256,
+   "family": "stale-degraded",
+   "id": "g2002-0256",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "b1_start_fail",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.2,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 66.0,
+    "soh": 0.844,
+    "telemetry_soh": {
+     "age_min": 63.2,
+     "value": 0.875
+    }
+   }
+  },
+  {
+   "episode_seed": 257,
+   "family": "stale-degraded",
+   "id": "g2002-0257",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 47.7,
+    "soc_sensor_bias": 3.01,
+    "soh": 0.679,
+    "telemetry_soh": {
+     "age_min": 61.4,
+     "value": 0.921
+    }
+   }
+  },
+  {
+   "episode_seed": 258,
+   "family": "stale-degraded",
+   "id": "g2002-0258",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.396,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 69.9,
+    "soh": 0.899,
+    "telemetry_soh": {
+     "age_min": 0.1,
+     "value": 0.9
+    }
+   }
+  },
+  {
+   "episode_seed": 259,
+   "family": "stale-degraded",
+   "id": "g2002-0259",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 63.2,
+    "soh": 0.867,
+    "telemetry_soh": {
+     "age_min": 44.5,
+     "value": 0.883
+    }
+   }
+  },
+  {
+   "episode_seed": 260,
+   "family": "stale-degraded",
+   "id": "g2002-0260",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 57.0,
+    "soc_sensor_bias": 2.19,
+    "soh": 0.688,
+    "telemetry_soh": {
+     "age_min": 117.4,
+     "value": 0.94
+    }
+   }
+  },
+  {
+   "episode_seed": 261,
+   "family": "stale-degraded",
+   "id": "g2002-0261",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 67.2,
+    "soh": 0.929,
+    "telemetry_soh": {
+     "age_min": 118.2,
+     "value": 0.932
+    }
+   }
+  },
+  {
+   "episode_seed": 262,
+   "family": "stale-degraded",
+   "id": "g2002-0262",
+   "tags": [
+    "telemetry:missing"
+   ],
+   "truth": {
+    "soc_initial": 53.3,
+    "soh": 0.896,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 263,
+   "family": "stale-degraded",
+   "id": "g2002-0263",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 48.0,
+    "soc_sensor_bias": 3.89,
+    "soh": 0.614,
+    "telemetry_soh": {
+     "age_min": 110.4,
+     "value": 0.923
+    }
+   }
+  },
+  {
+   "episode_seed": 264,
+   "family": "stale-degraded",
+   "id": "g2002-0264",
+   "tags": [
+    "telemetry:fresh",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 60.4,
+    "soh": 0.624,
+    "telemetry_soh": {
+     "age_min": 5.0,
+     "value": 0.639
+    }
+   }
+  },
+  {
+   "episode_seed": 265,
+   "family": "stale-degraded",
+   "id": "g2002-0265",
+   "tags": [
+    "telemetry:invalid",
+    "b1_start_fail"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "soc_initial": 61.5,
+    "soh": 0.61,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.254
+    }
+   }
+  },
+  {
+   "episode_seed": 266,
+   "family": "stale-degraded",
+   "id": "g2002-0266",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.066,
+    "soc_initial": 65.2,
+    "soc_sensor_bias": -2.68,
+    "soh": 0.935,
+    "telemetry_soh": {
+     "age_min": 108.5,
+     "value": 0.935
+    }
+   }
+  },
+  {
+   "episode_seed": 267,
+   "family": "stale-degraded",
+   "id": "g2002-0267",
+   "tags": [
+    "telemetry:stale",
+    "probe_bias",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 4,
+    "probe_bias": 0.064,
+    "soc_initial": 49.2,
+    "soh": 0.854,
+    "telemetry_soh": {
+     "age_min": 61.4,
+     "value": 0.935
+    }
+   }
+  },
+  {
+   "episode_seed": 268,
+   "family": "stale-degraded",
+   "id": "g2002-0268",
+   "tags": [
+    "telemetry:missing",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 55.1,
+    "soh": 0.665,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 269,
+   "family": "stale-degraded",
+   "id": "g2002-0269",
+   "tags": [
+    "telemetry:fresh"
+   ],
+   "truth": {
+    "soc_initial": 61.3,
+    "soh": 0.619,
+    "telemetry_soh": {
+     "age_min": 1.5,
+     "value": 0.621
+    }
+   }
+  },
+  {
+   "episode_seed": 270,
+   "family": "stale-degraded",
+   "id": "g2002-0270",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.129,
+    "probe_bias": 0.034,
+    "soc_initial": 57.7,
+    "soh": 0.694,
+    "telemetry_soh": {
+     "age_min": 68.4,
+     "value": 0.864
+    }
+   }
+  },
+  {
+   "episode_seed": 271,
+   "family": "stale-degraded",
+   "id": "g2002-0271",
+   "tags": [
+    "telemetry:fresh",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 6,
+    "soc_initial": 48.5,
+    "soh": 0.835,
+    "telemetry_soh": {
+     "age_min": 6.3,
+     "value": 0.815
+    }
+   }
+  },
+  {
+   "episode_seed": 272,
+   "family": "stale-degraded",
+   "id": "g2002-0272",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "midplan:b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.302,
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 11,
+    "soc_initial": 55.0,
+    "soh": 0.797,
+    "telemetry_soh": {
+     "age_min": 0.4,
+     "value": 0.816
+    }
+   }
+  },
+  {
+   "episode_seed": 273,
+   "family": "stale-degraded",
+   "id": "g2002-0273",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 67.2,
+    "soc_sensor_bias": 0.12,
+    "soh": 0.898,
+    "telemetry_soh": {
+     "age_min": 90.2,
+     "value": 0.932
+    }
+   }
+  },
+  {
+   "episode_seed": 274,
+   "family": "stale-degraded",
+   "id": "g2002-0274",
+   "tags": [
+    "telemetry:fresh",
+    "midplan:grid_tie_trip",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 14,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 56.6,
+    "soh": 0.79,
+    "telemetry_soh": {
+     "age_min": 7.9,
+     "value": 0.802
+    }
+   }
+  },
+  {
+   "episode_seed": 275,
+   "family": "stale-degraded",
+   "id": "g2002-0275",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 50.9,
+    "soc_sensor_bias": -1.66,
+    "soh": 0.887,
+    "telemetry_soh": {
+     "age_min": 16.0,
+     "value": 0.946
+    }
+   }
+  },
+  {
+   "episode_seed": 276,
+   "family": "stale-degraded",
+   "id": "g2002-0276",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.306,
+    "soc_initial": 54.0,
+    "soh": 0.704,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 277,
+   "family": "stale-degraded",
+   "id": "g2002-0277",
+   "tags": [
+    "telemetry:invalid",
+    "probe_inconclusive"
+   ],
+   "truth": {
+    "probe_inconclusive": true,
+    "soc_initial": 69.6,
+    "soh": 0.776,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.383
+    }
+   }
+  },
+  {
+   "episode_seed": 278,
+   "family": "stale-degraded",
+   "id": "g2002-0278",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "probe_bias",
+    "probe_inconclusive",
+    "b1_start_fail",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "drain_multiplier": 1.397,
+    "probe_bias": -0.0,
+    "probe_inconclusive": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 61.9,
+    "soh": 0.817,
+    "telemetry_soh": {
+     "age_min": 37.7,
+     "value": 0.924
+    }
+   }
+  },
+  {
+   "episode_seed": 279,
+   "family": "stale-degraded",
+   "id": "g2002-0279",
+   "tags": [
+    "telemetry:fresh"
+   ],
+   "truth": {
+    "soc_initial": 65.0,
+    "soh": 0.759,
+    "telemetry_soh": {
+     "age_min": 2.4,
+     "value": 0.745
+    }
+   }
+  },
+  {
+   "episode_seed": 280,
+   "family": "stale-degraded",
+   "id": "g2002-0280",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.202,
+    "soc_initial": 51.4,
+    "soh": 0.833,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.228
+    }
+   }
+  },
+  {
+   "episode_seed": 281,
+   "family": "stale-degraded",
+   "id": "g2002-0281",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.347,
+    "soc_initial": 61.3,
+    "soc_sensor_bias": 1.26,
+    "soh": 0.918,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 282,
+   "family": "stale-degraded",
+   "id": "g2002-0282",
+   "tags": [
+    "telemetry:stale",
+    "soc_sensor_bias",
+    "midplan:b1_derate",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "b1_derate",
+    "midplan_fault_at_min": 9,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 45.0,
+    "soc_sensor_bias": 1.25,
+    "soh": 0.826,
+    "telemetry_soh": {
+     "age_min": 60.4,
+     "value": 0.87
+    }
+   }
+  },
+  {
+   "episode_seed": 283,
+   "family": "stale-degraded",
+   "id": "g2002-0283",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "midplan:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.072,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 5,
+    "soc_initial": 64.1,
+    "soh": 0.823,
+    "telemetry_soh": {
+     "age_min": 6.7,
+     "value": 0.807
+    }
+   }
+  },
+  {
+   "episode_seed": 284,
+   "family": "stale-degraded",
+   "id": "g2002-0284",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "probe_bias"
+   ],
+   "truth": {
+    "drain_multiplier": 1.27,
+    "probe_bias": -0.001,
+    "soc_initial": 55.8,
+    "soc_sensor_bias": -2.1,
+    "soh": 0.939,
+    "telemetry_soh": {
+     "age_min": 22.5,
+     "value": 0.939
+    }
+   }
+  },
+  {
+   "episode_seed": 285,
+   "family": "stale-degraded",
+   "id": "g2002-0285",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch",
+    "soc_sensor_bias",
+    "midplan:grid_tie_trip",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "drain_multiplier": 1.174,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 10,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 60.5,
+    "soc_sensor_bias": 3.82,
+    "soh": 0.668,
+    "telemetry_soh": {
+     "age_min": 1.7,
+     "value": 0.672
+    }
+   }
+  },
+  {
+   "episode_seed": 286,
+   "family": "stale-degraded",
+   "id": "g2002-0286",
+   "tags": [
+    "telemetry:stale",
+    "probe_bias",
+    "b1_start_fail",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "probe_bias": 0.075,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 57.5,
+    "soh": 0.682,
+    "telemetry_soh": {
+     "age_min": 89.5,
+     "value": 0.856
+    }
+   }
+  },
+  {
+   "episode_seed": 287,
+   "family": "stale-degraded",
+   "id": "g2002-0287",
+   "tags": [
+    "telemetry:stale",
+    "b1_start_fail",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "b1_fails_first_start": true,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 66.2,
+    "soh": 0.906,
+    "telemetry_soh": {
+     "age_min": 110.3,
+     "value": 0.906
+    }
+   }
+  },
+  {
+   "episode_seed": 288,
+   "family": "stale-degraded",
+   "id": "g2002-0288",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch",
+    "midplan:grid_tie_trip",
+    "second:grid_trip_b1_derate"
+   ],
+   "truth": {
+    "drain_multiplier": 1.064,
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 11,
+    "second_fault": "grid_trip_b1_derate",
+    "soc_initial": 64.0,
+    "soh": 0.915,
+    "telemetry_soh": {
+     "age_min": 112.4,
+     "value": 0.915
+    }
+   }
+  },
+  {
+   "episode_seed": 289,
+   "family": "stale-degraded",
+   "id": "g2002-0289",
+   "tags": [
+    "telemetry:invalid",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 60.3,
+    "soc_sensor_bias": -3.63,
+    "soh": 0.704,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.472
+    }
+   }
+  },
+  {
+   "episode_seed": 290,
+   "family": "stale-degraded",
+   "id": "g2002-0290",
+   "tags": [
+    "telemetry:stale",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.172,
+    "soc_initial": 64.4,
+    "soh": 0.672,
+    "telemetry_soh": {
+     "age_min": 42.6,
+     "value": 0.878
+    }
+   }
+  },
+  {
+   "episode_seed": 291,
+   "family": "stale-degraded",
+   "id": "g2002-0291",
+   "tags": [
+    "telemetry:fresh",
+    "soc_sensor_bias"
+   ],
+   "truth": {
+    "soc_initial": 57.2,
+    "soc_sensor_bias": -0.57,
+    "soh": 0.804,
+    "telemetry_soh": {
+     "age_min": 5.4,
+     "value": 0.796
+    }
+   }
+  },
+  {
+   "episode_seed": 292,
+   "family": "stale-degraded",
+   "id": "g2002-0292",
+   "tags": [
+    "telemetry:stale",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 47.1,
+    "soh": 0.863,
+    "telemetry_soh": {
+     "age_min": 76.1,
+     "value": 0.919
+    }
+   }
+  },
+  {
+   "episode_seed": 293,
+   "family": "stale-degraded",
+   "id": "g2002-0293",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.053,
+    "soc_initial": 57.2,
+    "soh": 0.87,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.257
+    }
+   }
+  },
+  {
+   "episode_seed": 294,
+   "family": "stale-degraded",
+   "id": "g2002-0294",
+   "tags": [
+    "telemetry:fresh",
+    "midplan:grid_tie_trip",
+    "second:grid_tie_trip"
+   ],
+   "truth": {
+    "midplan_fault": "grid_tie_trip",
+    "midplan_fault_at_min": 7,
+    "second_fault": "grid_tie_trip",
+    "soc_initial": 53.4,
+    "soh": 0.708,
+    "telemetry_soh": {
+     "age_min": 0.1,
+     "value": 0.707
+    }
+   }
+  },
+  {
+   "episode_seed": 295,
+   "family": "stale-degraded",
+   "id": "g2002-0295",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 59.5,
+    "soh": 0.936,
+    "telemetry_soh": {
+     "age_min": 89.6,
+     "value": 0.936
+    }
+   }
+  },
+  {
+   "episode_seed": 296,
+   "family": "stale-degraded",
+   "id": "g2002-0296",
+   "tags": [
+    "telemetry:missing",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.301,
+    "soc_initial": 57.8,
+    "soh": 0.9,
+    "telemetry_soh": {
+     "age_min": 0.0,
+     "value": null
+    }
+   }
+  },
+  {
+   "episode_seed": 297,
+   "family": "stale-degraded",
+   "id": "g2002-0297",
+   "tags": [
+    "telemetry:stale"
+   ],
+   "truth": {
+    "soc_initial": 47.4,
+    "soh": 0.882,
+    "telemetry_soh": {
+     "age_min": 112.3,
+     "value": 0.882
+    }
+   }
+  },
+  {
+   "episode_seed": 298,
+   "family": "stale-degraded",
+   "id": "g2002-0298",
+   "tags": [
+    "telemetry:fresh",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.181,
+    "soc_initial": 59.4,
+    "soh": 0.694,
+    "telemetry_soh": {
+     "age_min": 5.5,
+     "value": 0.695
+    }
+   }
+  },
+  {
+   "episode_seed": 299,
+   "family": "stale-degraded",
+   "id": "g2002-0299",
+   "tags": [
+    "telemetry:invalid",
+    "drain_mismatch"
+   ],
+   "truth": {
+    "drain_multiplier": 1.109,
+    "soc_initial": 61.3,
+    "soh": 0.71,
+    "telemetry_soh": {
+     "age_min": 1.0,
+     "value": 1.437
+    }
+   }
+  }
+ ]
+}

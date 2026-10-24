@@ -2,6 +2,7 @@
 backend except through /evaluation after the operator closes an episode."""
 from __future__ import annotations
 
+import os
 import threading
 import uuid
 from pathlib import Path
@@ -15,7 +16,10 @@ from pydantic import BaseModel, Field
 from .bench import runner
 from .engine.agent import Agent, AgentConfig, ExecutionBlocked
 from .engine.assessor import assess
+from .engine.controller import ToolController
 from .llm.explainer import explain
+from .llm.policy import MODEL as LLM_MODEL
+from .llm.policy import LLMPolicy
 from .scenarios import FAULT_KINDS, list_families, load
 from .sim.world import World
 
@@ -81,7 +85,8 @@ def scenarios() -> dict:
 
 
 @app.post("/api/scenarios/{sid}/start")
-def start(sid: str, seed: int = Query(42, ge=0, le=10**9)) -> dict:
+def start(sid: str, seed: int = Query(42, ge=0, le=10**9),
+          controller: str = Query("deterministic", pattern="^(deterministic|llm)$")) -> dict:
     try:
         pub, truth = load(sid)
     except KeyError as e:
@@ -90,6 +95,13 @@ def start(sid: str, seed: int = Query(42, ge=0, le=10**9)) -> dict:
     eid = uuid.uuid4().hex[:10]
     ep = {"id": eid, "world": world, "public": pub, "seed": seed, "closed": False,
           "agent": Agent(pub, world, AgentConfig(approval="human"), seed=seed)}
+    info = ep["agent"].record["controller"]
+    if controller == "llm":
+        if os.environ.get("ANTHROPIC_API_KEY"):
+            ToolController(ep["agent"], LLMPolicy(), model=LLM_MODEL)
+        else:
+            info.update(requested="llm", note="LLM controller requested but ANTHROPIC_API_KEY is not set; "
+                                              "the deterministic agent is used")
     with _lock:
         EPISODES[eid] = ep
         if len(EPISODES) > 200:
@@ -236,4 +248,7 @@ if DIST.exists():
     @app.get("/{path:path}", include_in_schema=False)
     def spa(path: str):
         f = DIST / path
-        return FileResponse(f if path and f.is_file() else DIST / "index.html")
+        if path and f.is_file():
+            return FileResponse(f)
+        # index.html must always be revalidated so a new build's hashed bundle is picked up
+        return FileResponse(DIST / "index.html", headers={"Cache-Control": "no-cache"})

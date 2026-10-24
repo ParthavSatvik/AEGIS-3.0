@@ -1,0 +1,14 @@
+[
+  {
+    "set": "dev",
+    "n": 300,
+    "generator_seed": 1001,
+    "sha256": "40bc9ccd22bd00bd5b74fcb5c5a7952898a404ae22212839e623f7443e9531e1"
+  },
+  {
+    "set": "heldout",
+    "n": 300,
+    "generator_seed": 2002,
+    "sha256": "2fc09af4f6d4cee3e3f0424fb9b2560c9176292c8ded741100c239551ca1dd39"
+  }
+]

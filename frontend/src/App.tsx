@@ -11,6 +11,7 @@ export default function App() {
   const [faults, setFaults] = useState<string[]>([]);
   const [sid, setSid] = useState("stale-degraded");
   const [seed, setSeed] = useState(42);
+  const [ctrl, setCtrl] = useState("deterministic");
   const [st, setSt] = useState<EpState | null>(null);
   const [cyc, setCyc] = useState(0);
   const [fault, setFault] = useState("grid_tie_trip");
@@ -38,7 +39,7 @@ export default function App() {
     }
   }, []);
 
-  const start = useCallback(() => act(async () => { setTruth(null); return api.start(sid, seed); }), [act, sid, seed]);
+  const start = useCallback(() => act(async () => { setTruth(null); return api.start(sid, seed, ctrl); }), [act, sid, seed, ctrl]);
 
   useEffect(() => {
     api.scenarios().then((r) => { setScenarios(r.scenarios); setFaults(r.faults); }).catch((e) => setMsg({ tone: "bad", text: `Backend unreachable: ${e}` }));
@@ -78,6 +79,12 @@ export default function App() {
               <label className="text-xs text-slate-400">Scenario<br />
                 <select className="inp max-w-[22rem]" value={sid} onChange={(e) => setSid(e.target.value)}>
                   {scenarios.map((s) => <option key={s.id} value={s.id}>{s.demo ? "★ " : ""}{s.title}</option>)}
+                </select>
+              </label>
+              <label className="text-xs text-slate-400">Controller<br />
+                <select className="inp" value={ctrl} onChange={(e) => setCtrl(e.target.value)}>
+                  <option value="deterministic">Deterministic agent</option>
+                  <option value="llm">LLM tool controller (needs API key)</option>
                 </select>
               </label>
               <label className="text-xs text-slate-400">Seed<br />
@@ -124,7 +131,7 @@ export default function App() {
 
             {st && (
               <>
-                <div className="text-sm text-slate-400"><b className="text-slate-200">{st.scenario.title}</b> — {st.scenario.description} <span className="mono">seed {st.seed}</span></div>
+                <div className="text-sm text-slate-400"><b className="text-slate-200">{st.scenario.title}</b> — {st.scenario.description} <span className="mono">seed {st.seed}</span> <ControllerBadge st={st} /></div>
                 <StatusCards st={st} cycle={cycle} />
                 <Pipeline st={st} cycle={cycle} />
                 <Approval st={st} busy={busy} onDecide={(ok, op) => act(async () => {
@@ -337,5 +344,21 @@ function StressView() {
         </div>
       )}
     </div>
+  );
+}
+
+/** Shows which controller actually made the decisions in this run, never only the one requested. */
+function ControllerBadge({ st }: { st: EpState }) {
+  const c = st.record.controller;
+  const llmCycles = st.record.cycles.filter((x) => (x as { controller?: string }).controller === "llm").length;
+  const detCycles = st.record.cycles.filter((x) => (x as { controller?: string }).controller === "deterministic").length;
+  const label = c.active === "llm"
+    ? `LLM tool controller (${c.model ?? "model"}) · ${llmCycles} LLM cycle(s)` + (c.fallbacks.length ? ` · ${c.fallbacks.length} fallback(s) to deterministic, ${detCycles} deterministic cycle(s)` : "")
+    : "Deterministic agent";
+  return (
+    <span title={c.note || c.fallbacks.map((f) => f.reason).join("; ")}>
+      <Badge tone={c.active === "llm" && !c.fallbacks.length ? "info" : c.fallbacks.length ? "warn" : "mute"}>CONTROLLER: {label}</Badge>
+      {c.note && <span className="ml-2 text-xs text-amber-300">{c.note}</span>}
+    </span>
   );
 }

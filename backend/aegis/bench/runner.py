@@ -11,7 +11,7 @@ import time
 from ..engine import counterfactual as cf
 from ..engine.agent import Agent, AgentConfig
 from ..engine.assessor import assess
-from ..models import ScenarioPublic
+from ..models import ScenarioPublic, ScenarioTruth
 from ..scenarios import list_families, load
 from ..sim.world import World, _curve
 
@@ -158,7 +158,7 @@ def run_episode(family: str, seed: int, arm: str, truth_overrides: dict | None =
                 classify: bool = False) -> dict:
     pub, truth = load(family)
     if truth_overrides:  # stress testing only: simulator-side conditions the agent's model does not include
-        truth = truth.model_copy(update=truth_overrides)
+        truth = ScenarioTruth.model_validate({**truth.model_dump(), **truth_overrides})  # validated, typed
     world = World(pub, truth, seed)
     agent = make_arm(arm, pub, world, seed)
     t0 = time.perf_counter()

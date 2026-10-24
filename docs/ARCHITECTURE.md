@@ -103,3 +103,30 @@ SoH 0.92/0.82/0.70.
 - **C Ablation**: full AEGIS pipeline with the counterfactual stage off, so the belief is a single point.
 - **D Full AEGIS**.
 - **D-always**: AEGIS that runs every permitted diagnostic, used as the reference for H3.
+
+## Bounded tool controller (opt-in)
+
+`engine/controller.py::ToolController` replaces only the *choice of next step*. A policy returns one validated
+`ToolCall`, with no extra fields and exactly the expected arguments, chosen from: `observe`, `evaluate_candidates`,
+`request_diagnostic`, `propose_plan`, `execute_approved`, `verify_outcome`, `abstain` and `finish`.
+
+| Guard (deterministic, authoritative) | Effect |
+|---|---|
+| `evaluate_candidates` | The reserve maths, hidden states, V(d) and gate verdicts are computed by the engine, not the policy |
+| `request_diagnostic` | Only diagnostics the engine marks `permitted` (budget and deadline) |
+| `propose_plan` | Only plans whose **gate verdict is PASSED** on current observations. Consequential plans go to human approval (`_propose`); approval re-checks the gate |
+| `execute_approved` | Only an approved plan. The executor re-runs the gate and checks the verdict fingerprint. The runtime monitor still applies |
+| `finish` | Refused while an incident is active, unless a proposal awaits approval or AEGIS abstained |
+
+- **What the policy sees.** `ToolController.context()` contains only observations with freshness status, evaluation
+  summaries, diagnostic results and verification predicates. It is JSON-serialised, never a simulator object. Tests
+  assert that no truth fields or true-SoH values appear in it, even under stress conditions.
+- **Fallback.** Any policy error, three rejected calls, or a 16-step budget hands control to the deterministic agent.
+  The fallback is recorded in `record.controller.fallbacks`, and each cycle is labelled `controller: llm | reference |
+  deterministic`.
+- **Policies.**
+  - `llm/policy.py::LLMPolicy` (Anthropic Messages API, needs `ANTHROPIC_API_KEY`)
+  - `ReferencePolicy`, a deterministic policy over the same tools, shown by tests to match the deterministic agent
+  - `ScriptedPolicy`, used for red-team tests
+- **Default.** The API uses the deterministic agent unless `controller=llm` is requested *and* a key is set.
+  Otherwise the record and UI state that the deterministic agent was used.
