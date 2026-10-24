@@ -60,6 +60,14 @@ docker run --rm -p 8000:8000 -e AEGIS_BASIC_AUTH_USER=judge -e AEGIS_BASIC_AUTH_
 > yet**. The same layout was verified without Docker, using a staged copy with a clean `npm ci` build, a
 > runtime-only virtualenv, `AEGIS_ENV=production` and `$PORT`. Run the two commands above before the first deployment.
 
+## 3b. Live LLM check (needs a real key; never mocked)
+```bash
+ANTHROPIC_API_KEY=<set in your shell or host secrets> python scripts/live_llm_check.py
+```
+Or against a deployed service: `python scripts/live_llm_check.py --url https://<host> --user <user> --password <password>`
+(the service itself must have `ANTHROPIC_API_KEY` set). Exit 0 = verified (LLM active, zero fallbacks, Plan A still rejected by the
+gate, approval still mandatory); exit 2 = BLOCKED (no key); exit 1 = failed. A run that falls back to the deterministic agent can never pass.
+
 ## 4. Configuration (environment variables; see `.env.example`)
 
 | Variable | Default | Purpose |
