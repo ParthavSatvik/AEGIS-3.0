@@ -88,13 +88,15 @@ with mocked API responses.
 
 To see a diagnostic change the decision, load *Stale reading, healthy battery*. The probe rules out z3, so the plan changes from B to A.
 
+**Judges:** start with [docs/JUDGE_FINAL.md](docs/JUDGE_FINAL.md) (status, launch, 3-minute demo mapped to the criteria).
+
 ## Campus Energy Resilience profile (use case)
 
 The **Campus profile** tab frames the existing design scenario for campus energy managers (critical water service, 30% reserve,
 60-minute objective) and compares Plans A/B/C live from the Shadow Twin API. It is a UI and documentation layer only; the
 engine, gate and simulator are unchanged. See [docs/CAMPUS_DEMO.md](docs/CAMPUS_DEMO.md).
 
-## Real historical data and deployment (branch `feat/real-data-deploy`)
+## Real historical data and deployment (since release-v1.4.0)
 
 - **Real data tab.** It imports genuine historical demand data: a bundled **All-India demand met** file from the
   National Power Portal (2026-10-23, 409 records), or your own CSV, XLSX or NPP JSON upload. Imports are validated,
@@ -168,7 +170,7 @@ See [docs/SENSOR_BOUND_RESULTS.md](docs/SENSOR_BOUND_RESULTS.md).
 
 | Check | Command | Result |
 |---|---|---|
-| Backend tests | `cd backend && python -m pytest -q` | **110 passed** |
+| Backend tests | `cd backend && python -m pytest -q` | **129 passed** |
 | Backend lint | `cd backend && python -m ruff check aegis tests` | all checks passed |
 | Frontend typecheck / lint | `npm --prefix frontend run typecheck` / `run lint` | clean |
 | Production build | `npm --prefix frontend run build` | builds |

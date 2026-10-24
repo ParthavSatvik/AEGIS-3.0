@@ -8,7 +8,7 @@ services:
     dockerContext: .
     plan: free
     branch: main            # only tested, merged commits on main are deployed
-    autoDeploy: true        # each push to main rebuilds and redeploys; set false to deploy manually
+    autoDeploy: false       # manual deploys until the Docker image has been tested; set true to redeploy on every push to main
     healthCheckPath: /api/health
     envVars:
       - key: AEGIS_ENV
