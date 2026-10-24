@@ -50,6 +50,19 @@ npm --prefix frontend run build
 python -m uvicorn aegis.api:app --app-dir backend --port 8000
 ```
 Then open **http://127.0.0.1:8000**. One process serves both the API and the dashboard.
+If this browser has opened an older AEGIS build before, hard-refresh once (Ctrl+F5). Builds from v1.2.0 serve the
+page with `Cache-Control: no-cache`, so later updates load automatically.
+
+**Controller mode.** The **Controller** selector in the Incident Console defaults to the *Deterministic agent*. That
+default is what the demo, tests and benchmarks use.
+
+*LLM tool controller* is opt-in. It works only if `ANTHROPIC_API_KEY` is set in the environment of the uvicorn
+process; the model can be overridden with `AEGIS_LLM_MODEL`.
+- **Without a key**, the run uses the deterministic agent, and the badge says so.
+- **With a key**, the LLM chooses tools, but the safety gate, human approval and executor checks still decide.
+
+**The live LLM path has not been verified.** No key was available when this release was built, so it is tested only
+with mocked API responses.
 
 ## Judge demo (about 3 minutes)
 
@@ -102,7 +115,7 @@ API: `/api/scenarios`, `/api/scenarios/{id}/start?seed=`, `/api/episodes/{id}/{o
 
 ## Evaluator concerns and responses
 
-| Concern | Response (on branch `exp/evaluator-response`) | What remains |
+| Concern | Response (in `main` since release-v1.2.0) | What remains |
 |---|---|---|
 | Self-authored scenarios weaken validation | A scenario **generator** separate from the agent, with a documented protocol, and **frozen dev and held-out sets** (300 each, hashed and committed before any run). Successes and failures are both reported in [docs/EVALUATION_PROTOCOL.md](docs/EVALUATION_PROTOCOL.md). | Still same-author. This is **not independent external validation**. |
 | The optional LLM makes it look like classical planning | A **bounded tool-calling controller**: the policy chooses tools, while the deterministic engine, gate, approval and executor stay authoritative. Tests cover hidden-truth isolation and bypass attempts. A fallback runs on any failure, and the UI shows the controller that actually ran. | **No live LLM run was verified**: there's no API key in the build environment, so the LLM path is tested with mocked responses only. The default demo uses the deterministic agent. |
