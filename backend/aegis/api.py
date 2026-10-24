@@ -288,6 +288,24 @@ def stress_csv() -> str:
     return runner.to_csv(_LATEST_STRESS)
 
 
+class ShadowIn(BaseModel):
+    family: str = "stale-degraded"
+    plan_id: str
+    soh_values: list[float] | None = None
+    drain_multipliers: list[float] | None = None
+    soc_initial: float | None = Field(default=None, ge=0, le=100)
+
+
+@app.post("/api/shadow/run")
+def shadow_run(body: ShadowIn) -> dict:
+    """Shadow twin: one plan across a grid of simulated what-if states (simulation only)."""
+    from .shadow import run_shadow
+    try:
+        return run_shadow(body.family, body.plan_id, body.soh_values, body.drain_multipliers, body.soc_initial)
+    except (ValueError, KeyError) as e:
+        raise HTTPException(422, str(e)) from None
+
+
 # ------------------------------------------------------------- real historical data (context only)
 DATASETS: dict[str, ingest.Dataset] = {}
 _LATEST_REPLAY: dict = {}
