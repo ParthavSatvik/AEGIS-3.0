@@ -50,10 +50,11 @@ def _r1(plan: PlanSpec, ev: GateEvidence) -> RuleResult:
         raise ValueError("missing SoC or empty hidden-state set")
     floor = ev.constraints.reserve_floor_pct
     scale = max(1.0, ev.drain_scale)  # observed mismatch can only make the check stricter
+    soc_low = ev.soc_now - max(0.0, ev.constraints.soc_sensor_max_overread_pct)  # lower bound on true charge
     bad = []
     worst = None
     for s in ev.states:
-        reserve = ev.soc_now - _soc_drain(plan.drain_curve, s.soh) * scale
+        reserve = soc_low - _soc_drain(plan.drain_curve, s.soh) * scale
         worst = reserve if worst is None else min(worst, reserve)
         if reserve < floor - 1e-9:
             bad.append(f"{s.id} (SoH {s.soh:.2f}): reserve {reserve:.1f}% < {floor:g}%")

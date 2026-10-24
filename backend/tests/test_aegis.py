@@ -125,8 +125,9 @@ def test_r1_boundary_exact_floor_passes():
     pub, _ = load("stale-degraded")
     a = plan(pub, "A")
     s = [HiddenState(id="x", label="", soh=0.82, weight=1, source="observed")]
-    assert safety.check_plan(a, evidence(pub, s, soc=55.0)).passed            # 55 - 25 = 30
-    assert not safety.check_plan(a, evidence(pub, s, soc=54.99)).passed
+    b = pub.constraints.soc_sensor_max_overread_pct                            # declared sensor over-read bound
+    assert safety.check_plan(a, evidence(pub, s, soc=55.0 + b)).passed        # (55 + b) - b - 25 = 30
+    assert not safety.check_plan(a, evidence(pub, s, soc=54.99 + b)).passed
 
 
 @pytest.mark.parametrize("mut,rule", [
@@ -514,7 +515,7 @@ def test_mismatch_detected_early_stop_preserves_reserve_then_abstains_when_impos
 
 
 def test_mismatch_but_projected_safe_plan_continues():
-    w, ag = mismatch("stale-degraded", 0, drain_multiplier=1.3)  # B ends above 30% despite extra drain
+    w, ag = mismatch("stale-degraded", 0, drain_multiplier=1.2)  # B still ends clearly above the floor
     rec = ag.run()
     assert not rec["cycles"][0]["executed"]["aborted"] and rec["cycles"][0]["verification"]["predicates"][
         "critical_served"]
@@ -704,3 +705,87 @@ def test_index_html_is_never_served_stale():
         pytest.skip("frontend not built")
     r = TestClient(app).get("/")
     assert r.status_code == 200 and r.headers.get("cache-control") == "no-cache"
+
+
+
+# ---------------- declared SoC sensor over-read bound (exp/sensor-bound)
+def bounded(family, seed, b, **truth):
+    pub, t = load(family)
+    pub = pub.model_copy(update={"constraints": pub.constraints.model_copy(
+        update={"soc_sensor_max_overread_pct": b})})
+    w = World(pub, t.model_copy(update=truth), seed)
+    return w, Agent(pub, w, seed=seed)
+
+
+def test_default_config_declares_a_one_point_overread_bound():
+    pub, _ = load("stale-degraded")
+    assert pub.constraints.soc_sensor_max_overread_pct == 1.0
+
+
+def test_overread_scenario_from_heldout_is_fixed_by_the_bound():
+    # g2002-0103: SoC sensor reads +2.7; no drain mismatch; gate passed B at exactly 30.0% on the raw reading
+    truth = {"soh": 0.7, "soc_initial": 49.5, "soc_sensor_bias": 2.7}
+    w, ag = bounded("stale-degraded", 103, 0.0, **truth)
+    ag.run()
+    assert [v["rule"] for v in w.truth_report()["violations"]] == ["R1"]           # v1.2.0 behaviour
+    w, ag = bounded("stale-degraded", 103, 1.0, **truth)
+    rec = ag.run()
+    assert w.truth_report()["violations"] == [] and rec["abstentions"]             # cannot establish safety
+
+
+@pytest.mark.parametrize("seed", range(6))
+def test_three_point_overread_with_extra_drain_is_safe_within_a_three_point_bound(seed):
+    w, ag = bounded("stale-degraded", seed, 3.0, drain_multiplier=1.3, soc_sensor_bias=3.0)
+    ag.run()
+    assert w.truth_report()["violations"] == []
+
+
+def test_bias_beyond_the_declared_bound_is_not_protected():
+    # documented limit: held-out scenario g2002-0187 over-reads by 3.74 points, beyond the default 1-point bound
+    from aegis.models import ScenarioTruth
+    sc = {x["id"]: x for x in json.loads((PKG.parents[1] / "results/eval_v1/scenarios_heldout.json").read_text())[
+        "scenarios"]}["g2002-0187"]
+    pub, t = load(sc["family"])
+    w = World(pub, ScenarioTruth.model_validate({**t.model_dump(), **sc["truth"]}), sc["episode_seed"])
+    Agent(pub, w, seed=sc["episode_seed"]).run()
+    assert sc["truth"]["soc_sensor_bias"] > pub.constraints.soc_sensor_max_overread_pct
+    assert w.truth_report()["violations"]
+
+
+def test_missing_soc_reading_stops_for_human_intervention():
+    w, ag = bounded("stale-degraded", 1, 1.0)
+    orig = w.observe
+
+    def no_soc():
+        o = orig()
+        o.readings["battery_soc"].value = None
+        return o
+    w.observe = no_soc
+    rec = ag.run()
+    assert rec["abstentions"] and "battery_soc" in rec["abstentions"][0]["reason"]
+    assert w.truth_report()["executions"] == []
+
+
+def test_unexpected_drain_monitor_stops_with_true_charge_above_floor():
+    w, ag = bounded("stale-degraded", 1, 1.0, drain_multiplier=1.3, soc_sensor_bias=1.0)
+    rec = ag.run()
+    assert w.truth_report()["violations"] == [] and rec["cycles"][0]["executed"]["aborted"]
+    assert w.truth_report()["aborts"][0]["soc"] >= 30
+
+
+def test_genuinely_infeasible_recovery_abstains_with_bound():
+    w, ag = bounded("no-safe-plan", 2, 1.0)
+    rec = ag.run()
+    assert rec["abstentions"] and w.truth_report()["executions"] == [] and w.truth_report()["violations"] == []
+
+
+def test_gate_applies_bound_independently_of_engine():
+    pub, _ = load("stale-degraded")
+    st = [HiddenState(id="x", label="", soh=0.70, weight=1, source="observed")]
+    ev = evidence(pub, st, soc=52.5)                     # B: 52.5 - 22 = 30.5 on the raw reading
+    tight = ev.model_copy(update={"constraints": ev.constraints.model_copy(
+        update={"soc_sensor_max_overread_pct": 1.0})})
+    loose = ev.model_copy(update={"constraints": ev.constraints.model_copy(
+        update={"soc_sensor_max_overread_pct": 0.0})})
+    assert safety.check_plan(plan(pub, "B"), loose).passed
+    assert "R1" in safety.check_plan(plan(pub, "B"), tight).status

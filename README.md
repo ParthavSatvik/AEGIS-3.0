@@ -69,7 +69,8 @@ with mocked API responses.
 1. **Incident Console** → **★ Design scenario**, seed **42** → **Load incident**. The ingestion table shows `battery_soh` 0.92 marked **STALE** (age 47 min, limit 10).
 2. Set *Force plan (LLM/operator)* to **A** → **Request execution**. Result: **BLOCKED (REJECTED:R1)**, and nothing runs.
 3. **▶ Run decision cycle**:
-   - The "Before diagnostics" table shows A at 41/33/**22%** under z1/z2/z3. The counterexample is z3 (SoH 70%), where 22% is below the 30% floor. F_unsafe(A) = 0.20. B is 44/40/36%, and C takes 180 minutes.
+   - The "Before diagnostics" table shows A at 40/32/**21%** under z1/z2/z3. The counterexample is z3 (SoH 70%), where 21% is below the 30% floor. F_unsafe(A) = 0.20. B is 43/39/35%, and C takes 180 minutes.
+   - These reserves start from the *lower bound* on charge: the 58% reading minus the declared 1-point sensor over-read bound. On the raw reading they are the design specification's 41/33/22% and 44/40/36%.
    - V(capacity_probe) = −14.6 + 25 − 1 − 4 = **+5.40**, so the probe runs. V(deep test) = −12.60, so it is skipped.
    - The probe measures about 0.71 and rules out z1 and z2. The decision stays B → B.
    - The gate gives **A REJECTED:R1**, **B PASSED**, **C REJECTED:R7** (misses the 60-minute objective).
@@ -130,11 +131,21 @@ API: `/api/scenarios`, `/api/scenarios/{id}/start?seed=`, `/api/episodes/{id}/{o
 - the release-v1.0.1 policy scores 129 / 5 on dev and 136 / 6 on held-out
 - most remaining failures are infeasible scenarios, judged against simulator truth
 
+### Sensor over-read bound (branch `exp/sensor-bound`)
+
+Decisions now use a lower bound on charge: the SoC reading minus a declared maximum sensor over-read (`soc_sensor_max_overread_pct`, default 1.0 point).
+- It was selected against criteria committed before testing.
+- Across 900 generated episodes, full-AEGIS violations fall from 9 to 4, with safe recoveries down 4%.
+- The reference benchmark loses 8 safe recoveries (180 → 172), all in `second-fault-grid`.
+- The four remaining violations all have an over-read larger than the declared bound.
+
+See [docs/SENSOR_BOUND_RESULTS.md](docs/SENSOR_BOUND_RESULTS.md).
+
 ## Verification (run 2026-10-24)
 
 | Check | Command | Result |
 |---|---|---|
-| Backend tests | `cd backend && python -m pytest -q` | **73 passed** |
+| Backend tests | `cd backend && python -m pytest -q` | **86 passed** |
 | Backend lint | `cd backend && python -m ruff check aegis tests` | all checks passed |
 | Frontend typecheck / lint | `npm --prefix frontend run typecheck` / `run lint` | clean |
 | Production build | `npm --prefix frontend run build` | builds |
@@ -365,6 +376,7 @@ These are post-hoc observations. Treat them as descriptive, not as tests of a hy
   while a proposal waits. All downtime figures are simulated minutes, not field measurements.
 - Episodes live in server memory and are lost on restart.
 - The LLM explainer and the LLM tool controller were tested only with mocked HTTP; no live model call was made.
-- On generated scenarios, full AEGIS had 5 violations in 600 episodes, all with an optimistic SoC sensor bias.
+- With the 1-point sensor bound, full AEGIS still had 4 violations in 900 generated episodes, all with an SoC over-read
+  larger than the bound. The bound only protects against errors it declares.
 - The gate enforces only the rules it is configured with.
 - The scenario suites are small and author-designed. No statistical-significance or real-world claims are made.
