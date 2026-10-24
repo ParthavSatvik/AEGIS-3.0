@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Badge } from "./panels";
+import { Provenance } from "./ui";
 
 type Quality = Record<string, string | number>;
 type Dataset = {
@@ -35,10 +36,10 @@ function Trend({ ds }: { ds: Dataset }) {
   const y = (v: number) => H - P + 10 - ((v - lo) / Math.max(1, hi - lo)) * (H - 2 * P);
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Real demand trend">
-      <polyline fill="none" stroke="#a78bfa" strokeWidth="2" points={pts.map((p) => `${x(p.t)},${y(p.mw)}`).join(" ")} />
-      <text x={P} y={14} fill="#94a3b8" fontSize="11">{hi.toLocaleString()} MW</text>
-      <text x={P} y={H - 2} fill="#94a3b8" fontSize="11">{lo.toLocaleString()} MW · {pts[0].t.replace("T", " ")}</text>
-      <text x={W - P} y={H - 2} fill="#94a3b8" fontSize="11" textAnchor="end">{pts[pts.length - 1].t.replace("T", " ")}</text>
+      <polyline fill="none" stroke="#4a43d9" strokeWidth="2" points={pts.map((p) => `${x(p.t)},${y(p.mw)}`).join(" ")} />
+      <text x={P} y={14} fill="#546079" fontSize="11">{hi.toLocaleString()} MW</text>
+      <text x={P} y={H - 2} fill="#546079" fontSize="11">{lo.toLocaleString()} MW · {pts[0].t.replace("T", " ")}</text>
+      <text x={W - P} y={H - 2} fill="#546079" fontSize="11" textAnchor="end">{pts[pts.length - 1].t.replace("T", " ")}</text>
     </svg>
   );
 }
@@ -82,7 +83,7 @@ export function RealDataView() {
       <div className="panel">
         <div className="h">Upload a file (.csv, .xlsx, or NPP .json)</div>
         <div className="flex flex-wrap items-end gap-3">
-          <input className="inp" type="file" accept=".csv,.xlsx,.json,.txt" onChange={(e) => { setFile(e.target.files?.[0] ?? null); setPv(null); }} />
+          <input className="inp file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-cyan-900 file:px-3 file:py-1 file:text-sm file:font-semibold file:text-cyan-300" type="file" accept=".csv,.xlsx,.json,.txt" onChange={(e) => { setFile(e.target.files?.[0] ?? null); setPv(null); }} />
           <label className="text-xs text-slate-400">Source attribution (required)<br />
             <input className="inp w-80" value={source} maxLength={300} placeholder="e.g. National Power Portal, Demand Met, 2026-10-22" onChange={(e) => setSource(e.target.value)} />
           </label>
@@ -117,7 +118,7 @@ export function RealDataView() {
       {ds && (
         <div className="panel space-y-3">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="h !mb-0">{ds.name}</div><Badge tone="info">REAL HISTORICAL DATA</Badge><Badge tone="mute">{ds.kind}</Badge>
+            <div className="h !mb-0">{ds.name}</div><Provenance kind="measured" /><Badge tone="info">REAL HISTORICAL DATA</Badge><Badge tone="mute">{ds.kind}</Badge>
           </div>
           <div className="text-xs text-slate-400">Source: {ds.source} · file {ds.filename} · SHA-256 <span className="mono">{ds.sha256.slice(0, 16)}</span> · unit in file {ds.unit_in} → MW</div>
           <Trend ds={ds} />
@@ -145,7 +146,7 @@ export function RealDataView() {
           </div>
           {rep && (
             <>
-              <div className="rounded-md border border-fuchsia-800 bg-fuchsia-950/30 p-2 text-xs text-fuchsia-200">{rep.label}</div>
+              <div className="flex flex-wrap items-center gap-2 rounded-md border border-fuchsia-800 bg-fuchsia-950 p-2 text-xs text-fuchsia-200"><Provenance kind="simulated" />{rep.label}</div>
               <table className="w-full text-sm"><thead><tr className="text-left text-xs text-slate-400"><th>Arm</th><th>Episodes</th><th>Violations</th><th>Safe recoveries</th><th>Failed recoveries</th><th>Monitor stops</th></tr></thead>
                 <tbody>{Object.entries(rep.summary).map(([a, s]) => <tr key={a} className="border-t border-slate-800"><td className="py-1">{a === "D" ? "D Full AEGIS" : "B Basic tool-using"}</td>
                   <td className="mono">{s.episodes}</td><td className={`mono ${s.violations ? "text-rose-300" : ""}`}>{s.violations}</td><td className="mono">{s.safe_recoveries}</td><td className="mono">{s.failed_recoveries}</td><td className="mono">{s.monitor_stops}</td></tr>)}</tbody></table>

@@ -78,31 +78,39 @@ export function ShadowView() {
             {s.misses_deadline ? " — misses the deadline, even though the reserve may hold. The safety gate rejects this plan under R7." : " — meets the deadline."}
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead><tr className="text-left text-xs text-slate-400">
-                <th className="py-1 pr-3">Battery health (SoH) ↓ / extra drain →</th>
-                {res.grid.drain_multipliers.map((m) => <th key={m} className="pr-3">×{m.toFixed(2)}</th>)}</tr></thead>
-              <tbody>
-                {res.grid.soh.map((h) => (
-                  <tr key={h} className="border-t border-slate-800 align-top">
-                    <td className="mono py-2 pr-3">{h.toFixed(2)}</td>
-                    {res.grid.drain_multipliers.map((m) => {
-                      const c = cell(h, m);
-                      if (!c) return <td key={m} />;
-                      return (
-                        <td key={m} className={`pr-3 ${c.violation ? "rounded bg-rose-950/50 text-rose-200" : ""}`}>
-                          <div className="mono font-semibold">{c.min_soc}% {c.violation ? "✗" : "✓"}</div>
-                          <div className="text-[11px]">{c.margin_to_floor >= 0 ? "+" : ""}{c.margin_to_floor} pts to floor</div>
-                          <div className="text-[11px]">{c.violation ? `violates ${c.violations.join(", ")}` : "no violation"}</div>
-                          <div className="text-[11px] text-slate-400">{c.restored ? `restored ${c.restore_min} min` : "not restored"}</div>
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div role="group" aria-label="Risk matrix: battery health by extra drain">
+            <div className="mb-1.5 flex items-end justify-between text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400">
+              <span>Battery health (SoH) ↓</span><span>Extra drain beyond the model →</span>
+            </div>
+            <div className="grid grid-cols-[3.2rem_repeat(3,minmax(0,1fr))] gap-1.5 sm:gap-2">
+              <div />
+              {res.grid.drain_multipliers.map((m) => <div key={m} className="mono pb-0.5 text-center text-xs font-semibold text-slate-300">×{m.toFixed(2)}</div>)}
+              {res.grid.soh.map((h) => (
+                <div key={h} className="contents">
+                  <div className="mono flex items-center text-xs font-semibold text-slate-300">{h.toFixed(2)}</div>
+                  {res.grid.drain_multipliers.map((m) => {
+                    const c = cell(h, m);
+                    if (!c) return <div key={m} />;
+                    return (
+                      <div key={m} tabIndex={0} title={`SoH ${h}, drain ×${m}: lowest charge ${c.min_soc}%, ${c.margin_to_floor >= 0 ? "+" : ""}${c.margin_to_floor} pts to the ${res.reserve_floor_pct}% floor`}
+                        className={`rounded-lg border p-2 sm:p-2.5 ${c.violation ? "border-rose-700 bg-rose-900 text-rose-200" : "border-emerald-700 bg-emerald-950 text-emerald-200"}`}>
+                        <div className="flex items-center justify-between gap-1">
+                          <span className="mono text-base font-semibold sm:text-lg">{c.min_soc}%</span>
+                          <span className="text-xs font-bold" aria-label={c.violation ? "breaches the floor" : "holds the floor"}>{c.violation ? "✗ Breach" : "✓ Holds"}</span>
+                        </div>
+                        <div className="mt-0.5 text-[11px] leading-snug">{c.margin_to_floor >= 0 ? "+" : ""}{c.margin_to_floor} pts to floor</div>
+                        <div className="text-[11px] leading-snug opacity-80">{c.violation ? `violates ${c.violations.join(", ")}` : "no violation"} · {c.restored ? `restored ${c.restore_min} min` : "not restored"}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+            <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400">
+              <span className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded border border-emerald-700 bg-emerald-950" /> ✓ holds the {res.reserve_floor_pct}% floor</span>
+              <span className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded border border-rose-700 bg-rose-900" /> ✗ breaches the floor</span>
+              <span>Each square is a <b>hypothetical simulated condition</b>, not measured telemetry. Hover or focus a square for detail.</span>
+            </div>
           </div>
           <div className="text-[11px] text-slate-500">{res.label}</div>
         </div>

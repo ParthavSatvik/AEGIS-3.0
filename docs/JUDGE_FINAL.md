@@ -13,6 +13,10 @@ and decision support only.
 | Public deployment | **Not done.** Needs Docker test, a Render account, and `AEGIS_BASIC_AUTH_USER` / `AEGIS_BASIC_AUTH_PASSWORD` |
 | Independent validation | None. Evaluations are synthetic and same-author |
 
+## Visual design
+The interface uses one light design system (tokens in `frontend/src/index.css`, shared components in `frontend/src/ui.tsx`).
+Measured, simulated and assumed data carry explicit provenance chips. Layouts were checked for horizontal overflow at 360, 390, 768 and 1024 px on all six tabs.
+
 ## Launch
 ```bash
 pip install -r backend/requirements-dev.txt
