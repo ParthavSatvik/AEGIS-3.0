@@ -60,3 +60,46 @@ def test_engine_and_gate_do_not_import_shadow_and_no_national_mw():
             assert "shadow" not in {n.module or "" for n in ast.walk(ast.parse(f.read_text(encoding="utf-8")))
                                     if isinstance(n, ast.ImportFrom)}
     assert "realdata" not in (pkg / "shadow.py").read_text(encoding="utf-8")
+
+
+# ---------------- production access policy and request validation
+def test_shadow_endpoint_follows_the_same_access_policy(monkeypatch):
+    import base64
+
+    from aegis.settings import settings
+    monkeypatch.setattr(settings, "basic_auth_user", "judge")
+    monkeypatch.setattr(settings, "basic_auth_password", "pw")
+    body = {"plan_id": "A"}
+    assert cl.post("/api/shadow/run", json=body).status_code == 401
+    bad = base64.b64encode(b"judge:no").decode()
+    assert cl.post("/api/shadow/run", json=body, headers={"Authorization": f"Basic {bad}"}).status_code == 401
+    ok = base64.b64encode(b"judge:pw").decode()
+    assert cl.post("/api/shadow/run", json=body, headers={"Authorization": f"Basic {ok}"}).status_code == 200
+    monkeypatch.setattr(settings, "basic_auth_user", "")
+    monkeypatch.setattr(settings, "basic_auth_password", "")
+    monkeypatch.setattr(settings, "env", "production")
+    monkeypatch.setattr(settings, "allow_public", False)
+    assert cl.post("/api/shadow/run", json=body).status_code == 503      # fails closed
+
+
+@pytest.mark.parametrize("body,code", [
+    ({}, 422), ({"plan_id": "A", "soh_values": ["x"]}, 422), ({"plan_id": "A", "soc_initial": 150}, 422),
+    ({"plan_id": "A", "family": "nope"}, 422), ({"plan_id": "A", "soh_values": []}, 422)])
+def test_shadow_request_validation(body, code):
+    assert cl.post("/api/shadow/run", json=body).status_code == code
+    assert cl.get("/api/shadow/run").status_code in (404, 405)  # GET is not served (JSON 404 via catch-all)
+
+
+def test_shadow_run_leaves_live_episodes_and_gate_untouched():
+    from aegis.api import EPISODES
+    eid = cl.post("/api/scenarios/stale-degraded/start?seed=42").json()["episode_id"]
+    before = cl.get(f"/api/episodes/{eid}").json()
+    cl.post("/api/shadow/run", json={"plan_id": "A"})
+    assert cl.get(f"/api/episodes/{eid}").json() == before and eid in EPISODES
+    d = cl.post(f"/api/episodes/{eid}/decide").json()["record"]["cycles"][-1]
+    assert {k: v["status"] for k, v in d["gate"].items()} == {"A": "REJECTED:R1", "B": "PASSED", "C": "REJECTED:R7"}
+
+
+def test_abc_comparison_is_reproducible():
+    runs = [[run_shadow("stale-degraded", p) for p in "ABC"] for _ in range(2)]
+    assert runs[0] == runs[1]
