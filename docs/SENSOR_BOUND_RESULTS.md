@@ -1,4 +1,4 @@
-# Sensor over-read bound — results (branch `exp/sensor-bound`)
+# Sensor over-read bound — results (developed on `exp/sensor-bound`, released in v1.3.0)
 
 Simulation only. The generated scenarios are same-author and synthetic; nothing here shows real-world safety.
 The criteria were written and committed before any sweep (`31e9a07`, [SENSOR_BOUND_CRITERIA.md](SENSOR_BOUND_CRITERIA.md)).

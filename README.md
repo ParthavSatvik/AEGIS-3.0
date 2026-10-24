@@ -131,7 +131,7 @@ API: `/api/scenarios`, `/api/scenarios/{id}/start?seed=`, `/api/episodes/{id}/{o
 - the release-v1.0.1 policy scores 129 / 5 on dev and 136 / 6 on held-out
 - most remaining failures are infeasible scenarios, judged against simulator truth
 
-### Sensor over-read bound (branch `exp/sensor-bound`)
+### Sensor over-read bound (since release-v1.3.0)
 
 Decisions now use a lower bound on charge: the SoC reading minus a declared maximum sensor over-read (`soc_sensor_max_overread_pct`, default 1.0 point).
 - It was selected against criteria committed before testing.
