@@ -1,0 +1,30 @@
+name: container-smoke
+
+# Builds the real production image from the Dockerfile and smoke-tests the running container.
+# No application secrets are used: scripts/container_smoke.sh generates throwaway test credentials at run time.
+on:
+  push:
+    branches: [main, "fix/**", "feat/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build production image
+        run: docker build -t aegis:ci .
+      - name: Install smoke-test client
+        run: python3 -m pip install --quiet "httpx>=0.27"
+      - name: Run container smoke test
+        run: IMAGE=aegis:ci bash scripts/container_smoke.sh
+      - name: Show container logs on failure
+        if: failure()
+        run: |
+          docker ps -a
+          for c in $(docker ps -aq); do docker logs "$c" 2>&1 | tail -40; done
