@@ -67,11 +67,12 @@ export default function App() {
             </div>
           </div>
           <div className="ml-auto flex flex-wrap items-center gap-1.5">
+            <span className="mr-1 inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-300"><span className="live-dot inline-block h-2 w-2 rounded-full bg-emerald-500" aria-hidden="true" />Simulator online</span>
             <Badge tone="info">ENERGY & UTILITIES</Badge>
             <Badge tone="warn">SIMULATION ONLY · ILLUSTRATIVE</Badge>
           </div>
         </div>
-        <nav aria-label="Sections" className="mx-auto mt-1 flex max-w-[1600px] gap-0.5 overflow-x-auto px-3 md:px-5">
+        <nav aria-label="Sections" className="mx-auto mt-1 flex max-w-[1600px] gap-0.5 overflow-x-auto px-3 [scrollbar-width:none] md:px-5 [&::-webkit-scrollbar]:hidden">
           {(["campus", "console", "bench", "shadow", "data", "record"] as Tab[]).map((t) => (
             <button key={t} onClick={() => setTab(t)} aria-current={tab === t ? "page" : undefined}
               className={`relative inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap px-3 py-2.5 text-sm font-medium transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:transition-colors ${tab === t ? "text-cyan-400 after:bg-cyan-600" : "text-slate-400 hover:text-slate-100 after:bg-transparent"}`}>
@@ -221,6 +222,10 @@ export default function App() {
           </div>
         )}
       </main>
+      <footer className="mx-auto mt-6 max-w-[1600px] border-t border-slate-700/70 px-4 py-5 text-xs leading-relaxed text-slate-400 md:px-6">
+        <b className="text-slate-300">AEGIS — Counterfactual Safety Agent.</b> Simulation-only decision support. Values are illustrative; Shadow Twin cells are hypothetical;
+        real national demand data is context, never campus telemetry. Not a real-world safety guarantee, and not connected to real equipment.
+      </footer>
     </div>
   );
 }

@@ -79,17 +79,23 @@ export function CampusView({ go }: { go: Go }) {
   return (
     <div className="space-y-6">
       <section aria-labelledby="hero" className="rise relative overflow-hidden rounded-2xl border border-slate-700/70 bg-white p-5 shadow-lift md:p-8">
+        <div aria-hidden="true" className="dotgrid pointer-events-none absolute inset-0" />
         <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgb(91_82_232/0.16),transparent_65%)]" />
         <div aria-hidden="true" className="pointer-events-none absolute -bottom-28 left-1/3 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgb(14_165_168/0.12),transparent_65%)]" />
         <div className="relative grid gap-6 lg:grid-cols-[1.25fr_1fr] lg:items-center">
           <div>
             <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-400">AEGIS — Counterfactual Safety Agent · Campus Energy Resilience profile</div>
-            <h1 id="hero" className="mt-2 text-[2rem] font-semibold leading-[1.1] text-slate-100 md:text-[2.7rem]">Know the risk before you commit to recovery.</h1>
+            <h1 id="hero" className="mt-2 text-[2.1rem] font-semibold leading-[1.08] text-slate-100 md:text-[3rem]">Know the risk <span className="gradient-text">before you commit</span> to recovery.</h1>
             <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-slate-300">
               When a campus water pump fails and the battery reading is stale, the fastest recovery plan can quietly breach the reserve your critical
               loads depend on. AEGIS tests each plan against hidden failure conditions, applies an independent safety gate, and requires human
               approval before anything runs.
             </p>
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-xs font-medium text-slate-300">
+              {["Independent safety gate", "Human approval required", "Counterfactual testing", "Auditable proof record"].map((x) => (
+                <span key={x} className="inline-flex items-center gap-1.5"><Icon name="check" size={14} className="text-emerald-400" />{x}</span>
+              ))}
+            </div>
             <div className="mt-5 flex flex-wrap gap-2">
               <button className="btn-p" onClick={() => go("console")}>Run the incident <Icon name="arrow" /></button>
               <button className="btn-s" onClick={() => go("shadow")}><Icon name="shadow" /> Open Shadow twin</button>
@@ -105,14 +111,19 @@ export function CampusView({ go }: { go: Go }) {
         </div>
       </section>
 
-      <section aria-label="How AEGIS decides" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {steps.map(([ic, t, d], i) => (
-          <div key={t} className="rise rounded-xl border border-slate-700/70 bg-white p-4 shadow-card" style={{ animationDelay: `${i * 60}ms` }}>
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-900 text-cyan-400"><Icon name={ic} size={18} /></div>
-            <div className="mt-2.5 text-sm font-semibold text-slate-100">{t}</div>
-            <div className="mt-0.5 text-[13px] leading-relaxed text-slate-300">{d}</div>
-          </div>
-        ))}
+      <section aria-label="How AEGIS decides" className="relative">
+        <div aria-hidden="true" className="absolute left-0 right-0 top-[34px] hidden xl:block">
+          <svg width="100%" height="4" preserveAspectRatio="none"><line x1="12%" y1="2" x2="88%" y2="2" stroke="#a9b0f5" strokeWidth="2" className="flow-line" /></svg>
+        </div>
+        <div className="relative grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {steps.map(([ic, t, d], i) => (
+            <div key={t} className="rise ring-soft rounded-xl bg-white p-4 transition-transform hover:-translate-y-0.5" style={{ animationDelay: `${i * 70}ms` }}>
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-600 to-[#0e8f94] text-white shadow-sm"><Icon name={ic} size={18} /></div>
+              <div className="mt-3 text-sm font-semibold text-slate-100">{t}</div>
+              <div className="mt-0.5 text-[13px] leading-relaxed text-slate-300">{d}</div>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section aria-labelledby="plans">
@@ -132,9 +143,10 @@ export function CampusView({ go }: { go: Go }) {
             {res.map((r, i) => {
               const g = GATE[r.plan.id]; const bad = r.summary.violating;
               return (
-                <article key={r.plan.id} className="rise flex flex-col rounded-2xl border border-slate-700/70 bg-white p-5 shadow-card transition-shadow hover:shadow-lift" style={{ animationDelay: `${i * 70}ms` }}>
-                  <header className="flex items-start gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-lg font-semibold text-white">{r.plan.id}</div>
+                <article key={r.plan.id} className="rise relative flex flex-col overflow-hidden rounded-2xl border border-slate-700/70 bg-white p-5 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-lift" style={{ animationDelay: `${i * 70}ms` }}>
+                  <div aria-hidden="true" className={`absolute inset-x-0 top-0 h-1 ${g.tone === "ok" ? "bg-emerald-500" : "bg-rose-500"}`} />
+                  <header className="mt-1 flex items-start gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-lg font-semibold text-white shadow-sm">{r.plan.id}</div>
                     <div><h3 className="text-base font-semibold text-slate-100">{r.plan.name}</h3>
                       <div className="mt-1 flex flex-wrap items-center gap-1.5">
                         <Badge tone={g.tone}>{g.tone === "ok" ? "✓" : "✗"} {g.text}</Badge>
