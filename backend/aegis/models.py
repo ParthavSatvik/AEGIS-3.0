@@ -68,6 +68,11 @@ class Constraints(BaseModel):
     verify_tolerance_pct: float = 2.0
     battery_max_discharge_kw: float = 120
     monitor_buffer_pct: float = 0.1
+    # Declared maximum amount by which the SoC sensor may over-read (percentage points). Decisions use the lower
+    # bound (reading - this value). 0 reproduces releases <= v1.2.0.
+    soc_sensor_max_overread_pct: float = Field(default=0.0, ge=0, le=20)
+    # Charge to keep above the floor for the fallback after a stop (hold / hand-over drains 0 in this plan library).
+    fallback_reserve_pct: float = Field(default=0.0, ge=0, le=20)
     allowed_actions: list[str] = Field(default_factory=lambda: list(ALLOWED_ACTIONS))
 
 

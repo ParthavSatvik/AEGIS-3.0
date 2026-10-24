@@ -155,8 +155,10 @@ def classify_failure(pub: ScenarioPublic, truth, tr: dict) -> str:
 
 
 def run_episode(family: str, seed: int, arm: str, truth_overrides: dict | None = None,
-                classify: bool = False) -> dict:
+                classify: bool = False, constraint_overrides: dict | None = None) -> dict:
     pub, truth = load(family)
+    if constraint_overrides:  # public configuration sweep (e.g. declared sensor error bound)
+        pub = pub.model_copy(update={"constraints": pub.constraints.model_copy(update=constraint_overrides)})
     if truth_overrides:  # stress testing only: simulator-side conditions the agent's model does not include
         truth = ScenarioTruth.model_validate({**truth.model_dump(), **truth_overrides})  # validated, typed
     world = World(pub, truth, seed)

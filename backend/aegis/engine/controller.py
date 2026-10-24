@@ -213,7 +213,7 @@ class ToolController:
         if asm.required_problems:
             self.ev, self.fresh = {"summary": {"required_inputs_missing": asm.required_problems}}, True
             return True, {"required_inputs_missing": asm.required_problems}
-        soc, eq = float(obs.readings["battery_soc"].value), _eq(obs)
+        soc, eq = a._soc_low(obs), _eq(obs)
         cands = [p for p in cf.generate_candidates(a.p.plans, obs.incident,
                                                    eq if a.cfg.contingency_triggers else None)
                  if p.id not in a._stopped_plans]
@@ -265,7 +265,7 @@ class ToolController:
             st["negative_value_diagnostics"] += 1
         self.obs = a.sim.observe()
         _, _, states, dlog = a._beliefs(self.obs)
-        rows, _ = cf.evaluate(self.ev["cands"], states, float(self.obs.readings["battery_soc"].value), a.c,
+        rows, _ = cf.evaluate(self.ev["cands"], states, a._soc_low(self.obs), a.c,
                               self.obs.incident_elapsed_min, _eq(self.obs), a.drain_scale)
         post = cf.best(rows, -a.c.abstain_downtime_min)[0]
         if pre == post:

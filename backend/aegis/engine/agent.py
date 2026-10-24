@@ -118,6 +118,10 @@ class Agent:
             states = [s for s in states if s.source != "diagnostic" or s.id.endswith("mid")] or states
         return a, pri, states, dlog
 
+    def _soc_low(self, obs: Observation) -> float:
+        """Lower bound on true SoC: the reading minus the declared maximum sensor over-read."""
+        return float(obs.readings["battery_soc"].value) - self.c.soc_sensor_max_overread_pct
+
     def _evidence(self, obs: Observation, pri: list[HiddenState], states: list[HiddenState], dlog) -> GateEvidence:
         soc = obs.readings["battery_soc"].value
         return GateEvidence(states=states, prior_states=pri, diagnostics=dlog,
@@ -191,7 +195,7 @@ class Agent:
             self._abstain(obs, cyc, "required input unavailable: " + "; ".join(a.required_problems), {})
             return "abstained"
 
-        soc = float(obs.readings["battery_soc"].value)
+        soc = self._soc_low(obs)
         eq = _eq(obs)
         cands = [p for p in cf.generate_candidates(self.p.plans, obs.incident,
                                                    eq if self.cfg.contingency_triggers else None)
@@ -248,7 +252,7 @@ class Agent:
                 st["negative_value_diagnostics"] += 1
             obs = self.sim.observe()
             a, pri, states, dlog = self._beliefs(obs)
-            soc, eq = float(obs.readings["battery_soc"].value), _eq(obs)
+            soc, eq = self._soc_low(obs), _eq(obs)
             rows, cex = cf.evaluate(cands, states, soc, self.c, obs.incident_elapsed_min, eq, self.drain_scale)
             post_plan = cf.best(rows, -self.c.abstain_downtime_min)[0]
             changed = pre_plan != post_plan
@@ -342,7 +346,9 @@ class Agent:
            projection ends below the floor (stopping while reserve remains for a fallback).
         2. Backstop: stop if the next minute at the last observed rate would cross the floor.
         It cannot detect a biased SoC sensor: a constant bias shifts levels, not rates."""
-        floor = self.c.reserve_floor_pct + self.c.monitor_buffer_pct
+        # stop while the LOWER BOUND on true charge still covers the floor, the fallback and the next interval
+        floor = (self.c.reserve_floor_pct + self.c.monitor_buffer_pct + self.c.soc_sensor_max_overread_pct
+                 + self.c.fallback_reserve_pct)
         horizon = plan.restore_min
         pred = max(cf.drain_at(plan.drain_curve, s.soh) for s in ev.states) * max(1.0, ev.drain_scale) / horizon
         self._observed_scale, self._stop_reason = 1.0, ""
@@ -385,7 +391,7 @@ class Agent:
         served = rep.service_restored and rep.restored_elapsed_min is not None and \
             rep.restored_elapsed_min <= self.c.recovery_objective_min + 1e-9
         preds = {"critical_served": served,
-                 "reserve_floor_held": socmin >= self.c.reserve_floor_pct - 1e-9,
+                 "reserve_floor_held": socmin - self.c.soc_sensor_max_overread_pct >= self.c.reserve_floor_pct - 1e-9,
                  "allow_list_only": all(a in self.c.allowed_actions for a in rep.issued_actions),
                  "model_match": (not rep.service_restored) or lo <= observed <= hi}
         return {"predicates": preds, "verified": all(preds.values()), "observed_drain": observed,
@@ -438,7 +444,8 @@ class Agent:
 
     # ------------------------------------------------------- human approval
     def _propose(self, plan: PlanSpec, verdict: GateVerdict, ev: GateEvidence, cyc: dict, source: str) -> None:
-        reserves = [ev.soc_now - cf.drain_at(plan.drain_curve, s.soh) for s in ev.states]
+        reserves = [ev.soc_now - self.c.soc_sensor_max_overread_pct - cf.drain_at(plan.drain_curve, s.soh)
+                    * max(1.0, ev.drain_scale) for s in ev.states]
         t = self.sim.observe().t_min
         self.pending = {
             "plan_id": plan.id, "plan_name": plan.name, "description": plan.description, "source": source,

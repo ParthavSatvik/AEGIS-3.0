@@ -28,7 +28,7 @@ PROTOCOL = {
     "midplan_fault_p": {"none": 0.8, "grid_tie_trip": 0.1, "b1_derate": 0.1}, "midplan_at_min": [3, 15],
     "second_fault_p": {"none": 0.6, "grid_tie_trip": 0.3, "grid_trip_b1_derate": 0.1},
 }
-SETS = {"dev": 1001, "heldout": 2002}  # generator seeds; held-out results are never used to change the agent
+SETS = {"dev": 1001, "heldout": 2002, "heldout2": 3003}  # generator seeds; held-out results are never used to change the agent
 
 
 def _pick(rng: random.Random, probs: dict[str, float]) -> str:
