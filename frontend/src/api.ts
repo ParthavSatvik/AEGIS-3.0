@@ -36,6 +36,8 @@ export type ProofRecord = {
   events: EventT[]; replans: { trigger: string; replan_no: number }[]; abstentions: { reason: string }[];
   overrides: { plan_id: string; source: string; result?: string }[];
   explanation: { text: string; source: string; llm_error?: string } | null;
+  controller: { requested: string; active: string; model: string | null; note: string;
+    steps: { tool: string; accepted: boolean; by: string }[]; fallbacks: { reason: string }[] };
   pending_approval: Proposal | null;
   approvals: { t_min: number; plan_id: string; operator: string; decision: string; result?: string; gate_recheck?: string }[];
   outcome_report: OutcomeReport | null;
@@ -71,7 +73,8 @@ async function call<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   scenarios: () => call<{ scenarios: Scenario[]; faults: string[] }>("/api/scenarios"),
-  start: (id: string, seed: number) => call<EpState>(`/api/scenarios/${id}/start?seed=${seed}`, { method: "POST" }),
+  start: (id: string, seed: number, controller = "deterministic") =>
+    call<EpState>(`/api/scenarios/${id}/start?seed=${seed}&controller=${controller}`, { method: "POST" }),
   decide: (eid: string) => call<EpState>(`/api/episodes/${eid}/decide`, { method: "POST" }),
   fault: (eid: string, kind: string) =>
     call<EpState>(`/api/episodes/${eid}/faults`, { method: "POST", body: JSON.stringify({ kind }) }),

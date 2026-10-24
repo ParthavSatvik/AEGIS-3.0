@@ -553,3 +553,154 @@ def test_release_policy_arm_reproduces_release_results():
     res = run_stress(2, arms=["D_release", "D"])
     assert res["summary"]["D_release"]["hard_violation"] == 0 == res["summary"]["D"]["hard_violation"]
     assert res["summary"]["D"]["safe_recovery"] >= res["summary"]["D_release"]["safe_recovery"]
+
+
+# ---------------- bounded tool controller (evaluator-response sprint)
+import json  # noqa: E402
+
+from aegis.engine.controller import ReferencePolicy, ScriptedPolicy, ToolCall, ToolController  # noqa: E402
+from aegis.llm.policy import LLMPolicy  # noqa: E402
+
+TRUTH_KEYS = ("soh_true", "drain_multiplier", "soc_sensor_bias", "probe_bias", "soc_initial", "telemetry_soh",
+              "probe_inconclusive", "midplan_fault", "b1_fails_first_start")
+
+
+def controlled(policy, family="stale-degraded", seed=42, cfg=None, **truth):
+    pub, t = load(family)
+    w = World(pub, t.model_copy(update=truth), seed)
+    ag = Agent(pub, w, cfg, seed=seed)
+    ToolController(ag, policy)
+    return w, ag
+
+
+@pytest.mark.parametrize("family,seed", [("stale-degraded", 42), ("stale-healthy", 3), ("no-safe-plan", 1),
+                                         ("failed-recovery", 5), ("missing-reading", 7), ("fresh-healthy", 2)])
+def test_reference_tool_policy_matches_deterministic_agent(family, seed):
+    _, wd, ad = demo(family, seed)
+    ad.run()
+    wt, at = controlled(ReferencePolicy(), family, seed)
+    at.run()
+    td, tt = wd.truth_report(), wt.truth_report()
+    assert tt["executions"] == td["executions"] and tt["violations"] == td["violations"] == []
+    assert bool(tt["abstentions"]) == bool(td["abstentions"]) and not at.record["controller"]["fallbacks"]
+
+
+def test_controller_cannot_execute_gate_rejected_plan():
+    w, ag = controlled(ScriptedPolicy([
+        {"tool": "observe"}, {"tool": "evaluate_candidates"},
+        {"tool": "propose_plan", "args": {"plan_id": "A"}},          # gate REJECTED:R1
+        {"tool": "execute_approved"},                                # nothing approved
+        {"tool": "propose_plan", "args": {"plan_id": "C"}}]))        # gate REJECTED:R7
+    rec = ag.run()
+    steps = rec["controller"]["steps"]
+    assert [s["accepted"] for s in steps] == [True, True, False, False, False]
+    assert "R1" in steps[2]["result"]["error"]
+    assert rec["controller"]["fallbacks"][0]["reason"] == "too many rejected tool calls"
+    assert "A" not in w.truth_report()["executions"] and w.truth_report()["violations"] == []
+
+
+def test_controller_cannot_skip_evaluation_or_human_approval():
+    w, ag = controlled(ScriptedPolicy([
+        {"tool": "observe"}, {"tool": "propose_plan", "args": {"plan_id": "B"}},  # not evaluated yet
+        {"tool": "evaluate_candidates"}, {"tool": "propose_plan", "args": {"plan_id": "B"}}]),
+        cfg=AgentConfig(approval="human"))
+    rec = ag.run()
+    assert [s["accepted"] for s in rec["controller"]["steps"]] == [True, False, True, True]
+    assert ag.pending["plan_id"] == "B" and w.truth_report()["executions"] == []
+    assert ag.run() is rec and w.truth_report()["executions"] == []   # waits for the human
+    assert ag.approve(True, "op")["result"] == "EXECUTED"              # approval still re-checks the gate
+
+
+def test_controller_rejects_malformed_or_extra_arguments():
+    with pytest.raises(ValidationError):
+        ToolCall.model_validate({"tool": "set_reserve_floor", "args": {"value": "10"}})
+    with pytest.raises(ValidationError):
+        ToolCall.model_validate({"tool": "propose_plan", "args": {"plan_id": "B"}, "skip_gate": True})
+    w, ag = controlled(ScriptedPolicy([{"tool": "observe"}, {"tool": "evaluate_candidates"},
+                                       {"tool": "propose_plan", "args": {"plan_id": "B", "override": "true"}},
+                                       {"tool": "set_reserve_floor"}]))
+    rec = ag.run()
+    assert rec["controller"]["steps"][2]["accepted"] is False
+    assert rec["controller"]["fallbacks"][0]["reason"].startswith("policy error")
+    assert w.truth_report()["violations"] == []
+
+
+@pytest.mark.parametrize("truth", [{}, {"drain_multiplier": 1.3, "soc_sensor_bias": 3.0, "probe_bias": 0.05}])
+def test_controller_context_contains_no_hidden_truth(truth):
+    seen = []
+
+    class Spy:
+        name = "spy"
+
+        def __init__(self):
+            self.calls = [ToolCall(tool="observe"), ToolCall(tool="evaluate_candidates")]
+
+        def next_call(self, ctx):
+            seen.append(ctx)
+            return self.calls.pop(0) if self.calls else ToolCall(tool="abstain", args={"reason": "test"})
+    w, ag = controlled(Spy(), **truth)
+    ag.run()
+    blob = json.dumps(seen)
+    assert not any(k in blob for k in TRUTH_KEYS)
+    assert f"{w.truth_report()['soh_true']:.3f}" not in blob
+    ctx = seen[-1]
+    assert isinstance(ctx, dict) and ctx["evaluation"]["plans"]
+    assert ctx["observation"]["readings"]["battery_soc"]["value"] == w._obs_soc()  # sensor value, not truth
+
+
+def _mock_llm(replies):
+    it = iter(replies)
+
+    def handler(req):
+        text = next(it, '{"tool": "finish"}')
+        if isinstance(text, Exception):
+            raise text
+        return httpx.Response(200, json={"content": [{"type": "text", "text": text}]})
+    return httpx.Client(transport=httpx.MockTransport(handler))
+
+
+def test_llm_policy_drives_run_and_mode_is_recorded():
+    calls = ['{"tool":"observe"}', '{"tool":"evaluate_candidates"}',
+             '{"tool":"request_diagnostic","args":{"diagnostic_id":"capacity_probe"},"reason":"V>0"}',
+             'Sure: {"tool":"evaluate_candidates"}', '{"tool":"propose_plan","args":{"plan_id":"B"}}',
+             '{"tool":"execute_approved"}', '{"tool":"finish"}']
+    w, ag = controlled(LLMPolicy(client=_mock_llm(calls), api_key="test"))
+    rec = ag.run()
+    assert rec["controller"]["active"] == "llm" and not rec["controller"]["fallbacks"]
+    assert all(s["by"] == "llm" and s["accepted"] for s in rec["controller"]["steps"])
+    assert rec["cycles"][0]["controller"] == "llm" and w.truth_report()["executions"] == ["B"]
+
+
+def test_llm_failure_or_unsafe_choices_fall_back_visibly():
+    w, ag = controlled(LLMPolicy(client=_mock_llm([httpx.ConnectError("down")]), api_key="test"))
+    rec = ag.run()
+    assert rec["controller"]["fallbacks"][0]["reason"].startswith("policy error: LLM request failed")
+    assert rec["cycles"][-1]["controller"] == "deterministic" and w.truth_report()["executions"] == ["B"]
+    unsafe = ['{"tool":"observe"}', '{"tool":"evaluate_candidates"}']
+    unsafe += ['{"tool":"propose_plan","args":{"plan_id":"A"}}'] * 3
+    w, ag = controlled(LLMPolicy(client=_mock_llm(unsafe), api_key="test"))
+    rec = ag.run()
+    assert rec["controller"]["fallbacks"][0]["reason"] == "too many rejected tool calls"
+    assert w.truth_report()["executions"] == ["B"] and w.truth_report()["violations"] == []
+
+
+def test_api_llm_controller_without_key_is_reported_as_deterministic(monkeypatch):
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    st = TestClient(app).post("/api/scenarios/stale-degraded/start?seed=42&controller=llm").json()
+    info = st["record"]["controller"]
+    assert info["active"] == "deterministic" and info["requested"] == "llm" and "not set" in info["note"]
+
+
+def test_generator_is_deterministic_and_separate_from_engine():
+    from aegis.bench.generator import generate
+    assert generate(20, 7) == generate(20, 7) and generate(20, 7) != generate(20, 8)
+    for f in (PKG / "engine").glob("*.py"):
+        assert not any("generator" in m or "harness" in m for m in _imports(f))
+
+
+def test_index_html_is_never_served_stale():
+    from aegis.api import DIST
+    if not (DIST / "index.html").exists():
+        pytest.skip("frontend not built")
+    r = TestClient(app).get("/")
+    assert r.status_code == 200 and r.headers.get("cache-control") == "no-cache"

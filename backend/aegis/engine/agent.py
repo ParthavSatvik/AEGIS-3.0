@@ -78,7 +78,11 @@ class Agent:
                       "scenario weights are not calibrated probabilities.",
             "constraints": self.c.model_dump(), "cycles": [], "events": [], "replans": [], "abstentions": [],
             "overrides": [], "faults": [], "approvals": [], "pending_approval": None, "outcome_report": None,
-            "explanation": None}
+            "explanation": None,
+            "controller": {"requested": "deterministic", "active": "deterministic", "model": None, "steps": [],
+                           "fallbacks": [], "note": ""}}
+        self.controller = None  # optional ToolController; the deterministic cycle is used when absent
+        self._controller_active = False
         self.pending: dict | None = None
         self.drain_scale = 1.0  # learned from observations only; >1 once the model is shown to under-predict
         self._stopped_plans: set[str] = set()
@@ -122,6 +126,8 @@ class Agent:
 
     # ------------------------------------------------------------- main loop
     def run(self, trigger: str = "incident_detected") -> dict:
+        if self.controller is not None and not self._controller_active:
+            return self.controller.run(trigger)
         if self.pending is not None:  # a proposal must be approved or rejected first
             return self.record
         return self._drive(self._cycle(trigger))
@@ -166,7 +172,8 @@ class Agent:
     def _cycle(self, trigger: str) -> str:
         t0 = time.perf_counter()
         obs = self.sim.observe()
-        cyc: dict = {"cycle": len(self.record["cycles"]) + 1, "trigger": trigger, "t_min": obs.t_min}
+        cyc: dict = {"cycle": len(self.record["cycles"]) + 1, "trigger": trigger, "t_min": obs.t_min,
+                     "controller": "deterministic"}
         self.record["cycles"].append(cyc)
         if obs.incident is None:
             cyc["status"] = "idle"

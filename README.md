@@ -82,7 +82,8 @@ To see a diagnostic change the decision, load *Stale reading, healthy battery*. 
 | Diagnostic planner | `engine/diagnostics.py` | `V(d) = E_r[max U(a\|r)] − max U(a) − c(d) − λ·t(d)` in minute-equivalents. Runs only when V > 0 and the budget and deadline allow |
 | **Safety gate** | `gate/safety.py` | Pure functions R1–R7 with its own reserve maths. Never calls the planner, simulator or LLM. Fails closed on exceptions, timeouts or missing inputs |
 | Orchestrator / approval / executor / verifier | `engine/agent.py` | Human approval bound to an evidence fingerprint. The executor re-checks the gate and runs an observation-only **runtime monitor** that stops a plan before the observed SoC trend crosses the floor. Replan budget is 3, then abstain. Builds the outcome report from observations |
-| LLM (optional) | `llm/explainer.py` | Writes an advisory explanation from the record only. Validated, with a template fallback. Cannot approve or execute |
+| LLM explainer (optional) | `llm/explainer.py` | Writes an advisory explanation from the record only. Validated, with a template fallback. Cannot approve or execute |
+| **Tool controller** (opt-in) | `engine/controller.py`, `llm/policy.py` | A policy picks the next tool: `observe`, `evaluate_candidates`, `request_diagnostic`, `propose_plan`, `execute_approved`, `verify_outcome`, `abstain` or `finish`. Calls are schema-validated, and every tool is guarded by the deterministic engine, gate, approval and executor. The policy sees only agent-side context. Falls back to the deterministic agent on any failure, and the UI shows which controller actually ran |
 | Benchmark | `bench/runner.py` | Arms A–D plus an always-diagnose reference, 11 families, identical seeds, scored from truth after each episode |
 | Stress suite | `bench/stress.py`, `data/stress.json` | 11 simulator-only model-mismatch cases, run and reported separately |
 
@@ -99,11 +100,28 @@ Hard limits decide eligibility. They are never traded against utility. More deta
 
 API: `/api/scenarios`, `/api/scenarios/{id}/start?seed=`, `/api/episodes/{id}/{observations|decide|faults|execute|approve|explain|record|close}`, `/api/benchmarks/run`, `/api/benchmarks/latest.{csv,json}`, `/api/stress/run`, `/api/stress/latest.csv`.
 
+## Evaluator concerns and responses
+
+| Concern | Response (on branch `exp/evaluator-response`) | What remains |
+|---|---|---|
+| Self-authored scenarios weaken validation | A scenario **generator** separate from the agent, with a documented protocol, and **frozen dev and held-out sets** (300 each, hashed and committed before any run). Successes and failures are both reported in [docs/EVALUATION_PROTOCOL.md](docs/EVALUATION_PROTOCOL.md). | Still same-author. This is **not independent external validation**. |
+| The optional LLM makes it look like classical planning | A **bounded tool-calling controller**: the policy chooses tools, while the deterministic engine, gate, approval and executor stay authoritative. Tests cover hidden-truth isolation and bypass attempts. A fallback runs on any failure, and the UI shows the controller that actually ran. | **No live LLM run was verified**: there's no API key in the build environment, so the LLM path is tested with mocked responses only. The default demo uses the deterministic agent. |
+| The simulator covers few real states | Generated parameter ranges, combined faults, sensor and probe bias, model mismatch and infeasible scenarios. Uncovered conditions are listed. | Synthetic results are **not proof of real-world safety**. Optimistic SoC sensor bias still causes violations. |
+| Live utility data is security-sensitive | Stays offline and simulation-only. The future read-only adapter, least privilege, authentication, audit logging, network isolation and data minimization are set out in [docs/SECURITY_AND_ADOPTION.md](docs/SECURITY_AND_ADOPTION.md). | Design only. Nothing is connected to real equipment, and the local API has no authentication. |
+| Regulatory and procurement barriers | A staged path: synthetic → historical replay → shadow mode → supervised pilot → formal approvals. AEGIS is positioned as **decision support** until independently validated. | No regulatory assessment, certification or utility partner yet. |
+
+**Generated-scenario results for full AEGIS (D):**
+- **dev:** 148 of 300 safe recoveries, 2 violations
+- **held-out:** 154 of 300 safe recoveries, 3 violations
+- all 5 violations involve an optimistic SoC sensor bias
+- the release-v1.0.1 policy scores 129 / 5 on dev and 136 / 6 on held-out
+- most remaining failures are infeasible scenarios, judged against simulator truth
+
 ## Verification (run 2026-10-24)
 
 | Check | Command | Result |
 |---|---|---|
-| Backend tests | `cd backend && python -m pytest -q` | **57 passed** |
+| Backend tests | `cd backend && python -m pytest -q` | **73 passed** |
 | Backend lint | `cd backend && python -m ruff check aegis tests` | all checks passed |
 | Frontend typecheck / lint | `npm --prefix frontend run typecheck` / `run lint` | clean |
 | Production build | `npm --prefix frontend run build` | builds |
@@ -333,6 +351,7 @@ These are post-hoc observations. Treat them as descriptive, not as tests of a hy
 - Approval wait is measured in real seconds and not added to simulated downtime, because the simulation clock pauses
   while a proposal waits. All downtime figures are simulated minutes, not field measurements.
 - Episodes live in server memory and are lost on restart.
-- The LLM explainer was tested only with mocked HTTP; no live model call was made.
+- The LLM explainer and the LLM tool controller were tested only with mocked HTTP; no live model call was made.
+- On generated scenarios, full AEGIS had 5 violations in 600 episodes, all with an optimistic SoC sensor bias.
 - The gate enforces only the rules it is configured with.
 - The scenario suites are small and author-designed. No statistical-significance or real-world claims are made.
