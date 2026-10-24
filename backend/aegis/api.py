@@ -2,14 +2,19 @@
 backend except through /evaluation after the operator closes an episode."""
 from __future__ import annotations
 
+import base64
+import csv
+import io
+import logging
 import os
+import secrets
 import threading
 import uuid
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, File, Form, HTTPException, Query, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, PlainTextResponse
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -20,12 +25,51 @@ from .engine.controller import ToolController
 from .llm.explainer import explain
 from .llm.policy import MODEL as LLM_MODEL
 from .llm.policy import LLMPolicy
+from .realdata import ingest
+from .realdata.replay import replay as run_replay
 from .scenarios import FAULT_KINDS, list_families, load
+from .settings import settings
 from .sim.world import World
 
-app = FastAPI(title="AEGIS 3.0", version="1.0.0")
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
-                   allow_methods=["*"], allow_headers=["*"])
+VERSION = "1.4.0"
+log = logging.getLogger("aegis")
+app = FastAPI(title="AEGIS 3.0", version=VERSION,
+              docs_url=None if settings.production else "/docs", redoc_url=None, openapi_url=None
+              if settings.production else "/openapi.json")
+# Same-origin in production (FastAPI serves the built frontend); CORS only for the Vite dev server unless configured.
+_origins = settings.cors_origins if (not settings.production or "AEGIS_CORS_ORIGINS" in os.environ) else []
+if _origins:
+    app.add_middleware(CORSMiddleware, allow_origins=_origins, allow_methods=["*"], allow_headers=["*"])
+
+
+@app.middleware("http")
+async def access_control(request: Request, call_next):
+    """Optional HTTP Basic auth for public demos (everything except the health check). In production with neither
+    credentials nor AEGIS_ALLOW_PUBLIC=true, the service fails closed."""
+    if settings.access_mode == "locked" and request.url.path != "/api/health":
+        return JSONResponse(status_code=503, content={
+            "detail": "access not configured: set AEGIS_BASIC_AUTH_USER/PASSWORD or AEGIS_ALLOW_PUBLIC=true"})
+    if settings.auth_enabled and request.url.path != "/api/health":
+        ok = False
+        h = request.headers.get("authorization", "")
+        if h.startswith("Basic "):
+            try:
+                user, _, pw = base64.b64decode(h[6:]).decode().partition(":")
+                ok = secrets.compare_digest(user, settings.basic_auth_user) and \
+                    secrets.compare_digest(pw, settings.basic_auth_password)
+            except Exception:
+                ok = False
+        if not ok:
+            return Response(status_code=401, headers={"WWW-Authenticate": 'Basic realm="AEGIS demo"'})
+    return await call_next(request)
+
+
+@app.exception_handler(Exception)
+async def unhandled(request: Request, exc: Exception):
+    """Controlled 500: details are logged server-side, never returned to the client."""
+    ref = uuid.uuid4().hex[:8]
+    log.exception("unhandled error %s on %s", ref, request.url.path)
+    return JSONResponse(status_code=500, content={"detail": "internal error", "ref": ref})
 
 _lock = threading.Lock()
 EPISODES: dict[str, dict] = {}
@@ -76,7 +120,8 @@ def _state(ep: dict) -> dict:
 
 @app.get("/api/health")
 def health() -> dict:
-    return {"ok": True}
+    return {"ok": True, "version": VERSION, "env": settings.env, "access": settings.access_mode,
+            "simulation_only": True}
 
 
 @app.get("/api/scenarios")
@@ -197,6 +242,8 @@ def close(eid: str) -> dict:
 @app.post("/api/benchmarks/run")
 def bench(body: BenchIn) -> dict:
     fams = body.families
+    if body.seeds > settings.max_bench_seeds:
+        raise HTTPException(422, f"seeds limited to {settings.max_bench_seeds} on this server")
     valid = {f["id"] for f in list_families()}
     if fams and not set(fams) <= valid:
         raise HTTPException(422, "unknown family")
@@ -241,12 +288,116 @@ def stress_csv() -> str:
     return runner.to_csv(_LATEST_STRESS)
 
 
+# ------------------------------------------------------------- real historical data (context only)
+DATASETS: dict[str, ingest.Dataset] = {}
+_LATEST_REPLAY: dict = {}
+SAMPLE = Path(__file__).resolve().parents[2] / "data" / "real" / "npp_all_india_demand_met_2026-10-23.csv"
+
+
+def _ingest_error(e: ingest.IngestError) -> HTTPException:
+    return HTTPException(422, {"error": str(e), **e.details})
+
+
+async def _read_upload(file: UploadFile) -> bytes:
+    data = await file.read(settings.max_upload_bytes + 1)
+    if len(data) > settings.max_upload_bytes:
+        raise HTTPException(413, f"file too large (limit {settings.max_upload_bytes // (1024 * 1024)} MB)")
+    return data
+
+
+def _store(ds: ingest.Dataset) -> dict:
+    with _lock:
+        DATASETS[ds.id] = ds
+        while len(DATASETS) > settings.max_datasets:
+            DATASETS.pop(next(iter(DATASETS)))
+    return {**ds.meta(), "trend": ingest.trend(ds)}
+
+
+@app.post("/api/data/preview")
+async def data_preview(file: UploadFile = File(...)) -> dict:
+    data = await _read_upload(file)
+    try:
+        return ingest.preview(file.filename or "upload", data)
+    except ingest.IngestError as e:
+        raise _ingest_error(e) from None
+
+
+@app.post("/api/data/import")
+async def data_import(file: UploadFile = File(...), source: str = Form(...), timestamp_column: str = Form(...),
+                      value_column: str = Form(...), unit: str = Form(""), name: str = Form("")) -> dict:
+    data = await _read_upload(file)
+    try:
+        ds = ingest.build_dataset(uuid.uuid4().hex[:10], file.filename or "upload", data, source,
+                                  timestamp_column, value_column, unit or None, name)
+    except ingest.IngestError as e:
+        raise _ingest_error(e) from None
+    return _store(ds)
+
+
+@app.post("/api/data/sample")
+def data_sample() -> dict:
+    """Load the bundled real NPP file (data/real/PROVENANCE.md) through the same validation path."""
+    if not SAMPLE.exists():
+        raise HTTPException(404, "bundled sample not available")
+    ds = ingest.build_dataset(uuid.uuid4().hex[:10], SAMPLE.name, SAMPLE.read_bytes(),
+                              "National Power Portal / MERIT India (npp.gov.in), All-India demand met, 2026-10-23",
+                              "timestamp_ist", "demand_met_mw", "MW", "NPP All-India demand met 2026-10-23")
+    return _store(ds)
+
+
+@app.get("/api/data/datasets")
+def data_list() -> dict:
+    return {"datasets": [d.meta() for d in DATASETS.values()]}
+
+
+@app.get("/api/data/datasets/{did}")
+def data_get(did: str) -> dict:
+    ds = DATASETS.get(did)
+    if ds is None:
+        raise HTTPException(404, "dataset not found (datasets are kept in memory and lost on restart)")
+    return {**ds.meta(), "trend": ingest.trend(ds)}
+
+
+class ReplayIn(BaseModel):
+    start: str | None = None
+    end: str | None = None
+    alpha: float = Field(default=0.30, ge=0, le=0.5)
+    seeds_per_hour: int = Field(default=3, ge=1, le=10)
+
+
+@app.post("/api/data/datasets/{did}/replay")
+def data_replay(did: str, body: ReplayIn) -> dict:
+    ds = DATASETS.get(did)
+    if ds is None:
+        raise HTTPException(404, "dataset not found (datasets are kept in memory and lost on restart)")
+    try:
+        res = run_replay(ds, body.start, body.end, body.alpha, body.seeds_per_hour)
+    except (ingest.IngestError, ValueError) as e:
+        raise HTTPException(422, {"error": str(e)}) from None
+    _LATEST_REPLAY.clear()
+    _LATEST_REPLAY.update(res)
+    return {k: v for k, v in res.items() if k != "rows"}
+
+
+@app.get("/api/data/replay/latest.csv", response_class=PlainTextResponse)
+def replay_csv() -> str:
+    if not _LATEST_REPLAY:
+        raise HTTPException(404, "no replay run yet")
+    buf = io.StringIO()
+    w = csv.DictWriter(buf, fieldnames=list(_LATEST_REPLAY["rows"][0].keys()))
+    w.writeheader()
+    w.writerows(_LATEST_REPLAY["rows"])
+    return "# " + _LATEST_REPLAY["label"] + "\n" + buf.getvalue()
+
+
 DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
 if DIST.exists():
     app.mount("/assets", StaticFiles(directory=DIST / "assets"), name="assets")
 
     @app.get("/{path:path}", include_in_schema=False)
     def spa(path: str):
+        if path == "api" or path.startswith("api/"):  # unknown API routes must not fall through to the SPA
+            return JSONResponse(status_code=404, content={"detail": "not found"})
         f = DIST / path
         if path and f.is_file():
             return FileResponse(f)

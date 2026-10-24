@@ -38,7 +38,7 @@ Business value measured **in simulation only** (see the benchmark below):
 Requires Python 3.11+ and Node 18+. No API keys or internet connection are needed after installation.
 
 ```bash
-pip install -r backend/requirements.txt
+pip install -r backend/requirements-dev.txt
 ```
 ```bash
 npm --prefix frontend install
@@ -50,6 +50,9 @@ npm --prefix frontend run build
 python -m uvicorn aegis.api:app --app-dir backend --port 8000
 ```
 Then open **http://127.0.0.1:8000**. One process serves both the API and the dashboard.
+`backend/requirements.txt` holds the runtime dependencies only, which is what the Docker image installs.
+`requirements-dev.txt` adds pytest and ruff.
+
 If this browser has opened an older AEGIS build before, hard-refresh once (Ctrl+F5). Builds from v1.2.0 serve the
 page with `Cache-Control: no-cache`, so later updates load automatically.
 
@@ -85,6 +88,20 @@ with mocked API responses.
 
 To see a diagnostic change the decision, load *Stale reading, healthy battery*. The probe rules out z3, so the plan changes from B to A.
 
+## Real historical data and deployment (branch `feat/real-data-deploy`)
+
+- **Real data tab.** It imports genuine historical demand data: a bundled **All-India demand met** file from the
+  National Power Portal (2026-10-23, 409 records), or your own CSV, XLSX or NPP JSON upload. Imports are validated,
+  quality-checked and attributed.
+  - Replay turns the day's normalised *shape* into labelled **simulated** stress scenarios. National MW never enters
+    battery calculations.
+  - Result for 2026-10-23: full AEGIS 0 violations and 55 of 72 safe recoveries; basic agent 72 violations of 72.
+  - Details in [docs/REAL_DATA.md](docs/REAL_DATA.md).
+- **Deployment-ready, not deployed.** A single Docker service, a Render Blueprint (`render.yaml`), `$PORT` support, a
+  health check, optional Basic auth, and **fail-closed production access**. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+  for local production runs, the Render steps, what is lost on restart, the change workflow, the post-deployment
+  checklist and rollback.
+
 ## Architecture
 
 | Component | File | Role |
@@ -112,7 +129,7 @@ Gate rules:
 
 Hard limits decide eligibility. They are never traded against utility. More detail is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-API: `/api/scenarios`, `/api/scenarios/{id}/start?seed=`, `/api/episodes/{id}/{observations|decide|faults|execute|approve|explain|record|close}`, `/api/benchmarks/run`, `/api/benchmarks/latest.{csv,json}`, `/api/stress/run`, `/api/stress/latest.csv`.
+API: `/api/health`, `/api/data/{preview,import,sample,datasets}`, `/api/data/datasets/{id}/replay`, `/api/data/replay/latest.csv`, `/api/scenarios`, `/api/scenarios/{id}/start?seed=`, `/api/episodes/{id}/{observations|decide|faults|execute|approve|explain|record|close}`, `/api/benchmarks/run`, `/api/benchmarks/latest.{csv,json}`, `/api/stress/run`, `/api/stress/latest.csv`.
 
 ## Evaluator concerns and responses
 
@@ -145,7 +162,7 @@ See [docs/SENSOR_BOUND_RESULTS.md](docs/SENSOR_BOUND_RESULTS.md).
 
 | Check | Command | Result |
 |---|---|---|
-| Backend tests | `cd backend && python -m pytest -q` | **86 passed** |
+| Backend tests | `cd backend && python -m pytest -q` | **110 passed** |
 | Backend lint | `cd backend && python -m ruff check aegis tests` | all checks passed |
 | Frontend typecheck / lint | `npm --prefix frontend run typecheck` / `run lint` | clean |
 | Production build | `npm --prefix frontend run build` | builds |
