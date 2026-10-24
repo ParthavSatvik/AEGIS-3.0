@@ -75,3 +75,19 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 }
 table { border-collapse: collapse; }
 thead th { font-weight: 600; }
+
+/* ── premium finishing ── */
+@utility dotgrid {
+  background-image: radial-gradient(rgb(74 67 217 / 0.13) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 80% 90% at 70% 40%, #000 30%, transparent 75%);
+}
+@utility gradient-text {
+  background: linear-gradient(95deg, #4a43d9 10%, #0e8f94 90%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+@utility ring-soft { box-shadow: 0 0 0 1px rgb(74 67 217 / 0.10), var(--shadow-card); }
+@keyframes pulse-dot { 0% { box-shadow: 0 0 0 0 rgb(5 150 105 / 0.45); } 70% { box-shadow: 0 0 0 7px rgb(5 150 105 / 0); } 100% { box-shadow: 0 0 0 0 rgb(5 150 105 / 0); } }
+@utility live-dot { animation: pulse-dot 2.2s ease-out infinite; }
+@keyframes flow { to { stroke-dashoffset: -24; } }
+@utility flow-line { stroke-dasharray: 6 6; animation: flow 1.6s linear infinite; }
