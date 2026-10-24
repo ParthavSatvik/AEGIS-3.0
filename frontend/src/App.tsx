@@ -309,6 +309,11 @@ function BusinessValue({ bench }: { bench: Bench }) {
   return (
     <div className="panel">
       <div className="h">Energy & Utilities business view (simulation, {n} episodes per arm)</div>
+      <p className="mb-3 text-xs leading-relaxed text-slate-400">
+        <b className="text-slate-300">How to read this.</b> A <i>hard violation</i> means the simulated battery fell below the reserve floor or equipment
+        ran beyond its rating. A <i>safe recovery</i> restores service in time with no violation. <i>Downtime</i> is simulated minutes without service;
+        AEGIS trades extra downtime for safety. Zero violations here covers only these synthetic scenarios: it is evidence, not proof of universal safety.
+      </p>
       <div className="grid gap-2 text-sm md:grid-cols-3">
         <div className="rounded-md border border-emerald-800 p-3"><div className="text-xs text-slate-400">Safer recovery</div>
           <b className="text-emerald-300">{s.D.hard_violation}</b> hard-limit violations in the evaluated synthetic scenarios with AEGIS vs <b>{s.A.hard_violation}</b> (fixed rules) and <b>{s.B.hard_violation}</b> (basic agent).
