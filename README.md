@@ -8,6 +8,10 @@
 
 CGI AgentOps 2026 · Energy & Utilities · **Team Jugaad Coders**
 
+### 🌐 [Live demo: aegis-3-oyzv.onrender.com](https://aegis-3-oyzv.onrender.com)
+
+<sub>Login-protected. The free hosting tier sleeps when idle, so the first load can take up to a minute.</sub>
+
 `0 hard-limit violations` · `2× safe recoveries` · `independent safety gate` · `human-in-the-loop` · `fully auditable`
 
 </div>
@@ -71,6 +75,12 @@ published exactly as measured, H2 included. ✅ **Reproducible:** same seed, sam
 | 📜 **Proof record** | The complete auditable decision trail, one click to download |
 
 Every number is labelled as **measured**, **simulated** or **assumed**, so judges always know what they are looking at.
+
+---
+
+## 🌐 Live deployment
+
+**https://aegis-3-oyzv.onrender.com** runs on Render from this repository's `main` branch (Docker, health check `/api/health`, Basic-auth login, fail-closed access).
 
 ---
 
