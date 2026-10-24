@@ -15,9 +15,9 @@ const GATE: Record<string, { text: string; tone: "ok" | "bad" }> = {
   A: { text: "Rejected · R1 reserve floor", tone: "bad" }, B: { text: "Passed", tone: "ok" }, C: { text: "Rejected · R7 recovery objective", tone: "bad" },
 };
 const NOTE: Record<string, string> = {
-  A: "Fastest, but breaches the reserve when the battery has degraded.",
-  B: "Meets the deadline and holds the reserve in the stale-reading hypotheses. Thin margin only in the most extreme tested cell.",
-  C: "Protects the reserve but misses the deadline: reserve protection conflicts with restoration time.",
+  A: "Why rejected: in 5 of 9 tested battery conditions the reserve falls below the 30% floor (rule R1). Fastest is not safe enough.",
+  B: "Why it passes: meets the 60-min objective and keeps the reserve in the stale-reading hypotheses. Conditional: still needs human approval, and the gate re-checks before it runs.",
+  C: "Why rejected: protects the reserve but takes 180 min against the 60-min objective (rule R7). Safe, but too slow.",
 };
 
 function RiskMatrix({ cells }: { cells: Cell[] }) {
