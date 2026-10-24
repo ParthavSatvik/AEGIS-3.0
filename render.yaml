@@ -1,0 +1,30 @@
+# Render Blueprint for AEGIS 3.0 (single Docker web service). Nothing is deployed until you create the Blueprint
+# in the Render dashboard and connect this GitHub repository. See docs/DEPLOYMENT.md.
+services:
+  - type: web
+    name: aegis-3
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    branch: main            # only tested, merged commits on main are deployed
+    autoDeploy: true        # each push to main rebuilds and redeploys; set false to deploy manually
+    healthCheckPath: /api/health
+    envVars:
+      - key: AEGIS_ENV
+        value: production
+      # Access control: set both (recommended) or set AEGIS_ALLOW_PUBLIC=true. Without either, the app
+      # answers 503 on everything except /api/health (fails closed).
+      - key: AEGIS_BASIC_AUTH_USER
+        sync: false
+      - key: AEGIS_BASIC_AUTH_PASSWORD
+        sync: false
+      - key: AEGIS_MAX_UPLOAD_MB
+        value: "5"
+      - key: AEGIS_MAX_UPLOAD_ROWS
+        value: "50000"
+      - key: AEGIS_MAX_BENCH_SEEDS
+        value: "20"
+      # Optional LLM tool controller / explanations. Leave unset for the deterministic agent.
+      - key: ANTHROPIC_API_KEY
+        sync: false
