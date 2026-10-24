@@ -34,3 +34,9 @@ At the design cells (drain ×1.0) A ends at 41 / 33 / 22%, matching the specific
 Verified: the three summaries are identical across repeated runs, the live episode and its gate verdicts
 (A R1, B passed, C R7) are unchanged by a shadow run, and the endpoint is covered by the global Basic-auth /
 fail-closed middleware (tested 401, 200, 503).
+
+## UI (branch `feat/shadow-twin-ui`)
+The **Shadow twin** tab runs `POST /api/shadow/run` for Plan A, B or C and shows the 3 × 3 grid (SoH × extra drain),
+each cell's lowest charge, margin to the floor, violations and restoration time, with breaching cells highlighted, the
+verdict, the explanation, the recovery time against the 60-min objective, and a visible limitation notice. It handles
+loading, empty, validation (422), authentication (401/503) and server-error states. No simulation logic is in the frontend.

@@ -60,8 +60,10 @@ def run_shadow(family: str, plan_id: str, soh_values: list[float] | None = None,
         why = (f"{len(bad)} of {len(cells)} tested cells breach the {floor:g}% floor. Worst: SoH {first['soh']}, "
                f"drain x{first['drain_multiplier']} ends at {first['min_soc']}% ({first['margin_to_floor']:+.1f} pts).")
     return {"label": "SHADOW TWIN: what-if runs on the simulator; hypotheses, not telemetry; not a safety guarantee",
-            "family": family, "plan": {"id": plan.id, "name": plan.name}, "reserve_floor_pct": floor,
+            "family": family, "plan": {"id": plan.id, "name": plan.name, "restore_min": plan.restore_min},
+            "reserve_floor_pct": floor, "recovery_objective_min": pub.constraints.recovery_objective_min,
             "initial_soc": soc_initial if soc_initial is not None else truth.soc_initial,
             "grid": {"soh": soh_values, "drain_multipliers": drains}, "cells": cells,
             "summary": {"cells": len(cells), "violating": len(bad), "fragility": round(len(bad) / len(cells), 3),
-                        "min_margin_pts": worst["margin_to_floor"], "verdict": verdict}, "explanation": why}
+                        "min_margin_pts": worst["margin_to_floor"], "verdict": verdict,
+                        "misses_deadline": late}, "explanation": why}

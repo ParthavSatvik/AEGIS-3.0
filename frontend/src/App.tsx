@@ -2,9 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import { api, download, type Bench, type EpState, type Scenario, type Stress } from "./api";
 import { Approval, OutcomeReportPanel, Pipeline, Telemetry } from "./business";
 import { RealDataView } from "./realdata";
+import { ShadowView } from "./shadow";
 import { Badge, Diagnostics, Execution, Gate, PlanTable, StatusCards, Timeline } from "./panels";
 
-type Tab = "console" | "bench" | "data" | "record";
+type Tab = "console" | "bench" | "shadow" | "data" | "record";
 
 export default function App() {
   const [tab, setTab] = useState<Tab>("console");
@@ -62,9 +63,9 @@ export default function App() {
           <Badge tone="info">ENERGY & UTILITIES</Badge>
           <Badge tone="warn">SIMULATION ONLY · ILLUSTRATIVE VALUES</Badge>
           <nav className="ml-auto flex gap-1">
-            {(["console", "bench", "data", "record"] as Tab[]).map((t) => (
+            {(["console", "bench", "shadow", "data", "record"] as Tab[]).map((t) => (
               <button key={t} onClick={() => setTab(t)} className={tab === t ? "btn-p" : "btn-s"}>
-                {{ console: "Incident console", bench: "Benchmark", data: "Real data", record: "Proof record" }[t]}
+                {{ console: "Incident console", bench: "Benchmark", shadow: "Shadow twin", data: "Real data", record: "Proof record" }[t]}
               </button>
             ))}
           </nav>
@@ -186,6 +187,8 @@ export default function App() {
             )}
           </>
         )}
+
+        {tab === "shadow" && <ShadowView />}
 
         {tab === "data" && <RealDataView />}
 

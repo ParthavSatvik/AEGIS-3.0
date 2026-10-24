@@ -103,3 +103,9 @@ def test_shadow_run_leaves_live_episodes_and_gate_untouched():
 def test_abc_comparison_is_reproducible():
     runs = [[run_shadow("stale-degraded", p) for p in "ABC"] for _ in range(2)]
     assert runs[0] == runs[1]
+
+
+def test_response_exposes_deadline_fields_for_the_ui():
+    c = run_shadow("stale-degraded", "C")
+    assert c["recovery_objective_min"] == 60 and c["plan"]["restore_min"] == 180 and c["summary"]["misses_deadline"]
+    assert not run_shadow("stale-degraded", "B")["summary"]["misses_deadline"]
