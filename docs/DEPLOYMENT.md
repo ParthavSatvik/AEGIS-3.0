@@ -99,8 +99,8 @@ authorised or deployed yet.
 4. **Apply.** The first build runs the Dockerfile, and the service goes live only when `/api/health` responds.
 5. Note the `*.onrender.com` URL Render assigns. No URL is hardcoded anywhere in the app.
 
-**Redeploying.** `autoDeploy: true` on branch `main` means **each push to `main` rebuilds and redeploys
-automatically**. Set `autoDeploy: false` in `render.yaml`, or in the dashboard, to deploy only by clicking
+**Redeploying.** `render.yaml` ships with `autoDeploy: false`, so nothing redeploys until you click **Manual Deploy**. Setting
+`autoDeploy: true` makes **each push to `main` rebuild and redeploy automatically**; use it only once the image has been tested. To deploy manually, click
 **Manual Deploy → Deploy latest commit**.
 
 ## 7. Change workflow (feature branch → main)
@@ -160,7 +160,7 @@ git revert <bad-commit>
 git push origin main
 ```
 
-  With `autoDeploy` on, Render rebuilds the reverted code.
+  With `autoDeploy` on, Render rebuilds the reverted code; otherwise click Manual Deploy.
 - **To a tagged release.** Create a branch from the tag, e.g. `git switch -c hotfix release-v1.3.0`. Point Render's
   branch at it temporarily, or merge it to `main`.
 

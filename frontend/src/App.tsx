@@ -9,7 +9,7 @@ import { Badge, Diagnostics, Execution, Gate, PlanTable, StatusCards, Timeline }
 type Tab = "campus" | "console" | "bench" | "shadow" | "data" | "record";
 
 export default function App() {
-  const [tab, setTab] = useState<Tab>("console");
+  const [tab, setTab] = useState<Tab>("campus");
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
   const [faults, setFaults] = useState<string[]>([]);
   const [sid, setSid] = useState("stale-degraded");
@@ -63,9 +63,9 @@ export default function App() {
           </div>
           <Badge tone="info">ENERGY & UTILITIES</Badge>
           <Badge tone="warn">SIMULATION ONLY · ILLUSTRATIVE VALUES</Badge>
-          <nav className="ml-auto flex gap-1">
+          <nav aria-label="Sections" className="flex w-full flex-wrap gap-1 md:ml-auto md:w-auto">
             {(["campus", "console", "bench", "shadow", "data", "record"] as Tab[]).map((t) => (
-              <button key={t} onClick={() => setTab(t)} className={tab === t ? "btn-p" : "btn-s"}>
+              <button key={t} onClick={() => setTab(t)} aria-current={tab === t ? "page" : undefined} className={tab === t ? "btn-p" : "btn-s"}>
                 {{ campus: "Campus profile", console: "Incident console", bench: "Benchmark", shadow: "Shadow twin", data: "Real data", record: "Proof record" }[t]}
               </button>
             ))}
@@ -73,8 +73,8 @@ export default function App() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1600px] space-y-4 p-4 md:p-6">
-        {msg && <div className={`panel !py-2 text-sm ${msg.tone === "bad" ? "text-rose-300" : msg.tone === "warn" ? "text-amber-300" : "text-emerald-300"}`}>{msg.text}</div>}
+      <main id="main" className="mx-auto max-w-[1600px] space-y-4 p-4 md:p-6">
+        {msg && <div role="status" aria-live="polite" className={`panel !py-2 text-sm ${msg.tone === "bad" ? "text-rose-300" : msg.tone === "warn" ? "text-amber-300" : "text-emerald-300"}`}>{msg.text}</div>}
 
         {tab === "console" && (
           <>
