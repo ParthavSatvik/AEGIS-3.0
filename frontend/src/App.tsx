@@ -2,10 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { api, download, type Bench, type EpState, type Scenario, type Stress } from "./api";
 import { Approval, OutcomeReportPanel, Pipeline, Telemetry } from "./business";
 import { RealDataView } from "./realdata";
+import { CampusView } from "./campus";
 import { ShadowView } from "./shadow";
 import { Badge, Diagnostics, Execution, Gate, PlanTable, StatusCards, Timeline } from "./panels";
 
-type Tab = "console" | "bench" | "shadow" | "data" | "record";
+type Tab = "campus" | "console" | "bench" | "shadow" | "data" | "record";
 
 export default function App() {
   const [tab, setTab] = useState<Tab>("console");
@@ -57,15 +58,15 @@ export default function App() {
       <header className="border-b border-slate-800 bg-slate-950/90 px-4 py-3 md:px-6">
         <div className="flex flex-wrap items-center gap-3">
           <div>
-            <div className="text-lg font-bold tracking-tight text-white">AEGIS 3.0 <span className="font-normal text-slate-400">· Counterfactual Safety Agent</span></div>
-            <div className="text-xs text-slate-500">Safe recovery of critical campus power and water services. Find the failure before committing to the fix.</div>
+            <div className="text-lg font-bold tracking-tight text-white">AEGIS 3.0 <span className="font-normal text-slate-400">· Campus Energy Resilience Copilot</span></div>
+            <div className="text-xs text-slate-500">Decision support for campus power and water disruptions, built on a general resilience engine. Find the failure before committing to the fix.</div>
           </div>
           <Badge tone="info">ENERGY & UTILITIES</Badge>
           <Badge tone="warn">SIMULATION ONLY · ILLUSTRATIVE VALUES</Badge>
           <nav className="ml-auto flex gap-1">
-            {(["console", "bench", "shadow", "data", "record"] as Tab[]).map((t) => (
+            {(["campus", "console", "bench", "shadow", "data", "record"] as Tab[]).map((t) => (
               <button key={t} onClick={() => setTab(t)} className={tab === t ? "btn-p" : "btn-s"}>
-                {{ console: "Incident console", bench: "Benchmark", shadow: "Shadow twin", data: "Real data", record: "Proof record" }[t]}
+                {{ campus: "Campus profile", console: "Incident console", bench: "Benchmark", shadow: "Shadow twin", data: "Real data", record: "Proof record" }[t]}
               </button>
             ))}
           </nav>
@@ -187,6 +188,8 @@ export default function App() {
             )}
           </>
         )}
+
+        {tab === "campus" && <CampusView go={setTab} />}
 
         {tab === "shadow" && <ShadowView />}
 

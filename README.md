@@ -88,6 +88,12 @@ with mocked API responses.
 
 To see a diagnostic change the decision, load *Stale reading, healthy battery*. The probe rules out z3, so the plan changes from B to A.
 
+## Campus demo profile
+
+The **Campus profile** tab frames the existing design scenario for campus energy managers (critical water service, 30% reserve,
+60-minute objective) and compares Plans A/B/C live from the Shadow Twin API. It is a UI and documentation layer only; the
+engine, gate and simulator are unchanged. See [docs/CAMPUS_DEMO.md](docs/CAMPUS_DEMO.md).
+
 ## Real historical data and deployment (branch `feat/real-data-deploy`)
 
 - **Real data tab.** It imports genuine historical demand data: a bundled **All-India demand met** file from the
