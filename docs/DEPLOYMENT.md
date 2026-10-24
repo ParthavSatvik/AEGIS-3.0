@@ -49,6 +49,13 @@ docker run --rm -p 8000:8000 -e AEGIS_BASIC_AUTH_USER=judge -e AEGIS_BASIC_AUTH_
   requirements.
 - **Runtime.** It runs as a non-root user, listens on `$PORT` (default 8000), and has a `HEALTHCHECK` on `/api/health`.
 
+> **Remote container test.** `.github/workflows/container-smoke.yml` builds this Dockerfile on a GitHub-hosted Linux runner and runs
+> `scripts/container_smoke.sh` against the running container: production start, `/api/health`, 401 without a login, the frontend and
+> static bundle, oversized and invalid uploads, the campus A/B/C workflow with the gate and human approval, fail-closed access, a second
+> container on a different `$PORT`, an invalid `AEGIS_LLM_TIMEOUT`, and no password in logs or image metadata. The script's logic was also
+> run locally against non-Docker production servers (all checks passed). **A container is validated only when that workflow shows a
+> successful run for the commit you intend to deploy.**
+
 > **Status.** Docker was not available in the build environment, so **the image itself has not been built or run
 > yet**. The same layout was verified without Docker, using a staged copy with a clean `npm ci` build, a
 > runtime-only virtualenv, `AEGIS_ENV=production` and `$PORT`. Run the two commands above before the first deployment.
