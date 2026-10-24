@@ -10,7 +10,9 @@
     "lambda_delay": 1.0,
     "max_diagnostics": 2,
     "verify_tolerance_pct": 2.0,
-    "battery_max_discharge_kw": 120
+    "battery_max_discharge_kw": 120,
+    "soc_sensor_max_overread_pct": 1.0,
+    "fallback_reserve_pct": 0.0
   },
   "required_readings": ["battery_soc", "pump_B1", "grid_tie", "b1_rated_duty"],
   "nameplate": {"battery_soh": 0.92},
