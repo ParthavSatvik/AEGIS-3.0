@@ -8,7 +8,7 @@ and decision support only.
 |---|---|
 | Core workflow, gate, approval, Shadow Twin, real-data import and replay, benchmarks, proof record | Built; 129 backend tests, ruff, typecheck, ESLint and production build pass |
 | Production configuration (login, fail-closed access, limits) | Verified over HTTP on a staged copy, without Docker |
-| **Docker image** | **Not built or run**: Docker is not installed in the build environment. Do not deploy before running the two commands in `docs/DEPLOYMENT.md` §3 |
+| **Docker image** | **RELEASE BLOCKER for deployment readiness.** Not built or run: Docker is not installed in the build environment. Do not deploy before running the two commands in `docs/DEPLOYMENT.md` §3 |
 | **Live LLM controller** | **Not verified**: no API key available. Tested with mocked responses only. The demo uses the deterministic agent |
 | Public deployment | **Not done.** Needs Docker test, a Render account, and `AEGIS_BASIC_AUTH_USER` / `AEGIS_BASIC_AUTH_PASSWORD` |
 | Independent validation | None. Evaluations are synthetic and same-author |
