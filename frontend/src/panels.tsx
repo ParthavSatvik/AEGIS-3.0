@@ -209,12 +209,12 @@ function SocChart({ ex, floor }: { ex: Exec; floor: number }) {
   const y = (v: number) => H - P + 8 - ((v - lo) / (hi - lo)) * (H - 2 * P);
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Battery SoC trace">
-      <line x1={P} x2={W - P} y1={y(floor)} y2={y(floor)} stroke="#f43f5e" strokeDasharray="4 3" />
-      <text x={W - P} y={y(floor) - 4} fill="#fb7185" fontSize="10" textAnchor="end">reserve floor {floor}%</text>
-      <polyline fill="none" stroke="#22d3ee" strokeWidth="2" points={pts.map((p) => `${x(p[0])},${y(p[1])}`).join(" ")} />
-      <text x={P} y={H - 4} fill="#94a3b8" fontSize="10">t={t0}m</text>
-      <text x={W - P} y={H - 4} fill="#94a3b8" fontSize="10" textAnchor="end">t={t1}m · SoC {pts[pts.length - 1][1]}%</text>
-      <text x={P} y={y(pts[0][1]) - 4} fill="#94a3b8" fontSize="10">{pts[0][1]}%</text>
+      <line x1={P} x2={W - P} y1={y(floor)} y2={y(floor)} stroke="#e11d48" strokeDasharray="4 3" />
+      <text x={W - P} y={y(floor) - 4} fill="#be123c" fontSize="10" textAnchor="end">reserve floor {floor}%</text>
+      <polyline fill="none" stroke="#4a43d9" strokeWidth="2" points={pts.map((p) => `${x(p[0])},${y(p[1])}`).join(" ")} />
+      <text x={P} y={H - 4} fill="#546079" fontSize="10">t={t0}m</text>
+      <text x={W - P} y={H - 4} fill="#546079" fontSize="10" textAnchor="end">t={t1}m · SoC {pts[pts.length - 1][1]}%</text>
+      <text x={P} y={y(pts[0][1]) - 4} fill="#546079" fontSize="10">{pts[0][1]}%</text>
     </svg>
   );
 }

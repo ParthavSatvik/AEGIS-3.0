@@ -195,3 +195,21 @@ def test_unknown_api_paths_return_json_404_not_the_spa():
     r = cl.get("/api/does-not-exist")
     assert r.status_code == 404 and r.headers["content-type"].startswith("application/json")
     assert cl.get("/").status_code == 200
+
+
+@pytest.mark.parametrize("raw,expected", [(None, 10.0), ("abc", 10.0), ("nan", 10.0), ("-3", 10.0), ("0", 10.0),
+                                          ("999", 10.0), ("20", 20.0), ("2.5", 2.5)])
+def test_llm_timeout_env_is_validated(raw, expected):
+    from aegis.llm import explainer, policy
+    assert policy._timeout(raw) == expected and explainer._timeout(raw) == expected
+
+
+def test_app_starts_with_invalid_llm_timeout(monkeypatch):
+    import importlib
+
+    from aegis.llm import policy
+    monkeypatch.setenv("AEGIS_LLM_TIMEOUT", "not-a-number")
+    importlib.reload(policy)
+    assert policy.TIMEOUT_S == 10.0
+    monkeypatch.delenv("AEGIS_LLM_TIMEOUT")
+    importlib.reload(policy)

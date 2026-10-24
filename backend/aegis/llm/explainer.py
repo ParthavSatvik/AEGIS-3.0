@@ -13,7 +13,16 @@ import re
 import httpx
 
 MODEL = os.environ.get("AEGIS_LLM_MODEL", "claude-haiku-5-5")
-TIMEOUT_S = float(os.environ.get("AEGIS_LLM_TIMEOUT", "10"))
+def _timeout(raw: str | None, default: float = 10.0) -> float:
+    """Validated LLM timeout in seconds: invalid, non-finite or out-of-range values fall back to the default."""
+    try:
+        v = float(raw) if raw is not None else default
+    except ValueError:
+        return default
+    return v if 0.5 <= v <= 60 else default
+
+
+TIMEOUT_S = _timeout(os.environ.get("AEGIS_LLM_TIMEOUT"))
 RETRIES = 1
 
 

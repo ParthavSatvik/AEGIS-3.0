@@ -64,7 +64,7 @@ docker run --rm -p 8000:8000 -e AEGIS_BASIC_AUTH_USER=judge -e AEGIS_BASIC_AUTH_
 | `AEGIS_MAX_UPLOAD_MB`, `AEGIS_MAX_UPLOAD_ROWS`, `AEGIS_MAX_DATASETS` | 5, 50,000, 20 | Upload and memory limits |
 | `AEGIS_MAX_BENCH_SEEDS` | 100 (`render.yaml`: 20) | Caps CPU-heavy benchmark runs |
 | `AEGIS_CORS_ORIGINS` | Vite dev origins | Only if a separate frontend origin is ever used |
-| `ANTHROPIC_API_KEY`, `AEGIS_LLM_MODEL` | unset | Optional LLM explainer and tool controller. Without them the deterministic agent is used |
+| `ANTHROPIC_API_KEY`, `AEGIS_LLM_MODEL`, `AEGIS_LLM_TIMEOUT` | unset, `claude-haiku-5-5`, `10` | Optional LLM explainer and tool controller. Without a key the deterministic agent is used. The timeout is validated (0.5-60 s; invalid values fall back to 10). Provider errors, timeouts and bad output fall back visibly to the deterministic agent |
 
 Secrets go **only** in the hosting dashboard, never in Git. `.env` is git-ignored.
 

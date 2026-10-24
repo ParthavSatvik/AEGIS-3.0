@@ -16,7 +16,16 @@ from pydantic import ValidationError
 from ..engine.controller import PolicyError, ToolCall
 
 MODEL = os.environ.get("AEGIS_LLM_MODEL", "claude-haiku-5-5")
-TIMEOUT_S = float(os.environ.get("AEGIS_LLM_TIMEOUT", "10"))
+def _timeout(raw: str | None, default: float = 10.0) -> float:
+    """Validated LLM timeout in seconds: invalid, non-finite or out-of-range values fall back to the default."""
+    try:
+        v = float(raw) if raw is not None else default
+    except ValueError:
+        return default
+    return v if 0.5 <= v <= 60 else default
+
+
+TIMEOUT_S = _timeout(os.environ.get("AEGIS_LLM_TIMEOUT"))
 SYSTEM = ("You are the decision controller of AEGIS, an infrastructure-recovery agent running in a SIMULATION. "
           "Choose exactly one next tool from `tools`. Use only facts in the context. The safety gate, approval "
           "requirements and executor checks are enforced by code and cannot be bypassed; propose only plans whose "

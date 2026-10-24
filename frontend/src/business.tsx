@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Cycle, EpState } from "./api";
 import { Badge } from "./panels";
+import { Icon } from "./ui";
 
 type Tone = "ok" | "bad" | "warn" | "info" | "mute";
 
@@ -26,12 +27,19 @@ export function Pipeline({ st, cycle }: { st: EpState; cycle?: Cycle }) {
       body: rep ? `${rep.incidents.filter((i) => i.outcome === "restored").length}/${rep.incidents.length} incident(s) restored & verified · ${rep.unsafe_plan_verdicts_blocked} unsafe verdicts blocked`
         : "Verification, metrics and proof record" },
   ];
+  const label: Record<Tone, [string, string, string]> = {
+    ok: ["Complete", "text-emerald-300", "check"], bad: ["Blocked / handed over", "text-rose-300", "cross"], warn: ["Waiting or attention", "text-amber-300", "clock"],
+    info: ["Done", "text-cyan-300", "check"], mute: ["Not started", "text-slate-500", "clock"],
+  };
   const border: Record<Tone, string> = { ok: "border-emerald-700", bad: "border-rose-700", warn: "border-amber-600", info: "border-cyan-700", mute: "border-slate-800" };
   return (
     <div className="grid gap-2 md:grid-cols-4">
       {steps.map((s) => (
         <div key={s.title} className={`panel !p-3 border-l-4 ${border[s.tone]}`}>
-          <div className="text-xs font-semibold text-slate-200">{s.title}</div>
+          <div className="flex items-center justify-between gap-2">
+            <div className="text-xs font-semibold text-slate-200">{s.title}</div>
+            <span className={`inline-flex items-center gap-1 text-[10.5px] font-semibold ${label[s.tone][1]}`}><Icon name={label[s.tone][2]} size={12} />{label[s.tone][0]}</span>
+          </div>
           <div className="mt-1 text-xs text-slate-400">{s.body}</div>
         </div>
       ))}

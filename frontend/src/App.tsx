@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { api, download, type Bench, type EpState, type Scenario, type Stress } from "./api";
+import { BrandMark, Icon } from "./ui";
 import { Approval, OutcomeReportPanel, Pipeline, Telemetry } from "./business";
 import { RealDataView } from "./realdata";
 import { CampusView } from "./campus";
@@ -55,25 +56,33 @@ export default function App() {
 
   return (
     <div className="min-h-screen text-slate-200">
-      <header className="border-b border-slate-800 bg-slate-950/90 px-4 py-3 md:px-6">
-        <div className="flex flex-wrap items-center gap-3">
-          <div>
-            <div className="text-lg font-bold tracking-tight text-white">AEGIS 3.0 <span className="font-normal text-slate-400">· Counterfactual Safety Agent</span></div>
-            <div className="text-xs text-slate-500">Profile: Campus Energy Resilience. Find the failure before committing to the fix.</div>
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-white focus:px-3 focus:py-2 focus:shadow-lift">Skip to content</a>
+      <header className="sticky top-0 z-30 border-b border-slate-700/70 bg-white/85 backdrop-blur-md">
+        <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-4 gap-y-2 px-4 pt-3 md:px-6">
+          <div className="flex items-center gap-3">
+            <BrandMark />
+            <div className="leading-tight">
+              <div className="text-[15px] font-semibold tracking-tight text-slate-100">AEGIS <span className="font-normal text-slate-400">— Counterfactual Safety Agent</span></div>
+              <div className="text-[11.5px] text-slate-500">Campus Energy Resilience profile · decision support</div>
+            </div>
           </div>
-          <Badge tone="info">ENERGY & UTILITIES</Badge>
-          <Badge tone="warn">SIMULATION ONLY · ILLUSTRATIVE VALUES</Badge>
-          <nav aria-label="Sections" className="flex w-full flex-wrap gap-1 md:ml-auto md:w-auto">
-            {(["campus", "console", "bench", "shadow", "data", "record"] as Tab[]).map((t) => (
-              <button key={t} onClick={() => setTab(t)} aria-current={tab === t ? "page" : undefined} className={tab === t ? "btn-p" : "btn-s"}>
-                {{ campus: "Campus profile", console: "Incident console", bench: "Benchmark", shadow: "Shadow twin", data: "Real data", record: "Proof record" }[t]}
-              </button>
-            ))}
-          </nav>
+          <div className="ml-auto flex flex-wrap items-center gap-1.5">
+            <Badge tone="info">ENERGY & UTILITIES</Badge>
+            <Badge tone="warn">SIMULATION ONLY · ILLUSTRATIVE</Badge>
+          </div>
         </div>
+        <nav aria-label="Sections" className="mx-auto mt-1 flex max-w-[1600px] gap-0.5 overflow-x-auto px-3 md:px-5">
+          {(["campus", "console", "bench", "shadow", "data", "record"] as Tab[]).map((t) => (
+            <button key={t} onClick={() => setTab(t)} aria-current={tab === t ? "page" : undefined}
+              className={`relative inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap px-3 py-2.5 text-sm font-medium transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:transition-colors ${tab === t ? "text-cyan-400 after:bg-cyan-600" : "text-slate-400 hover:text-slate-100 after:bg-transparent"}`}>
+              <Icon name={t} />
+              {{ campus: "Campus profile", console: "Incident console", bench: "Benchmark", shadow: "Shadow twin", data: "Real data", record: "Proof record" }[t]}
+            </button>
+          ))}
+        </nav>
       </header>
 
-      <main id="main" className="mx-auto max-w-[1600px] space-y-4 p-4 md:p-6">
+      <main id="main" tabIndex={-1} className="mx-auto max-w-[1600px] space-y-5 p-4 outline-none md:p-6">
         {msg && <div role="status" aria-live="polite" className={`panel !py-2 text-sm ${msg.tone === "bad" ? "text-rose-300" : msg.tone === "warn" ? "text-amber-300" : "text-emerald-300"}`}>{msg.text}</div>}
 
         {tab === "console" && (

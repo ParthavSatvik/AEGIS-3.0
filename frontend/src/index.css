@@ -1,12 +1,77 @@
 @import "tailwindcss";
 
-body { font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif; }
-.mono { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; }
-@utility panel { @apply rounded-xl border border-slate-800 bg-slate-900/70 p-4; }
-@utility h { @apply mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400; }
-@utility btn { @apply rounded-md px-3 py-1.5 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-40; }
-@utility btn-p { @apply btn bg-cyan-600 text-white hover:bg-cyan-500; }
-@utility btn-s { @apply btn border border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700; }
-@utility btn-w { @apply btn border border-amber-700 bg-amber-900/40 text-amber-200 hover:bg-amber-800/50; }
-@utility btn-d { @apply btn border border-rose-700 bg-rose-900/40 text-rose-200 hover:bg-rose-800/50; }
-@utility inp { @apply rounded-md border border-slate-700 bg-slate-800 px-2 py-1.5 text-sm text-slate-100; }
+/* ───────────────────────── AEGIS design tokens (light-first) ─────────────────────────
+   The existing views use Tailwind's slate/cyan/rose/amber/emerald/fuchsia classes. Those scales are re-mapped
+   here once, so every view shares one palette:
+   slate    = ink (100-300 text) .. canvas (950), with 700-800 as borders/fills
+   cyan     = brand indigo (information, primary actions)
+   rose / amber / emerald / fuchsia = risk, caution, safe, simulation: dark text shades, pale tints for fills.
+   Status is never colour-only: components also carry text, icons or symbols. */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+
+  --color-slate-50: #0b1226;  --color-slate-100: #111a33; --color-slate-200: #1b2644; --color-slate-300: #34405e;
+  --color-slate-400: #546079; --color-slate-500: #5f6b82; --color-slate-600: #8a94a9; --color-slate-700: #cdd4e3;
+  --color-slate-800: #e4e8f1; --color-slate-900: #ffffff; --color-slate-950: #f4f6fb;
+
+  --color-cyan-200: #2b2a7a;  --color-cyan-300: #3a37b0; --color-cyan-400: #4338ca; --color-cyan-500: #5b52e8;
+  --color-cyan-600: #4a43d9;  --color-cyan-700: #a9b0f5; --color-cyan-800: #c9ceff; --color-cyan-900: #e6e9ff;
+  --color-cyan-950: #f0f2ff;
+
+  --color-rose-200: #8c1230;  --color-rose-300: #b0173a;  --color-rose-400: #c0183f; --color-rose-500: #e11d48;
+  --color-rose-600: #e11d48;  --color-rose-700: #f4a3b4;  --color-rose-800: #fbc7d2; --color-rose-900: #ffe0e6;
+  --color-rose-950: #fff0f3;
+
+  --color-amber-200: #6f3a08; --color-amber-300: #8a4a0a; --color-amber-400: #9a5208; --color-amber-500: #b45309;
+  --color-amber-600: #d97706; --color-amber-700: #f0c15a; --color-amber-800: #f8dc94; --color-amber-900: #fdeeb9;
+  --color-amber-950: #fff8e1;
+
+  --color-emerald-200: #064e3b; --color-emerald-300: #05694d; --color-emerald-400: #047857; --color-emerald-500: #059669;
+  --color-emerald-600: #059669; --color-emerald-700: #6fd3ae;  --color-emerald-800: #a5e8cc; --color-emerald-900: #d3f5e5;
+  --color-emerald-950: #ecfbf3;
+
+  --color-fuchsia-200: #7a1480; --color-fuchsia-300: #9a1aa3; --color-fuchsia-800: #e6a8f0; --color-fuchsia-900: #f1c9f6;
+  --color-fuchsia-950: #fbeefd;
+
+  --shadow-card: 0 1px 2px rgb(16 24 56 / 0.04), 0 6px 20px -8px rgb(16 24 56 / 0.10);
+  --shadow-lift: 0 2px 4px rgb(16 24 56 / 0.05), 0 14px 32px -12px rgb(16 24 56 / 0.18);
+  --ease-out-soft: cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+html { color-scheme: light; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans); background: var(--color-slate-950); color: var(--color-slate-200);
+  background-image: radial-gradient(1100px 520px at 12% -8%, rgb(91 82 232 / 0.09), transparent 60%),
+                    radial-gradient(900px 480px at 100% 0%, rgb(14 165 168 / 0.08), transparent 55%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+h1, h2, h3 { letter-spacing: -0.02em; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+:where(button, a, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--color-cyan-500); outline-offset: 2px; border-radius: 6px;
+}
+::selection { background: #d9dcff; }
+
+/* components */
+@utility panel { @apply rounded-xl border border-slate-700/70 bg-white p-4 shadow-card md:p-5; }
+@utility h { @apply mb-3 text-[11px] font-semibold uppercase tracking-[0.09em] text-slate-400; }
+@utility btn {
+  @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-semibold transition
+    duration-150 disabled:cursor-not-allowed disabled:opacity-45 active:translate-y-px;
+}
+@utility btn-p { @apply btn bg-cyan-600 text-white shadow-sm hover:bg-cyan-400; }
+@utility btn-s { @apply btn border border-slate-700 bg-white text-slate-200 shadow-sm hover:border-slate-600 hover:bg-slate-950; }
+@utility btn-w { @apply btn border border-amber-700 bg-amber-950 text-amber-300 hover:bg-amber-900; }
+@utility btn-d { @apply btn border border-rose-700 bg-rose-950 text-rose-300 hover:bg-rose-900; }
+@utility inp { @apply rounded-lg border border-slate-700 bg-white px-2.5 py-2 text-sm text-slate-100 shadow-sm; }
+@utility rise { animation: rise 0.45s var(--ease-out-soft) both; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+table { border-collapse: collapse; }
+thead th { font-weight: 600; }
