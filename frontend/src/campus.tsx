@@ -34,7 +34,7 @@ export function CampusView({ go }: { go: (tab: "console" | "shadow" | "data") =>
   return (
     <div className="space-y-4">
       <div className="panel">
-        <div className="h">Campus energy resilience copilot · demo profile</div>
+        <div className="h">AEGIS — Counterfactual Safety Agent · Campus Energy Resilience profile</div>
         <p className="text-sm text-slate-300">
           <b>Story.</b> On a simulated campus, the main water pump <b>P2 fails</b>. The backup pump B1 can restore critical water, but only by
           drawing on the campus <b>battery bank</b>, whose health reading is <b>47 minutes old</b> (limit 10). The fastest plan looks fine on the stale

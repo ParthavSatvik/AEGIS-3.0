@@ -88,7 +88,7 @@ with mocked API responses.
 
 To see a diagnostic change the decision, load *Stale reading, healthy battery*. The probe rules out z3, so the plan changes from B to A.
 
-## Campus demo profile
+## Campus Energy Resilience profile (use case)
 
 The **Campus profile** tab frames the existing design scenario for campus energy managers (critical water service, 30% reserve,
 60-minute objective) and compares Plans A/B/C live from the Shadow Twin API. It is a UI and documentation layer only; the

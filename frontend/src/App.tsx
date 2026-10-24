@@ -58,8 +58,8 @@ export default function App() {
       <header className="border-b border-slate-800 bg-slate-950/90 px-4 py-3 md:px-6">
         <div className="flex flex-wrap items-center gap-3">
           <div>
-            <div className="text-lg font-bold tracking-tight text-white">AEGIS 3.0 <span className="font-normal text-slate-400">· Campus Energy Resilience Copilot</span></div>
-            <div className="text-xs text-slate-500">Decision support for campus power and water disruptions, built on a general resilience engine. Find the failure before committing to the fix.</div>
+            <div className="text-lg font-bold tracking-tight text-white">AEGIS 3.0 <span className="font-normal text-slate-400">· Counterfactual Safety Agent</span></div>
+            <div className="text-xs text-slate-500">Profile: Campus Energy Resilience. Find the failure before committing to the fix.</div>
           </div>
           <Badge tone="info">ENERGY & UTILITIES</Badge>
           <Badge tone="warn">SIMULATION ONLY · ILLUSTRATIVE VALUES</Badge>

@@ -1,6 +1,6 @@
-# AEGIS — Campus Energy Resilience Copilot (demo profile)
+# AEGIS — Counterfactual Safety Agent: Campus Energy Resilience profile
 
-A campus-facing framing of the existing AEGIS resilience engine. **Nothing in the engine, safety gate, simulator or
+A campus-facing application profile (use case) of AEGIS — Counterfactual Safety Agent, the general resilience engine. **Nothing in the engine, safety gate, simulator or
 data changed.** The profile is an explanatory UI tab ("Campus profile") plus this document. The general-purpose
 engine remains the product. Everything is a simulation and decision support, not an operational controller.
 
