@@ -31,7 +31,7 @@ from .scenarios import FAULT_KINDS, list_families, load
 from .settings import settings
 from .sim.world import World
 
-VERSION = "1.4.0"
+VERSION = "1.5.0"
 log = logging.getLogger("aegis")
 app = FastAPI(title="AEGIS 3.0", version=VERSION,
               docs_url=None if settings.production else "/docs", redoc_url=None, openapi_url=None
@@ -286,6 +286,24 @@ def stress_csv() -> str:
     if not _LATEST_STRESS:
         raise HTTPException(404, "no stress run yet")
     return runner.to_csv(_LATEST_STRESS)
+
+
+class ShadowIn(BaseModel):
+    family: str = "stale-degraded"
+    plan_id: str
+    soh_values: list[float] | None = None
+    drain_multipliers: list[float] | None = None
+    soc_initial: float | None = Field(default=None, ge=0, le=100)
+
+
+@app.post("/api/shadow/run")
+def shadow_run(body: ShadowIn) -> dict:
+    """Shadow twin: one plan across a grid of simulated what-if states (simulation only)."""
+    from .shadow import run_shadow
+    try:
+        return run_shadow(body.family, body.plan_id, body.soh_values, body.drain_multipliers, body.soc_initial)
+    except (ValueError, KeyError) as e:
+        raise HTTPException(422, str(e)) from None
 
 
 # ------------------------------------------------------------- real historical data (context only)
